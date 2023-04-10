@@ -1,5 +1,14 @@
-import '@/styles/globals.css'
+import "../styles/custom.scss";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+    </QueryClientProvider>
+  );
 }
+
+export default MyApp;
