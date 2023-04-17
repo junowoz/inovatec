@@ -1,4 +1,4 @@
-import NavB from "./NavB";
+import Header from "./Header";
 import Footer from "./Footer";
 import Head from "next/head";
 import { SSRProvider } from "react-bootstrap";
@@ -9,11 +9,11 @@ const Contenedor = (props) => {
     <>
       <Head>
         <link rel="shortcut icon" href="/mesa.png" />
-        <title>Recycling</title>
+        <title>Inovatec</title>
       </Head>
 
       <SSRProvider>
-        <NavB />
+        <Header />
 
         {props.children}
 
