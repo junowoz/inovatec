@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Container, Button, Accordion } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { parkingState } from "context/Parking/ParkingState";
+import { projetosState } from "context/Projetos/ProjetosState";
 import { BsChatSquareDots, BsShieldCheck } from "react-icons/bs";
 
 export default function Descriptons() {
-  const bici = parkingState((state) => state.bici);
+  const bici = projetosState((state) => state.bici);
 
   return (
     <Container className="py-3 d-flex flex-column">

@@ -25,7 +25,7 @@ export default function Advisor({
     const noMolestar = helperState((state) => state.noMolestar);
 
     if (noMolestar) {
-        router.push("/parking");
+        router.push("/projetos");
     }
 
     const { handleSubmit, register, control } = useForm({

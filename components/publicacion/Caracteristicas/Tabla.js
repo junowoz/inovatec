@@ -1,10 +1,10 @@
 import { Table, Col, Row } from "react-bootstrap";
 import {useEffect} from "react";
 
-import { parkingState } from "context/Parking/ParkingState";
+import { projetosState } from "context/Projetos/ProjetosState";
 
 export default function Tabla() {
-  const bici = parkingState((state) => state.bici);
+  const bici = projetosState((state) => state.bici);
 
   useEffect(() => {
     console.log(bici)

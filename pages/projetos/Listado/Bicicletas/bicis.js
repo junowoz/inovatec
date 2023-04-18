@@ -1,19 +1,19 @@
 import { Card, Badge, Spinner, Col } from "react-bootstrap";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { parkingState } from "context/Parking/ParkingState";
+import { projetosState } from "context/Projetos/ProjetosState";
 import Relleno from "utils/relleno";
 import { filtersState } from "context/Filters/filtersState";
 
 export default function GetBicis(props) {
-  const CDN = "https://yrdmpvdxobghopvoevsg.supabase.co/storage/v1/object/public/imagesbicis/"/* parkingState((state) => state.CDN2); */
-  const setParking = parkingState((state) => state.setParking);
-  const parking = parkingState((state) => state.parking);
+  const CDN = "https://yrdmpvdxobghopvoevsg.supabase.co/storage/v1/object/public/imagesbicis/"/* projetosState((state) => state.CDN2); */
+  const setProjetos = projetosState((state) => state.setProjetos);
+  const projetos = projetosState((state) => state.projetos);
   const filters = filtersState((state) => state.filters);
 
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["productos"],
-    queryFn: setParking,
+    queryFn: setProjetos,
   });
 
   if (isLoading) {
@@ -57,7 +57,7 @@ export default function GetBicis(props) {
       {Array.isArray(data)
         ? filteredData(data, filters).map((bici) => (
             <Card className="p-0" key={bici.id}>
-              <Link href={`/parking/${bici.id}`} passHref>
+              <Link href={`/projetos/${bici.id}`} passHref>
                 <div className="m-3">
                   <Badge bg="primary" style={{ color: "white" }}>
                     Popular

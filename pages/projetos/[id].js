@@ -9,14 +9,14 @@ import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 
 import Custom404 from "pages/404";
-import { parkingState } from "context/Parking/ParkingState";
+import { projetosState } from "context/Projetos/ProjetosState";
 
 const Vender = () => {
   const { id } = useRouter().query;
 
-  const bici = parkingState((state) => state.bici);
+  const bici = projetosState((state) => state.bici);
 
-  const setBici = parkingState((state) => state.setBici);
+  const setBici = projetosState((state) => state.setBici);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["productos", id],

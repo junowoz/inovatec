@@ -36,13 +36,13 @@ export const avaluadorState = create(
         get().clearQuest();
       },
 
-      parking: [],
+      projetos: [],
 
-      setParking: async () => {
+      setProjetos: async () => {
         const data = await getBicis();
 
         set({
-          parking: 
+          projetos: 
             [...data],
           
         });

@@ -1,4 +1,4 @@
-const category = [
+const tech = [
     { id: 1, label: "MTB", all: true },
     { id: 2, label: "RUTA", all: true },
     { id: 3, label: "URBANA", all: true },
@@ -10,5 +10,4 @@ const category = [
     
   ];
 
-
-  export default category
+  export default tech

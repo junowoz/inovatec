@@ -19,7 +19,7 @@ export function IndexF() {
             value: "false",
             title: "Lo tengo claro",
             description: "Accederás al Marketplace directamente",
-            router: "/parking",
+            router: "/projetos",
         },
     ];
 
@@ -30,7 +30,7 @@ export function IndexF() {
                 router.push("/compra/class")
                 break;
             case "false":
-                router.push("/parking")
+                router.push("/projetos")
                 break;
         }
     };

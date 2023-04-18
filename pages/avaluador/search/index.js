@@ -29,9 +29,9 @@ export default function IndexAvaluador(props) {
 
   const setBrand = avaluadorState((state) => state.setBrand);
 
-  const parking = avaluadorState((state) => state.parking);
+  const projetos = avaluadorState((state) => state.projetos);
 
-  const setParking = avaluadorState((state) => state.setParking);
+  const setProjetos = avaluadorState((state) => state.setProjetos);
 
   const setCardSelected = avaluadorSelect((state) => state.setCardSelected);
 
@@ -49,11 +49,11 @@ export default function IndexAvaluador(props) {
 
   let { isLoading, isError, error, data } = useQuery({
     queryKey: ["models"],
-    queryFn: setParking,
+    queryFn: setProjetos,
   });
 
   const state = {
-    data: parking,
+    data: projetos,
     quest,
     brand,
     modalShow,
@@ -69,7 +69,7 @@ export default function IndexAvaluador(props) {
 
   useEffect(() => {
     setModels(ListBicis(state));
-  }, [quest, brand, parking]);
+  }, [quest, brand, projetos]);
 
   return (
     <Contenedor>

@@ -32,7 +32,7 @@ export function Price() {
                 break;
         }
 
-        router.push("/parking");
+        router.push("/projetos");
     };
 
     // En value, nunca uses booleanos. Apenas números o palabras para representarlo.

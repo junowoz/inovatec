@@ -1,5 +1,5 @@
 import Advisor from "components/Advisor";
-import category from "components/parking/filtros/category";
+import category from "components/projetos/filtros/tech";
 import { advisorState } from "context/Advisor/AdvisorState";
 import { filtersState } from "context/Filters/filtersState";
 import { useRouter } from "next/router";

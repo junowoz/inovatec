@@ -95,7 +95,7 @@ export default function Promesas() {
                     className="d-flex justify-content-center align-items-center"
                     style={{ width: "100%", flexDirection: "column" }}
                 >
-                    <Link href="/parking" className="d-none d-lg-block">
+                    <Link href="/projetos" className="d-none d-lg-block">
                         <Button
                             variant="primary"
                             className="d-inline"
@@ -105,7 +105,7 @@ export default function Promesas() {
                         </Button>
                     </Link>
 
-                    <Link href="/parking" className="d-lg-none">
+                    <Link href="/projetos" className="d-lg-none">
                         <Button
                             variant="primary"
                             className="d-inline "

@@ -88,7 +88,7 @@ export default function Partdos() {
 
       await clearAll();
 
-      router.push("/parking");
+      router.push("/projetos");
     } catch (err) {
       setError("general", err);
     }

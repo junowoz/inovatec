@@ -5,10 +5,10 @@ import { Breadcrumb, Row, Col, Carousel } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 import Image from "next/image";
-import { parkingState } from "context/Parking/ParkingState";
+import { projetosState } from "context/Projetos/ProjetosState";
 
 export default function Vista() {
-  const [bici, CDN2] = parkingState((state) => [state.bici, state.CDN2]);
+  const [bici, CDN2] = projetosState((state) => [state.bici, state.CDN2]);
 
   const CDN = "https://yrdmpvdxobghopvoevsg.supabase.co/storage/v1/object/public/imagesbicis/"
 
@@ -21,7 +21,7 @@ export default function Vista() {
       <Row className="mt-4">
         <Breadcrumb>
           <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item href="/parking">Parking</Breadcrumb.Item>
+          <Breadcrumb.Item href="/projetos">Projetos</Breadcrumb.Item>
           <Breadcrumb.Item active>SKU: {bici.id}</Breadcrumb.Item>
         </Breadcrumb>
       </Row>
