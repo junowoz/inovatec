@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, Form, Row, Col } from "react-bootstrap";
+import { Accordion, Form, Row, Col, Card } from "react-bootstrap";
 
 import tech from "components/projetos/filtros/tech";
 import year from "components/projetos/filtros/year";
@@ -32,8 +32,8 @@ export default function Filtro() {
               <Form.Check
                 key={index}
                 type={"checkbox"}
-                id={option.id + "-checkbox-" + category}
-                name={option.id + "-checkbox-" + category}
+                id={option.id}
+                name={option.id}
                 label={option.label}
                 value={option.id}
                 defaultChecked={filters[category]?.includes(option.id)}
@@ -61,7 +61,8 @@ export default function Filtro() {
   };
 
   return hydration ? (
-    <div className="separador">
+    <Card className="shadow-sm">
+      <Card.Body>
       <Accordion defaultActiveKey={["0", "1", "2", "3", "4"]} flush alwaysOpen>
         {/* Start - Ano */}
         <Accordion.Item eventKey="0">
@@ -108,6 +109,7 @@ export default function Filtro() {
         </Accordion.Item>
         {/* End - Tecnologia */}
       </Accordion>
-    </div>
+      </Card.Body>
+    </Card>
   ) : null;
 }

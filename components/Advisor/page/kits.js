@@ -38,7 +38,7 @@ export function Kits() {
     {
       value: 3,
       title: "1-3 años",
-      description: "Bicicletas de balance o con llantas de apoyo",
+      description: "Projetos de balance o con llantas de apoyo",
       router: "/price",
     },
     {

@@ -30,21 +30,10 @@ export default function Header({}) {
             width="80"
             height="30"
             className="d-inline-block align-top"
-            alt="React Bootstrap logo"
+            alt="Logo"
           />
         </Link>
         {/* End Logo */}
-
-        {/* NavBar */}
-        <div className="d-lg-none d-flex col align-items-baseline mx-2">
-          {/* Search */}
-          <Form.Control
-            className="d-flex flex-grow-1"
-            type="search"
-            placeholder="Pesquisar..."
-            style={{ borderRadius: "0.375rem" }}
-          />
-        </div>
 
         {/* NavBar Toggle */}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -52,10 +41,10 @@ export default function Header({}) {
           <Nav className="ms-auto flex-fill"></Nav>
 
           <Nav className="me-auto flex-fill">
-            <Nav.Link href="/compra">Projetos</Nav.Link>
-            <Nav.Link href="/vender">Registro</Nav.Link>
+            <Nav.Link href="/projetos">Projetos</Nav.Link>
+            <Nav.Link href="/registro">Registro</Nav.Link>
 
-            <Nav.Link href="/avaluador">Manual</Nav.Link>
+            <Nav.Link href="/manual">Manual</Nav.Link>
 
             <Nav.Link href="#features" disabled>
               Rank
