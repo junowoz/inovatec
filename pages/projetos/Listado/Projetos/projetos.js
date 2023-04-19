@@ -4,15 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 import { projetosState } from "context/Projetos/ProjetosState";
 import Relleno from "utils/relleno";
 import { filtersState } from "context/Filters/filtersState";
+import { useState } from "react";
 
-export default function GetBicis(props) {
-  const CDN = "https://yrdmpvdxobghopvoevsg.supabase.co/storage/v1/object/public/imagesbicis/"/* projetosState((state) => state.CDN2); */
+export default function GetProjetos() {
+  const CDN = "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/imagens/projetos/"/* projetosState((state) => state.CDN2); */
   const setProjetos = projetosState((state) => state.setProjetos);
   const projetos = projetosState((state) => state.projetos);
   const filters = filtersState((state) => state.filters);
 
   const { isLoading, isError, error, data } = useQuery({
-    queryKey: ["productos"],
+    queryKey: ["projects"],
     queryFn: setProjetos,
   });
 
@@ -55,16 +56,16 @@ export default function GetBicis(props) {
           */}
 
       {Array.isArray(data)
-        ? filteredData(data, filters).map((bici) => (
-            <Card className="p-0" key={bici.id}>
-              <Link href={`/projetos/${bici.id}`} passHref>
+        ? filteredData(data, filters).map((project) => (
+            <Card className="p-0" key={project.id}>
+              <Link href={`/projetos/${project.id}`} passHref>
                 <div className="m-3">
                   <Badge bg="primary" style={{ color: "white" }}>
                     Popular
                   </Badge>
                   <Card.Img
                     variant="top"
-                    src={CDN + bici.filesUrl[0]}
+                    src={CDN + project.filesUrl[0]}
                     style={{
                       maxHeight: "200px",
                     }}
@@ -76,17 +77,17 @@ export default function GetBicis(props) {
                       color: "rgba(108, 117, 125, 1)",
                     }}
                   >
-                    {bici.models.name}
+                    {project.models.name}
                   </Card.Text>
                   <Card.Title style={{ color: "black" }}>
-                    {bici.title}
+                    {project.title}
                   </Card.Title>
                   <Card.Text
                     style={{
                       color: "rgba(108, 117, 125, 1)",
                     }}
                   >
-                    ${bici.price.toLocaleString("en")}
+                    ${project.price.toLocaleString("en")}
                   </Card.Text>
                 </Card.Body>
               </Link>
@@ -94,7 +95,7 @@ export default function GetBicis(props) {
           ))
         : ""}
       <Relleno />
-    </div>
+    </div>         
   );
 }
 

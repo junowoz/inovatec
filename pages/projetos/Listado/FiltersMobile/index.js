@@ -5,10 +5,9 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFilter } from "react-icons/bs";
 import Filtro from "../Filtro";
 
-
 export default function FiltrosMobile(props) {
   const [show, setShow] = useState(false);
-  const ClearFilters = filtersState(state => state.ClearFilters)
+  const ClearFilters = filtersState((state) => state.ClearFilters);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -27,7 +26,7 @@ export default function FiltrosMobile(props) {
         className="align-items-center w-100 py-2"
       >
         <BsFilter className="me-2" />
-        Filtrar / Ordenar
+        Filtro
       </Button>
       <Offcanvas
         show={show}
@@ -36,20 +35,23 @@ export default function FiltrosMobile(props) {
         style={offCanvasStyle}
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className="fw-bold">Filtrar/Ordenar</Offcanvas.Title>
+          <Offcanvas.Title className="fw-bold"></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-        <div className="sticky-bottom d-grid gap-2">
-          
-          <Button onClick={()=>{ ClearFilters()
-          handleClose()
-          }}>Limpiar</Button>
-          <Button onClick={handleClose} variant="primary">Aplicar</Button>
-
-        </div>
-        <Filtro/>
-        
-          
+          <div className="sticky-bottom d-grid gap-2">
+            <Button onClick={handleClose} variant="primary">
+              Aplicar Filtro
+            </Button>
+            <Button
+              onClick={() => {
+                ClearFilters();
+                handleClose();
+              }}
+            >
+              Limpar
+            </Button>
+          </div>
+          <Filtro />
         </Offcanvas.Body>
       </Offcanvas>
     </div>

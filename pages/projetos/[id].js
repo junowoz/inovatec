@@ -8,19 +8,19 @@ import Vista from "components/publicacion/Vista";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 
-import Custom404 from "pages/404";
+import Erro404 from "pages/404";
 import { projetosState } from "context/Projetos/ProjetosState";
 
 const Vender = () => {
   const { id } = useRouter().query;
 
-  const bici = projetosState((state) => state.bici);
+  const project = projetosState((state) => state.project);
 
-  const setBici = projetosState((state) => state.setBici);
+  const setProject = projetosState((state) => state.setProject);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["productos", id],
-    queryFn: () => setBici(id),
+    queryFn: () => setProject(id),
   });
 
   if (isLoading) {
@@ -46,7 +46,7 @@ const Vender = () => {
     );
   }
   if (isError) {
-    return <Custom404 />;
+    return <Erro404 />;
   }
 
   return  (
@@ -77,7 +77,7 @@ const Vender = () => {
         </Row>
       </Container>
 
-      <Article Title="Explora más bicis" />
+      <Article Title="Explora más projects" />
     </Contenedor>
   )
 };

@@ -1,11 +1,19 @@
-const size = [
-    { id: 5, label: "XSS (46, 45, 44cm)", category: ["mtb"], all: true },
-    { id: 8, label: "XS (49, 48, 47cm)", category: ["mtb"], all: true },
-    { id: 11, label: "S (52, 51, 50cm)", category: ["mtb"], all: true },
-    { id: 14, label: "M (54, 53, 52cm)", category: ["mtb"], all: true },
-    { id: 17, label: "L (57, 56, 55cm)", category: ["mtb"], all: true },
-    { id: 20, label: "XL (60, 59, 58cm)", category: ["mtb"], all: true },
-    { id: 23, label: "XXL (64, 63, 62, 61cm)", category: ["mtb"], all: true },
+const industry = [
+  { id: 1, label: "Agricultura", all: true },
+  { id: 2, label: "Acessibilidade", all: true },
+  { id: 3, label: "Comunicação", all: true },
+  { id: 4, label: "Doméstico", all: true },
+  { id: 5, label: "Educação", all: true },
+  { id: 6, label: "Empregabilidade", all: true },
+  { id: 7, label: "Energético", all: true },
+  { id: 8, label: "Entretenimento", all: true },
+  { id: 9, label: "Governo", all: true },
+  { id: 10, label: "Indústria - Manufatura", all: true },
+  { id: 11, label: "Mercado Financeiro", all: true },
+  { id: 12, label: "Saúde", all: true },
+  { id: 13, label: "Turismo - Hospedagem - Viagens", all: true },
+  { id: 14, label: "Transporte - Mobilidade", all: true },
+  { id: 15, label: "Varejo - E-commerce", all: true },
 ];
 
-export default size;
+export default industry;

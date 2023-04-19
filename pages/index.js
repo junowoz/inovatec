@@ -21,15 +21,3 @@ export default function HomePage(props) {
         </Contenedor>
     );
 }
-
-// export async function getStaticProps(ctx){
-//     try{
-//         const res = await fetch("https://jsonplaceholder.typicode.com/photos")
-//         const data = await res.json()
-
-//         return {props: {data}}
-//     }
-//     catch (err) {
-
-//     }
-// }
