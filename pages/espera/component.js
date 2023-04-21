@@ -1,10 +1,10 @@
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 import { Card, Col, Container, Form, Row } from "react-bootstrap";
 import ImagePrueba2 from "./img";
 
 export default function EsperaComponent(props) {
     return (
-        <Contenedor>
+        <Main>
             <Container>
                 <Row>
                     <Col className="d-flex justify-content-center flex-column mt-lg-0 mt-5 p-sm-4 p-5">
@@ -17,7 +17,7 @@ export default function EsperaComponent(props) {
                 </Row>
             </Container>
             <div className="mb-5 mb-sm-0 " />
-        </Contenedor>
+        </Main>
     );
 }
 

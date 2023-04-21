@@ -1,7 +1,6 @@
 import { supabase } from "supabase/client";
 import { persist, devtools } from "zustand/middleware";
-import create from 'zustand';
-
+import create from "zustand";
 
 export const userState = create(
   devtools(
@@ -24,7 +23,7 @@ export const userState = create(
         },
         registerUser: async (data) => {
           const user = await registerNewUser(data);
-          set((state) => ({  user: user.data.user }));
+          set((state) => ({ user: user.data.user }));
           return user;
         },
         resetPassword: async (data) => {
@@ -37,10 +36,10 @@ export const userState = create(
         },
 
         confirmUser: async (gata) => {
-          const {data :user , error} = await supabase.auth.getUser()
+          const { data: user, error } = await supabase.auth.getUser();
 
           set((state) => ({ user: user.user }));
-          return user
+          return user;
         },
 
         signOut: () => {

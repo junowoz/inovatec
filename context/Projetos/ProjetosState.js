@@ -30,14 +30,11 @@ export const projetosState = create(
           );
         },
 
-        projetos: {},
-
+        projetos: [],
         setProjetos: async () => {
           const data = await getProjects();
           set({
-            projetos: {
-              ...data,
-            },
+            projetos: data,
           });
           return data;
         },
@@ -57,7 +54,7 @@ export const projetosState = create(
           get().clearProject();
         },
 
-        CDN2: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/imagensprojetos/`,
+        CDN2: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/imagens/`,
       }),
       { name: "ProjetosData" }
     ),

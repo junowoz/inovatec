@@ -1,74 +1,96 @@
-import { Container, Row, Col, Button, Image, Card } from "react-bootstrap";
-import Link from "next/link";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { useRouter } from "next/router";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Image,
+  Card,
+  InputGroup,
+} from "react-bootstrap";
+import { useState } from "react";
+import { BiSearch } from "react-icons/bi";
 
-function Presentation() {
-    const router = useRouter();
-    return (
-        <Container className="">
-            <Row className="py-5">
-                <Col className="mx-2 d-flex flex-column justify-content-center align-items-baseline">
-                    <Image
-                        src="/Mountain.png"
-                        alt=""
-                        className="img-fluid d-lg-none mb-3"
-                    />
+export default function Presentation() {
+  const [searchText, setSearchText] = useState("");
 
-                    <h1 className="fs-1 tittle-custom">
-                        Compra o vende tu bici de manera fácil y segura con
-                        nosotros
-                    </h1>
-                    <p className="fw-semibold">
-                        Explora +12.000 bicicletas en nuestra plataforma
-                    </p>
-                    <div className="d-flex flex-column justify-content-center align-items-baseline w-100">
-                        <Button
-                            variant="primary"
-                            onClick={() => router.push("/compra")}
-                            className="mx-auto mx-lg-0 d-lg-none justify-content-center w-100 d-flex"
-                        >
-                            Comprar bicis
-                        </Button>
+  function handleSearch(e) {
+    e.preventDefault();
+    props.onSearch(searchText);
+  }
 
-                        <Button
-                            variant="primary"
-                            onClick={() => router.push("/compra")}
-                            className="mx-auto mx-lg-0 d-none d-lg-flex "
-                        >
-                            Comprar bicis
-                        </Button>
+  function handleInputChange(e) {
+    setSearchText(e.target.value);
+  }
 
-                        <Link
-                            href="/vender"
-                            className=" text-decoration-none link-custom-text pt-2 mx-auto mx-lg-0 d-lg-none justify-content-center w-100 d-flex align-items-center "
-                            passHref
-                        >
-                            Vender mi bici <MdKeyboardArrowRight />
-                        </Link>
+  return (
+    <Container className="text-center py-5 px-md-5">
+      <div className="py-lg-4 px-lg-2">
+        {/* Presentation */}
+        <Row className="pb-lg-5 py-lg-4">
+          <Col className="text-center d-flex flex-column justify-content-center align-items-baseline">
+            <Image
+              src="/Inovatec.png"
+              alt="Inovatec"
+              style={{ maxWidth: "75%"}}
 
-                        <Link
-                            href="/vender"
-                            className="text-decoration-none link-custom-text pt-2 d-none d-lg-flex align-items-center "
-                            passHref
-                        >
-                            Vender mi bici <MdKeyboardArrowRight />
-                        </Link>
-                    </div>
-                </Col>
+              // Set width for different breakpoints using w- utility classes
+              // w-100: full width for xs breakpoint
+              // w-sm-75: 75% width for sm breakpoint and above
+              // w-lg-70: 70% width for lg breakpoint and above
+              className="d-lg-none align-self-center"
+            />
+            <h5 className="fw-bold fs-4 tittle-custom py-3 py-sm-3 d-lg-none">
+              A Inovatec é uma iniciativa de empreendedorismo tecnológico
+              formada por alunos e professores do setor de Computação da
+              Fametro.
+            </h5>
+            <h5 className="fw-bold fs-3 tittle-custom py-3 py-sm-3 d-none d-lg-block">
+              A Inovatec é uma iniciativa de empreendedorismo tecnológico
+              formada por alunos e professores do setor de Computação da
+              Fametro.
+            </h5>
+          </Col>
+          <Col className="d-none d-lg-block d-flex flex-column">
+            <div className="text-center bg-image">
+              <Card.Img
+                variant="top"
+                src="/Inovatec.png"
+                className="align-self-center img-fluid"
+                style={{ maxWidth: "85%"}}
+              />
+            </div>
+          </Col>
+        </Row>
 
-                <Col className=" d-none d-lg-block m-4">
-                    <div className=" text-center bg-image">
-                        <Card.Img
-                            variant="top"
-                            src="/Mountain.png"
-                            className=""
-                        />
-                    </div>
-                </Col>
+        {/* Search Bar */}
+        <Row>
+          <Form
+            onSubmit={handleSearch}
+            className="pb-3 pt-3 justify-content-center align-items-center"
+          >
+            <Row className="align-items-center justify-content-center">
+              <Col lg={12} md={12} sm={12} xs={12} className="text-center">
+                <InputGroup>
+                  <InputGroup.Text id="search-icon">
+                    <BiSearch />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    placeholder="Pesquisar..."
+                    value={searchText}
+                    onChange={handleInputChange}
+                    className="px-3 py-2"
+                  />
+                  <Button type="submit" variant="primary" className="py-2 px-3">
+                    Pesquisar
+                  </Button>
+                </InputGroup>
+              </Col>
             </Row>
-        </Container>
-    );
+          </Form>
+        </Row>
+      </div>
+    </Container>
+  );
 }
-
-export default Presentation;

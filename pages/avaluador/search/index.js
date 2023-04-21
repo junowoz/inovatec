@@ -1,4 +1,4 @@
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 import { avaluadorState } from "context/Avaluador/avaluadorState";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -72,7 +72,7 @@ export default function IndexAvaluador(props) {
   }, [quest, brand, projetos]);
 
   return (
-    <Contenedor>
+    <Main>
       <Container>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Row>
@@ -134,6 +134,6 @@ export default function IndexAvaluador(props) {
         <Pop show={modalShow} onHide={() => setModalShow(false)} />
       </Container>
       <div className="mb-5 " />
-    </Contenedor>
+    </Main>
   );
 }

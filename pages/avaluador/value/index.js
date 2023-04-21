@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import Link from "next/link";
 import Mountain from "public/Mountain.png";
@@ -53,7 +53,7 @@ export default function Value() {
   return hydration ? (
     ""
   ) : (
-    <Contenedor>
+    <Main>
       <Container className="justify-content-center my-5">
         <Row className="justify-content-center">
           <Col sm={100} md={6} lg={5} className="justify-content-center">
@@ -149,6 +149,6 @@ export default function Value() {
       </Container>
 
       <div className="d-none d-lg-block" style={{ height: "10rem" }} />
-    </Contenedor>
+    </Main>
   );
 }

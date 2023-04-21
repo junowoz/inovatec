@@ -1,4 +1,4 @@
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 
 import { Card, Col, Container, Form, Row } from "react-bootstrap";
 
@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 export default function AdvisorComponent(props) {
     return (
-        <Contenedor>
+        <Main>
             <Container>
                 <Row>
                     <Col>{props.children}</Col>
@@ -17,7 +17,7 @@ export default function AdvisorComponent(props) {
                     </Col>
                 </Row>
             </Container>
-        </Contenedor>
+        </Main>
     );
 }
 

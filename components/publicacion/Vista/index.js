@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Breadcrumb, Row, Col, Carousel } from "react-bootstrap";
 import PropTypes from "prop-types";
 
@@ -10,10 +10,13 @@ import { projetosState } from "context/Projetos/ProjetosState";
 export default function Vista() {
   const [bici, CDN2] = projetosState((state) => [state.bici, state.CDN2]);
 
-  const CDN = "https://yrdmpvdxobghopvoevsg.supabase.co/storage/v1/object/public/imagesbicis/"
+  const CDN =
+    "https://yrdmpvdxobghopvoevsg.supabase.co/storage/v1/object/public/imagens/";
 
   const [primaryVista, setPrimaryVista] = useState(
-    bici?.filesUrl[0] ? bici?.filesUrl[0] :"https://via.placeholder.com/500x500" 
+    bici?.filesUrl[0]
+      ? bici?.filesUrl[0]
+      : "https://via.placeholder.com/500x500"
   );
 
   return (
@@ -39,20 +42,25 @@ export default function Vista() {
             />
           ))}
         </Col>
-        <Col className="d-none d-lg-block" style={{height: "620px"}}>
-
-            <Image src={CDN + primaryVista} height={500} width={500} alt="" style={{
-              maxHeight: "600px"
-            }}  className="img-fluid p-0" />
-
+        <Col className="d-none d-lg-block" style={{ height: "620px" }}>
+          <Image
+            src={CDN + primaryVista}
+            height={500}
+            width={500}
+            alt=""
+            style={{
+              maxHeight: "600px",
+            }}
+            className="img-fluid p-0"
+          />
         </Col>
 
         <Col className="d-lg-none">
-          <Carousel style={{height: "70vw"}}>
+          <Carousel style={{ height: "70vw" }}>
             {bici.filesUrl.map((link) => (
-              <Carousel.Item key={link} style={{maxHeight: "70vw"}}>
+              <Carousel.Item key={link} style={{ maxHeight: "70vw" }}>
                 <img
-                  style={{maxHeight: "70vw"}}
+                  style={{ maxHeight: "70vw" }}
                   src={CDN + link}
                   className="d-block w-100 img-fluid"
                   alt="First slide"

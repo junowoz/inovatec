@@ -1,4 +1,4 @@
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ImageAvaluadorMin from "./imgMin";
@@ -6,7 +6,7 @@ import ImageAvaluador from "./img";
 
 export default function IndexAvaluador(props) {
   return (
-    <Contenedor>
+    <Main>
       <Container>
         <Row>
           <Row className="d-sm-none p-0">
@@ -27,6 +27,6 @@ export default function IndexAvaluador(props) {
         </Row>
       </Container>
       <div className="mb-5 mb-sm-0 " />
-    </Contenedor>
+    </Main>
   );
 }

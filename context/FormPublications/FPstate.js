@@ -139,7 +139,7 @@ export const postImages = async (files, userID) => {
 
   const filesUrl = files.map(async (file) => {
     const { data, error } = await supabase.storage
-      .from("imagesbicis")
+      .from("imagens")
       .upload(userID + "/" + carpeta + "/" + v4(), file);
 
     return error ? (console.log(error), error) : data.path;
