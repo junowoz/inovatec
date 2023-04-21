@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import Contenedor from "components/home/Contenedor";
-import Article from "../Home/Article";
+import Main from "components/main";
+import Article from "../home/Article";
 import Descriptons from "components/publicacion/vender";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import Carractristicas from "components/publicacion/Caracteristicas";
@@ -25,7 +25,7 @@ const Vender = () => {
 
   if (isLoading) {
     return (
-      <Contenedor>
+      <Main>
         <div
           style={{
             display: "flex",
@@ -42,7 +42,7 @@ const Vender = () => {
           />
         </div>
         
-      </Contenedor>
+      </Main>
     );
   }
   if (isError) {
@@ -50,7 +50,7 @@ const Vender = () => {
   }
 
   return  (
-    <Contenedor>
+    <Main>
       <Container>
         <Row className="d-flex justify-content-center">
           <Row>
@@ -78,7 +78,7 @@ const Vender = () => {
       </Container>
 
       <Article Title="Explora más projects" />
-    </Contenedor>
+    </Main>
   )
 };
 

@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { projetosState } from "context/Projetos/ProjetosState";
 import Relleno from "utils/relleno";
 import { filtersState } from "context/Filters/filtersState";
-import { useState } from "react";
 
 export default function GetProjetos() {
   const CDN = "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/imagens/projetos/"/* projetosState((state) => state.CDN2); */

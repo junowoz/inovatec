@@ -1,11 +1,11 @@
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 import Projetos from "./Listado/Projetos";
 import Filtro from "./Listado/Filtro";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function TodosProjetos() {
   return (
-    <Contenedor>
+    <Main>
       <Container className="my-5">
         <Row>
           <h2 className="px-4">Diretorio de Projetos</h2>
@@ -35,6 +35,6 @@ export default function TodosProjetos() {
           </Col>
         </Row>
       </Container>
-    </Contenedor>
+    </Main>
   );
 }
