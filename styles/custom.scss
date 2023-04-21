@@ -1,28 +1,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla&display=swap");
-
+@import "~bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/bootstrap/scss/functions";
 
-// 2. Include any default variable overrides here
+// Define your custom variables
+$primary: #0d62ad;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #BD1256;
+$blue: #0d62ad !default;
 
-$blue:    #0FA899 !default;
+// Override the default variables with your custom ones
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger
+);
 
 .sticky-top {
-    position: sticky !important;
+  position: sticky !important;
 }
 
-
-
-body{
-    font-family: 'Karla', sans-serif !important;
-    color: white;
+body {
+  font-family: "Karla", sans-serif !important;
+  color: white;
 }
-
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../node_modules/bootstrap/scss/variables";
 
 // 4. Include any default map overrides here
-
 
 // 5. Include remainder of required parts
 @import "../node_modules/bootstrap/scss/maps";
@@ -40,8 +51,6 @@ body{
 
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "../node_modules/bootstrap/scss/utilities/api";
-
-
 
 @import "../node_modules/bootstrap/scss/tables";
 @import "../node_modules/bootstrap/scss/forms";
@@ -67,104 +76,101 @@ body{
 @import "../node_modules/bootstrap/scss/carousel";
 @import "../node_modules/bootstrap/scss/spinners";
 @import "../node_modules/bootstrap/scss/offcanvas";
-@import "../node_modules/bootstrap/scss/placeholders";  
+@import "../node_modules/bootstrap/scss/placeholders";
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-
-.footer-customs{
-    background-color: #F8F9FA !important;
-    color: $blue-700!important;
+.footer-customs {
+  background-color: #f8f9fa !important;
+  color: $blue-700 !important;
 }
 
-.text-final-footer{
-    color: $blue-700;
+.text-final-footer {
+  color: $blue-700;
 }
 
-.hover-custom :hover{
-    color: $blue !important;
+.hover-custom :hover {
+  color: $blue !important;
 }
 
-.btn-primary, .btn-outline:hover {
-    color: white !important;
-    border-Top: rgba(111, 111, 111, 0.06);
+.btn-primary,
+.btn-outline:hover {
+  color: white !important;
+  border-top: rgba(111, 111, 111, 0.06);
 }
 
-.separador{
-    border-top: 1px solid #dee2e6;
+.separador {
+  border-top: 1px solid #bdddfa;
 }
 
-.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
-    color: white;
+.btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+  color: white;
 }
 
-
-.accordion-button:not(.collapsed){
-    box-shadow: none!important
+.accordion-button:not(.collapsed) {
+  box-shadow: none !important;
 }
-.accordion-button{
-    padding-bottom: 10px;
+.accordion-button {
+  padding-bottom: 10px;
 }
-.accordion-body{
-    padding-top: 0px!important;
-}
-
-
-.tittle-custom{
-    color: #06433D!important;
-    font-weight: bold;
+.accordion-body {
+  padding-top: 0px !important;
 }
 
-
-.presentation{
-    background-color: rgba(207, 238, 235, 0.4) ;
-
+.tittle-custom {
+  color: #062b4c !important;
+  font-weight: bold;
 }
 
-.with-available{
-    width: stretch;
-    width:-webkit-fill-available;
-    width: -moz-available;
+.presentation {
+  background-color: #e7eef6 !important;
 }
 
+.with-available {
+  width: stretch;
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
 
-@media only screen and (max-device-width: 780px){
-    .img-presentacion{
-        display: none;
-}}
+@media only screen and (max-device-width: 780px) {
+  .img-presentacion {
+    display: none;
+  }
+}
 
 .accordion {
-    // scss-docs-start accordion-css-vars
-    
-    --#{$prefix}accordion-bg: #{$accordion-bg};
+  // scss-docs-start accordion-css-vars
 
-    --#{$prefix}accordion-border-width: #{$accordion-border-width};
+  --#{$prefix}accordion-bg: #{$accordion-bg};
 
-    --#{$prefix}accordion-btn-padding-x: #{$accordion-button-padding-x};
-    --#{$prefix}accordion-btn-padding-y: #{$accordion-button-padding-y};
-    --#{$prefix}accordion-btn-color: #{$accordion-button-color};
-    --#{$prefix}accordion-btn-bg: #{$accordion-button-bg};
-    --#{$prefix}accordion-btn-icon: #{escape-svg($accordion-button-icon)};
-    --#{$prefix}accordion-btn-icon-width: #{$accordion-icon-width};
-    --#{$prefix}accordion-btn-icon-transform: #{$accordion-icon-transform};
-    --#{$prefix}accordion-btn-icon-transition: #{$accordion-icon-transition};
-    --#{$prefix}accordion-btn-active-icon: #{escape-svg($accordion-button-icon)};
-    --#{$prefix}accordion-btn-focus-border-color: #{$accordion-button-focus-border-color};
-    --#{$prefix}accordion-btn-focus-box-shadow: #{gras};
-    --#{$prefix}accordion-body-padding-x: #{$accordion-body-padding-x};
-    --#{$prefix}accordion-body-padding-y: #{$accordion-body-padding-y};
-    --#{$prefix}accordion-active-color: #{black};
-    --#{$prefix}accordion-active-bg: #{$accordion-bg};
-    // scss-docs-end accordion-css-vars
+  --#{$prefix}accordion-border-width: #{$accordion-border-width};
+
+  --#{$prefix}accordion-btn-padding-x: #{$accordion-button-padding-x};
+  --#{$prefix}accordion-btn-padding-y: #{$accordion-button-padding-y};
+  --#{$prefix}accordion-btn-color: #{$accordion-button-color};
+  --#{$prefix}accordion-btn-bg: #{$accordion-button-bg};
+  --#{$prefix}accordion-btn-icon: #{escape-svg($accordion-button-icon)};
+  --#{$prefix}accordion-btn-icon-width: #{$accordion-icon-width};
+  --#{$prefix}accordion-btn-icon-transform: #{$accordion-icon-transform};
+  --#{$prefix}accordion-btn-icon-transition: #{$accordion-icon-transition};
+  --#{$prefix}accordion-btn-active-icon: #{escape-svg($accordion-button-icon)};
+  --#{$prefix}accordion-btn-focus-border-color: #{$accordion-button-focus-border-color};
+  --#{$prefix}accordion-btn-focus-box-shadow: #{gras};
+  --#{$prefix}accordion-body-padding-x: #{$accordion-body-padding-x};
+  --#{$prefix}accordion-body-padding-y: #{$accordion-body-padding-y};
+  --#{$prefix}accordion-active-color: #{black};
+  --#{$prefix}accordion-active-bg: #{$accordion-bg};
+  // scss-docs-end accordion-css-vars
+}
+
+.ImageUpload {
+  img:hover {
+    background-color: rgba(255, 255, 255, 0.371);
   }
-
-
-
-.ImageUpload{
-    img:hover{
-        background-color: rgba(255, 255, 255, 0.371);
-
-    }
 }
