@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import * as yup from "yup";
 
 const schema = yup.object({
-  password: yup.string().required("La contraseña es requerida"),
+  password: yup.string().required("La senha es requerida"),
   email: yup.string().required("El correo es requerido"),
 });
 
@@ -31,7 +31,7 @@ export default function PopLogin(props) {
   const onSubmit = async (event) => {
     const reset = (error) => {
       if (error?.indexOf("credentials") != -1) {
-        setError("email", { message: "Contraseña o usuario incorrectos" });
+        setError("email", { message: "Senha o usuario incorrectos" });
         return;
       }
       if (error?.indexOf("Email") != -1) {
@@ -72,7 +72,7 @@ export default function PopLogin(props) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPassword">
-            <Form.Label>Contraseña</Form.Label>
+            <Form.Label>Senha</Form.Label>
             <Form.Control
               type="password"
               {...register("password")}
@@ -101,7 +101,7 @@ export default function PopLogin(props) {
             style={{ width: "100%" }}
             className="d-flex justify-content-center "
           >
-            Olvidé mi contraseña
+            Olvidé mi senha
           </Link>
         </Form>
         <div className='mt-3 mb-3 d-flex justify-content-center'>

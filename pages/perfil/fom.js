@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Register from 'components/formlogin/Register';
+import ContainerLogin from 'components/formlogin/ContainerLogin';
 
-export default function Singin() {
+export default function Login() {
   return (
 
 
@@ -37,7 +37,7 @@ export default function Singin() {
         </Form.Group>
         <Row>
 
-          <Link className="mb-3" href="#">Cambiar contraseña</Link>
+          <Link className="mb-3" href="#">Cambiar senha</Link>
         </Row>
 
         <div className='d-flex flex-row-reverse'><Button variant="primary" type="submit">

@@ -7,7 +7,7 @@ export default async function register(email, password, first_name, last_name) {
         // Guardamos el resultado en una variable llamada "data"
         const { data, error } = await supabase.auth.signUp({
             email: email, // La dirección de correo electrónico proporcionada como argumento
-            password: password, // La contraseña proporcionada como argumento
+            password: password, // La senha proporcionada como argumento
             options: {
                 data: {
                     first_name: first_name, // El primer nombre proporcionado como argumento

@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Singin from "./fom";
+import Login from "./fom";
 import Main from "components/main";
 import Canva from "./canva";
 
@@ -17,7 +17,7 @@ export default function Index() {
             <Row style={{ backgroundColor: "rgba(218, 218, 218, 0.184)" }}>
               <div className="">
                 <Container className="d-flex justify-content-center" fluid>
-                  <Singin />
+                  <Login />
                 </Container>
               </div>
             </Row>

@@ -46,7 +46,7 @@ export default function User() {
 
   return (
     <div>
-      <Link href="/form/singin" className=" nav-link text-primary ms-1">
+      <Link href="/form/login" className=" nav-link text-primary ms-1">
         <BsPersonCircle /> Entrar
       </Link>
     </div>

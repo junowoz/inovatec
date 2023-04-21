@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Col, Container, Row, Accordion } from 'react-bootstrap'
-import Singin from './fom'
+import Login from './fom'
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
