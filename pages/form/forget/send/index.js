@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Login from "components/formlogin/Login";
 
-export default function Singin() {
+export default function Login() {
     return (
         <Login>
             <Container className="mb-5" style={{}}>
@@ -26,7 +26,7 @@ export default function Singin() {
                                             Te hemos enviado un email a tu
                                             dirección de correo electrónico.
                                             Contiene un enlace que te permitirá
-                                            reiniciar tu contraseña. Si no lo
+                                            reiniciar tu senha. Si no lo
                                             encuentras, recuerda revisar en la
                                             carpeta de correo no deseado/spam.
                                         </h4>

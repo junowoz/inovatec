@@ -11,12 +11,12 @@ import { userState } from "context/User/UserState";
 const schema = yup.object({
   password: yup
     .string()
-    .required("La contraseña es requerida")
-    .min(6, "La contraseña debe tener 6 o mas caracteres"),
+    .required("La senha es requerida")
+    .min(6, "La senha debe tener 6 o mas caracteres"),
   confirmPassword: yup
     .string()
-    .required("Es obligatorio confirmar la contraseña")
-    .oneOf([yup.ref("password")], "Las contraseñas deben ser iguales."),
+    .required("Es obligatorio confirmar la senha")
+    .oneOf([yup.ref("password")], "Las senhas deben ser iguales."),
 });
 
 export default function NewPass() {
@@ -52,10 +52,10 @@ export default function NewPass() {
           >
               <Form onSubmit={handleSubmit(onSubmit)}>
                   <h1 className="mb-4">
-                      Elige una nueva <br /> contraseña
+                      Elige una nueva <br /> senha
                   </h1>
                   <Form.Group className="mb-3" controlId="1">
-                      <Form.Label>Nueva contraseña</Form.Label>
+                      <Form.Label>Nueva senha</Form.Label>
                       <Form.Control
                           type="password"
                           {...register("password")}
@@ -67,7 +67,7 @@ export default function NewPass() {
                   </Form.Group>
 
                   <Form.Group className="mb-5" controlId="2">
-                      <Form.Label>Confirma tu nueva contraseña</Form.Label>
+                      <Form.Label>Confirma tu nueva senha</Form.Label>
                       <Form.Control
                           type="password"
                           {...register("confirmPassword")}
@@ -83,7 +83,7 @@ export default function NewPass() {
                       type="submit"
                       className="mb-3"
                   >
-                      Recuperar contraseña
+                      Recuperar senha
                   </Button>
               </Form>
           </Container>

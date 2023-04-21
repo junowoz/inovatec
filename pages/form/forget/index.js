@@ -53,7 +53,7 @@ export default function Forget() {
               className="d-flex flex-column justify-content-center align-content-center align-items-center"
           >
               <Form onSubmit={handleSubmit(onSubmit)}>
-                  <h1 className="mb-4">Recupera tu contraseña</h1>
+                  <h1 className="mb-4">Recupera tu senha</h1>
                   <Form.Group className="mb-5" controlId="formBasicEmail">
                       <Form.Label>
                           Correo electrónico asociado a tu cuenta
