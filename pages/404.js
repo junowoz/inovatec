@@ -1,4 +1,4 @@
-import Contenedor from "components/home/Contenedor";
+import Main from "components/main";
 import Image from "react-bootstrap/Image";
 import { Button, Container } from "react-bootstrap";
 import { useRouter } from "next/router";
@@ -7,7 +7,7 @@ export default function Erro404() {
   const router = useRouter();
 
   return (
-    <Contenedor>
+    <Main>
       <Container
         style={{
           display: "flex",
@@ -27,12 +27,7 @@ export default function Erro404() {
               maxWidth: "567px",
             }}
           >
-            <Image
-              src="/Erro404.png"
-              alt=""
-              className="img-fluid"
-              style={{}}
-            />
+            <Image src="/Erro404.png" alt="" className="img-fluid" style={{}} />
           </div>
           <h3 style={{ color: "#0D62AD" }} className="mb-4">
             Página não encontrada
@@ -56,6 +51,6 @@ export default function Erro404() {
           </div>
         </div>
       </Container>
-    </Contenedor>
+    </Main>
   );
 }
