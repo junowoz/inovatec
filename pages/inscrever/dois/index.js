@@ -133,7 +133,7 @@ export default function Dois() {
                     Atrás
                   </Link>
 
-                  <Link href="./inscricao/tres">
+                  <Link href="./inscrever/tres">
                     <Button variant="primary" type="submit">
                       Seguinte
                       <BsChevronRight

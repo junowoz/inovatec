@@ -1,4 +1,4 @@
-import { getData } from "context/FormPublications/FPstate";
+import { getData } from "context/InscreverProjetos/IPState";
 import { supabase } from "supabase/client";
 import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";

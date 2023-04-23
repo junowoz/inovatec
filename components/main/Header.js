@@ -43,7 +43,7 @@ export default function Header({}) {
 
           <Nav className="me-auto flex-fill">
             <Nav.Link href="projetos">Projetos</Nav.Link>
-            <Nav.Link href="inscricao">Inscriçao</Nav.Link>
+            <Nav.Link href="inscrever">Inscriçao</Nav.Link>
 
             <Nav.Link href="manual">Manual</Nav.Link>
 

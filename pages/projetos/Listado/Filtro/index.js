@@ -23,38 +23,31 @@ export default function Filtro() {
       <>
         {data.map((option, index) => {
           // Verificar se a opcao pertence à categoria selecionada
-          if (
-            filters.category.length === 0 ||
-            option?.category?.some((c) => filters.category.includes(c)) ||
-            option.all
-          ) {
-            return (
-              <Form.Check
-                key={index}
-                type={"checkbox"}
-                id={option.id}
-                name={option.id}
-                label={option.label}
-                value={option.id}
-                defaultChecked={filters[category]?.includes(option.id)}
-                onChange={(e) => {
-                  setFilters((prevFilters) => {
-                    let filters = { ...prevFilters };
-                    if (e.target.checked) {
-                      filters[category] = [...filters[category], option.id];
-                    } else {
-                      filters[category] = filters[category].filter(
-                        (filter) => filter !== option.id
-                      );
-                    }
-                    return filters;
-                  });
-                }}
-              />
-            );
-          } else {
-            return null; // omitir a opcao se nao pertence à categoria selecionada
-          }
+
+          return (
+            <Form.Check
+              key={index}
+              type={"checkbox"}
+              id={option.id}
+              name={option.id}
+              label={option.label}
+              value={option.id}
+              defaultChecked={filters[category]?.includes(option.id)}
+              onChange={(e) => {
+                setFilters((prevFilters) => {
+                  let filters = { ...prevFilters };
+                  if (e.target.checked) {
+                    filters[category] = [...filters[category], option.id];
+                  } else {
+                    filters[category] = filters[category].filter(
+                      (filter) => filter !== option.id
+                    );
+                  }
+                  return filters;
+                });
+              }}
+            />
+          );
         })}
       </>
     );
@@ -63,52 +56,56 @@ export default function Filtro() {
   return hydration ? (
     <Card className="shadow-sm">
       <Card.Body>
-      <Accordion defaultActiveKey={["0", "1", "2", "3", "4"]} flush alwaysOpen>
-        {/* Start - Ano */}
-        <Accordion.Item eventKey="0">
-          <Accordion.Header className="py-0">
-            <h5 className="fw-bolder fs-6">Ano</h5>
-          </Accordion.Header>
-          <Accordion.Body>{Iters(year, "year")}</Accordion.Body>
-        </Accordion.Item>
-        {/* End - Ano */}
+        <Accordion
+          defaultActiveKey={["0", "1", "2", "3", "4"]}
+          flush
+          alwaysOpen
+        >
+          {/* Start - Ano */}
+          <Accordion.Item eventKey="0">
+            <Accordion.Header className="py-0">
+              <h5 className="fw-bolder fs-6">Ano</h5>
+            </Accordion.Header>
+            <Accordion.Body>{Iters(year, "year")}</Accordion.Body>
+          </Accordion.Item>
+          {/* End - Ano */}
 
-        {/* Start - Curso */}
-        <Accordion.Item eventKey="1">
-          <Accordion.Header className="py-0">
-            <h5 className="fw-bolder fs-6">Curso</h5>
-          </Accordion.Header>
-          <Accordion.Body>{Iters(course, "course")}</Accordion.Body>
-        </Accordion.Item>
-        {/* End - Curso */}
+          {/* Start - Curso */}
+          <Accordion.Item eventKey="1">
+            <Accordion.Header className="py-0">
+              <h5 className="fw-bolder fs-6">Curso</h5>
+            </Accordion.Header>
+            <Accordion.Body>{Iters(course, "course")}</Accordion.Body>
+          </Accordion.Item>
+          {/* End - Curso */}
 
-        {/* Start - Periodo */}
-        <Accordion.Item eventKey="2">
-          <Accordion.Header>
-            <h5 className="fw-bolder fs-6">Periodo</h5>
-          </Accordion.Header>
-          <Accordion.Body>{Iters(semester, "semester")}</Accordion.Body>
-        </Accordion.Item>
-        {/* End - Periodo */}
+          {/* Start - Periodo */}
+          <Accordion.Item eventKey="2">
+            <Accordion.Header>
+              <h5 className="fw-bolder fs-6">Periodo</h5>
+            </Accordion.Header>
+            <Accordion.Body>{Iters(semester, "semester")}</Accordion.Body>
+          </Accordion.Item>
+          {/* End - Periodo */}
 
-        {/* Start - Indústria */}
-        <Accordion.Item eventKey="3">
-          <Accordion.Header>
-            <h5 className="fw-bolder fs-6">Indústria</h5>
-          </Accordion.Header>
-          <Accordion.Body>{Iters(industry, "industry")}</Accordion.Body>
-        </Accordion.Item>
-        {/* End - Indústria */}
+          {/* Start - Indústria */}
+          <Accordion.Item eventKey="3">
+            <Accordion.Header>
+              <h5 className="fw-bolder fs-6">Indústria</h5>
+            </Accordion.Header>
+            <Accordion.Body>{Iters(industry, "industry")}</Accordion.Body>
+          </Accordion.Item>
+          {/* End - Indústria */}
 
-        {/* Start - Tecnologia */}
-        <Accordion.Item eventKey="4">
-          <Accordion.Header>
-            <h5 className="fw-bolder fs-6">Tecnologia</h5>
-          </Accordion.Header>
-          <Accordion.Body>{Iters(tech, "tech")}</Accordion.Body>
-        </Accordion.Item>
-        {/* End - Tecnologia */}
-      </Accordion>
+          {/* Start - Tecnologia */}
+          <Accordion.Item eventKey="4">
+            <Accordion.Header>
+              <h5 className="fw-bolder fs-6">Tecnologia</h5>
+            </Accordion.Header>
+            <Accordion.Body>{Iters(tech, "tech")}</Accordion.Body>
+          </Accordion.Item>
+          {/* End - Tecnologia */}
+        </Accordion>
       </Card.Body>
     </Card>
   ) : null;

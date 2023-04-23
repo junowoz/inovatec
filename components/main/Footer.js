@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { BsInstagram } from "react-icons/bs";
 import {BsWindow} from "react-icons/bs";
-import {TbBinaryTree} from "react-icons/tb";
+import {BsLink45Deg} from "react-icons/bs";
 
 const Footer = (props) => {
   return (
@@ -44,7 +44,7 @@ const Footer = (props) => {
                       </Link>
                     </p>
                     <p>
-                      <Link href="inscricao" className="text-reset">
+                      <Link href="inscrever" className="text-reset">
                         Inscrição
                       </Link>
                     </p>
@@ -85,7 +85,7 @@ const Footer = (props) => {
                     </div>
                   </MDBCol>
 
-                  {/*Seccion 4 - Síguenos*/}
+                  {/*Seccion 3 - REDES E SITES*/}
                   <MDBCol md="3" lg="3" xl="2" className="me-auto pb-3">
                     <h6 className="text-uppercase fw-bold mb-3 text-reset">
                       REDES E SITES
@@ -109,7 +109,7 @@ const Footer = (props) => {
                       target="_blank"
                       className="text-reset"
                     >
-                      <TbBinaryTree size={25} />
+                      <BsLink45Deg size={25} />
                     </Link>
                   </MDBCol>
                 </MDBRow>

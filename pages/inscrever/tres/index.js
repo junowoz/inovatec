@@ -9,7 +9,7 @@ import Progres3 from "./progres3";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { FPState } from "context/FormPublications/FPstate";
+import { IPState } from "context/InscreverProjetos/IPState";
 import shallow from "zustand/shallow";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -31,12 +31,12 @@ export default function Parttres() {
 
   const router = useRouter();
 
-  const [publication, form] = FPState(
+  const [publication, form] = IPState(
     (state) => [state.publication, state.form],
     shallow
   );
 
-  const [setPublication, setForm] = FPState(
+  const [setPublication, setForm] = IPState(
     (state) => [state.setPublication, state.setForm],
     shallow
   );

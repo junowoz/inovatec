@@ -19,7 +19,7 @@ import * as yup from "yup";
 import shallow from "zustand/shallow";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FPState } from "context/FormPublications/FPstate";
+import { IPState } from "context/InscreverProjetos/IPState";
 
 import { userState } from "context/User/UserState";
 import InputFile2 from "components/Custom/InputFile/inputFile2";
@@ -39,7 +39,7 @@ export default function Partdos() {
 
   const user = userState((state) => state.user);
 
-  const [publication, form] = FPState(
+  const [publication, form] = IPState(
     (state) => [state.publication, state.form],
     shallow
   );
@@ -47,7 +47,7 @@ export default function Partdos() {
   const [button, setButton] = useState(false);
 
   const { setPublication, setForm, UpdateImages, clearAll, postPublication } =
-    FPState();
+    IPState();
 
   useEffect(() => {
     if (!form.brands || !form.models) {

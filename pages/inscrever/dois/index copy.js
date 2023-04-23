@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Main from "components/main";
 import { Row, Form, Col, Container, Button } from "react-bootstrap";
 import { BsChevronRight } from "react-icons/bs";
@@ -11,7 +11,7 @@ import { shallow } from "zustand/shallow";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FPState } from "context/FormPublications/FPstate";
+import { IPState } from "context/InscreverProjetos/IPState";
 
 const schema = yup.object().shape({
   year: yup.string().required("El año es requerido"),
@@ -21,29 +21,15 @@ const schema = yup.object().shape({
 });
 
 export default function PartUno() {
-  const [description, setDescription] = useState('');
-  const [charsLeft, setCharsLeft] = useState(50);
-
-  useEffect(() => {
-    setCharsLeft(50 - description.length);
-  }, [description]);
-
-  const handleChange = (event) => {
-    const inputDescription = event.target.value;
-    if (inputDescription.length <= 50) {
-      setDescription(inputDescription);
-    }
-  };
-
   const router = useRouter();
   const [hydrated, setHydrated] = useState(true);
 
-  const [publication, form] = FPState(
+  const [publication, form] = IPState(
     (state) => [state.publication, state.form],
     shallow
   );
 
-  const [setPublication, setForm, setModels] = FPState(
+  const [setPublication, setForm, setModels] = IPState(
     (state) => [state.setPublication, state.setForm, state.setModels],
     shallow
   );
@@ -90,7 +76,7 @@ export default function PartUno() {
   const onSubmit = (items) => {
     /* console.log(items)
      */
-
+    
     setPublication(items);
     router.push("./two");
   };
@@ -117,55 +103,25 @@ export default function PartUno() {
               <Progress />
 
               <div className="my-5">
-                {/* Nome do projeto */}
+                {/* Ano */}
                 <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Nome do projeto:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Digite o nome do projeto..."
-                  />
+                  <Form.Label>
+                    Marca <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Select
+                    isInvalid={!!errors?.brand}
+                    /* value={values.brand} */
+                    {...register("brand")}
+                  >
+                    <option value="">Selecciona una Marca</option>
+
+                    {selectList(form?.brands)}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.brand?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                {/* Descrever */}
-                <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Descreva o projeto em uma frase:</Form.Label>
-                  <div className="position-relative">
-                    <Form.Control
-                      type="text"
-                      placeholder="Descreva o projeto em menos de 50 caracteres...."
-                      value={description}
-                      onChange={handleChange}
-                      maxLength={50}
-                    />
-                    <Form.Text
-                      className={
-                        charsLeft <= 10
-                          ? "text-danger position-absolute end-0 bottom-0"
-                          : "position-absolute end-0 bottom-0"
-                      }
-                    >
-                      {charsLeft}
-                    </Form.Text>
-                  </div>
-                </Form.Group>
-
-                {/* Nome do/s professor/res responsável/eis */}
-                <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Nome do/a Professor/a Responsável </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Digite o nome do/a professor/a responsável..."
-                  />
-                </Form.Group>
-                {/* Resumo do projeto */}
-                <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Resumo do Projeto</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={1}
-                    placeholder="Forneça uma visão geral do objetivo e propósito do projeto em menos de 300 palavras...."
-                  />
-                </Form.Group>
                 {/* Categoria */}
                 <Form.Group className="mb-3" controlId="category">
                   <Form.Label>
@@ -183,6 +139,7 @@ export default function PartUno() {
                     {errors.category?.message}
                   </Form.Control.Feedback>
                 </Form.Group>
+
                 {/* Modelo */}
                 <Form.Group className="mb-3" controlId="model">
                   <Form.Label>
@@ -205,6 +162,7 @@ export default function PartUno() {
                     {errors.model?.message}
                   </Form.Control.Feedback>
                 </Form.Group>
+
                 {/* Año */}
                 <Form.Group className="mb-3" controlId="year">
                   <Form.Label>

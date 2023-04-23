@@ -1,5 +1,5 @@
 import { supabase } from "supabase/client";
-import { create } from "zustand";
+import create from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
 export const projetosState = create(
