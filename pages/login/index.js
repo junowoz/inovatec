@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import ContainerLogin from "components/formlogin/ContainerLogin";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import ContainerLogin from "components/formlogin/ContainerLogin";
 import { useRouter } from "next/router";
 
 import { useForm } from "react-hook-form";
@@ -12,17 +12,14 @@ import { userState } from "context/User/UserState";
 
 import * as yup from "yup";
 
-
 const schema = yup.object({
-  password: yup.string().required("A senha é requerida"),
-  user: yup.string().required("O usuário é requerido"),
+  email: yup.string().required("O Email é requerido"),
+  password: yup.string().required("A Senha é requerida"),
 });
 
 export default function Login(props) {
-
-  const signIn = userState(state => state.signIn)
+  const signIn = userState((state) => state.signIn);
   const router = useRouter();
-
 
   const {
     handleSubmit,
@@ -36,11 +33,11 @@ export default function Login(props) {
   const onSubmit = async (event) => {
     const reset = (error) => {
       if (error?.indexOf("credentials") != -1) {
-        setError("user", { message: "Senha ou usuario incorretos" });
+        setError("email", { message: "Senha ou Email Incorretos" });
         return;
       }
-      if (error?.indexOf("User") != -1) {
-        setError("user", { message: "No se a confirmado el correo" });
+      if (error?.indexOf("Email") != -1) {
+        setError("email", { message: "Email não confirmado" });
         return;
       }
       return setError("account", { message: error });
@@ -64,28 +61,16 @@ export default function Login(props) {
       >
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h1 className="mb-4">Admin Dashboard</h1>
-          <Image
-            src="/Inovatec.png"
-            alt="Inovatec"
-            width={100}
-            height={100}
-            style={{ maxWidth: "100%" }}
-            // Set width for different breakpoints using w- utility classes
-            // w-100: full width for xs breakpoint
-            // w-sm-75: 75% width for sm breakpoint and above
-            // w-lg-70: 70% width for lg breakpoint and above
-            className="d-lg-none align-self-center"
-          />
           <Form.Group className="mb-3" controlId="formUser">
-            <Form.Label>Usuário</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
-              type="user"
-              placeholder="Admin"
-              {...register("user")}
-              isInvalid={errors?.user ? true : false}
+              type="email"
+              placeholder="admin@email.com"
+              {...register("email")}
+              isInvalid={errors?.email ? true : false}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.user?.message}
+              {errors.email?.message}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -100,9 +85,6 @@ export default function Login(props) {
               {errors.password?.message}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Manter conectado" />
-          </Form.Group>
           {errors?.account ? (
             <p style={{ color: "#dc3545" }}>{errors?.account?.message}</p>
           ) : null}
@@ -114,13 +96,6 @@ export default function Login(props) {
           >
             Entrar
           </Button>
-          <Link
-            href="./forget"
-            style={{ width: "100%" }}
-            className="d-flex justify-content-center "
-          >
-            Esqueci a senha
-          </Link>
         </Form>
       </Container>
     </ContainerLogin>
