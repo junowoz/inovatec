@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 
 export default function User() {
   const signOut = userState((state) => state.signOut);
+
   const user = userState((state) => state.user);
+
   const [state, setState] = useState(false);
 
   useEffect(() => {
@@ -32,10 +34,12 @@ export default function User() {
       return (
         <div>
           <NavDropdown title={delta}>
-            <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
+            <NavDropdown.Item href="/dashboard">
+              Admin Dashboard
+            </NavDropdown.Item>
             {/* <NavDropdown.Item href="/">Something else here</NavDropdown.Item> */}
             <NavDropdown.Divider />
-            <NavDropdown.Item href="" onClick={() => signOut()}>
+            <NavDropdown.Item href="/" onClick={() => signOut()}>
               Encerrar sessão
             </NavDropdown.Item>
           </NavDropdown>

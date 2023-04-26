@@ -42,6 +42,7 @@ export default function Header({}) {
           <Nav className="ms-auto flex-fill"></Nav>
 
           <Nav className="me-auto flex-fill">
+            <Nav.Link href="/">Inicio</Nav.Link>
             <Nav.Link href="projetos">Projetos</Nav.Link>
             <Nav.Link href="inscrever">Inscriçao</Nav.Link>
 
