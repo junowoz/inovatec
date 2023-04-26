@@ -1,260 +1,221 @@
-import { React, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Main from "components/main";
 import { Row, Form, Col, Container, Button } from "react-bootstrap";
 import { BsChevronRight } from "react-icons/bs";
+import { InscreverState } from "context/InscreverProjetos/InscreverState";
+import Head from "next/head";
 import Progress from "./progress";
 
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-import { IPState } from "context/InscreverProjetos/IPState";
-import { supabase } from "supabase/client";
 
 const schema = yup.object().shape({
-  year: yup.string().required("O ano é requerido"),
-  name: yup.string().required("O nome é requerido"),
-  semester: yup.string().required("O periodo é requerido"),
-  course: yup.string().required("El modelo es requerido"),
-  tech: yup.string().required("La marca es requerida"),
+  name: yup.string().required("Nome requerido"),
+  description: yup
+    .string()
+    .max(50, "A descrição deve ter menos de 50 caracteres.")
+    .required("Descrição requerida"),
+  resume: yup
+    .string()
+    .max(300, "O resumo deve ter menos de 1000 caracteres.")
+    .required("Resumo requerido"),
+
+  semester: yup.string().required("Periodo requerido"),
+  course: yup.string().required("Curso requerido"),
+  year: yup.string().required("Ano requerido"),
+  tech: yup.string().required("Tecnologia requerida"),
+  industry: yup.string().required("Industria requerida"),
 });
 
 export default function PartUno() {
-  /**Local State */
-  const [formData, setFormData] = useState({
-    professor: "",
-    resumo: "",
-    semester: "",
-    briefDescription: "",
-  });
+  const [hydrated, setHydrated] = useState(true);
+  const [errors, setErrors] = useState({});
 
-  /**YUP */
-  const {
-    handleSubmit,
-    register,
-    setError,
-    control,
-    watch,
-    getValues,
-
-    formState: { isValid, errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: { ...formData },
-  });
-
-  /**-50 CHARS**/
-  const [description, setDescription] = useState("");
-  const [charsLeft, setCharsLeft] = useState(50);
-
-  useEffect(() => {
-    setCharsLeft(50 - description.length);
-  }, [description]);
-
-  const handleChange = (event) => {
-    const inputDescription = event.target.value;
-    if (inputDescription.length <= 50) {
-      setDescription(inputDescription);
+  /**YUP VALIDATION */
+  const validateFormData = async (formData) => {
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      setErrors({});
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach((e) => {
+        validationErrors[e.path] = e.message;
+      });
+      setErrors(validationErrors);
     }
   };
 
-  /**Fetch**/
-  // const { semester, setSemester } = useState([]);
-  // const { course, setCourse } = IPState();
-  // const { tech, setTech } = IPState();
-  // const { insdustry, setIndustry } = IPState();
-  // const { year, setYear } = IPState();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    validateFormData(Object.fromEntries(formData.entries()));
+  };
 
-  // useEffect(() => {
-  //   setSemester();
-  // }, []);
-
-  // useEffect(() => {
-  //   getCourse();
-  // }, []);
-
-  // useEffect(() => {
-  //   getTech();
-  // }, []);
-
-  // useEffect(() => {
-  //   getIndustry();
-  // }, []);
-
-  // useEffect(() => {
-  //   getYear();
-  // }, []);
-  /////////////////////////
-  const [course, setCourse] = useState([])
+  /*SUPABASE FETCH */
+  const {
+    semesterData,
+    courseData,
+    yearData,
+    techData,
+    industryData,
+    fetchData,
+  } = InscreverState();
 
   useEffect(() => {
-    fetchCourse()
-  }, [])
-  
-  async function fetchCourse() {
-    let { data: course, error } = await supabase
-      .from("course")
-      .select("name");
-    if (error) console.log(error);
-    return course;
-  }
+    fetchData();
+  }, []);
 
-  //ROUTER
-  // const onSubmit = (items) => {
-  //   setPublication(items);
-  //   router.push("./dois");
-  // };
-  //ROUTER END
+  /*OTHER */
 
-  // const selectList = (list) => {
-  //   if (!Array.isArray(list)) {
-  //     return null; // or handle the error in some other way
-  //   }
+  useEffect(() => {
+    setHydrated(false);
+  }, []);
 
-  //   return list?.map((item) => {
-  //     return (
-  //       <option key={item.id} value={item.id}>
-  //         {item.name}
-  //       </option>
-  //     );
-  //   });
-  // };
-
-  return (
+  return hydrated ? (
+    ""
+  ) : (
     <Main>
-      {/* <DevTool control={control} /> */}
+      <Head>
+        <title>Inovatec | Inscrever</title>
+      </Head>
       <Container>
         <Row className="justify-content-md-center">
           <Col md="8" xl="6">
-            <Form className="py-5">
+            <Form className="py-5" noValidate onSubmit={handleSubmit}>
               <Progress />
-
+              <h5 className="">Todos os campos são obrigatórios *</h5>
               <div className="my-5">
-                {/* Nome do projeto */}
-                <Form.Group className="mb-3" controlId="brands">
+                {/* Nome */}
+                <Form.Group className="mb-3" controlId="">
                   <Form.Label>Nome do projeto</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={formData.nome}
-                    onChange={(e) =>
-                      setFormData({ ...formData, nome: e.target.value })
-                    }
-                    placeholder="Digite o nome do projeto..."
-                  />
+                  <div className="position-relative">
+                    <Form.Control
+                      type="text"
+                      placeholder="Digite o nome do projeto..."
+                      name="name"
+                      isInvalid={!!errors.name}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.name}
+                    </Form.Control.Feedback>
+                  </div>
                 </Form.Group>
+
                 {/* Descrever */}
-                <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Descreva o projeto em uma frase:</Form.Label>
+                <Form.Group className="mb-3" controlId="">
+                  <Form.Label>Descreva o projeto em uma frase</Form.Label>
                   <div className="position-relative">
                     <Form.Control
                       type="text"
                       placeholder="Descreva o projeto em menos de 50 caracteres...."
-                      value={formData.briefDescription}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          briefDescription: e.target.value,
-                        })
-                      }
-                      maxLength={50}
+                      name="description"
+                      isInvalid={!!errors.description}
                     />
-                    <Form.Text
-                      className={
-                        charsLeft <= 10
-                          ? "text-danger position-absolute end-0 bottom-0"
-                          : "position-absolute end-0 bottom-0"
-                      }
-                    >
-                      {charsLeft}
-                    </Form.Text>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.description}
+                    </Form.Control.Feedback>
                   </div>
                 </Form.Group>
-                {/* Nome do/s professor/res responsável/eis */}
-                <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Nome do/a Professor/a Responsável:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={formData.professor}
-                    onChange={(e) =>
-                      setFormData({ ...formData, professor: e.target.value })
-                    }
-                    placeholder="Digite o nome do/a professor/a responsável..."
-                  />
-                </Form.Group>
-                {/* Resumo do projeto */}
-                <Form.Group className="mb-3" controlId="brands">
-                  <Form.Label>Resumo do Projeto:</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={2}
-                    value={formData.resumo}
-                    onChange={(e) =>
-                      setFormData({ ...formData, resumo: e.target.value })
-                    }
-                    placeholder="Forneça uma visão geral do objetivo e propósito do projeto em menos de 300 palavras...."
-                  />
-                </Form.Group>
-                {/* Semester */}
-                <Form.Group className="mb-3" controlId="course">
-                  <Form.Label>
-                    Em que periodo você está, ou estava quando criou o projeto?{" "}
-                    <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Select>
-                    {course.map((course) => (
-                      <option key={course.id} value={course.id}>
-                        {course.id}
-                      </option>
-                    ))}
-                  </Form.Select>
+
+                {/* Resumo */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Resumo do Projeto</Form.Label>
+                  <div className="position-relative">
+                    <Form.Control
+                      as="textarea"
+                      rows={2}
+                      placeholder="Forneça uma visão geral do objetivo e propósito do projeto em menos de 300 palavras..."
+                      name="resume"
+                      isInvalid={!!errors.resume}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.resume}
+                    </Form.Control.Feedback>
+                  </div>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="course">
+                {/* Semester */}
+                <Form.Group className="mb-3" controlId="semester">
                   <Form.Label>
-                    Em que periodo você está, ou estava quando criou o projeto?{" "}
-                    <span className="text-danger">*</span>
+                    Em que periodo você está, ou estava quando criou o projeto?
                   </Form.Label>
-                  <Form.Select>
-                    <option value="">Selecione um semestre</option>
-                    {course.map((course) => (
-                      <option key={course.name} value={course.name}>
-                        {course.id}
+                  <Form.Select name="semester" isInvalid={!!errors.semester}>
+                    <option value="">Seleccione um período</option>
+                    {semesterData.map((semester) => (
+                      <option key={semester.id} value={semester.name}>
+                        {semester.name}
                       </option>
                     ))}
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.semester}
+                  </Form.Control.Feedback>
                 </Form.Group>
-                {/* Selecione seu curso: */}
-                {/* <Form.Group className="mb-3" controlId="course">
-                  <Form.Label>
-                    Curso de graduação: <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Select>
-                    <option value="">Selecione um curso</option>
-                    {course.map((course) => (
-                      <option key={course.id} value={course.id}>
+
+                {/*Curso*/}
+                <Form.Group className="mb-3" controlId="course">
+                  <Form.Label>Curso de graduação</Form.Label>
+                  <Form.Select name="course" isInvalid={!!errors.course}>
+                    <option value="">Seleccione um curso</option>
+                    {courseData.map((course) => (
+                      <option key={course.id} value={course.name}>
                         {course.name}
                       </option>
                     ))}
                   </Form.Select>
-                </Form.Group> */}
-                {/* Ano de edição da Inovatec */}
-                {/* <Form.Group className="mb-3" controlId="year">
-                  <Form.Label>
-                    Ano de edição da Inovatec:
-                    <span className="text-danger"> *</span>
-                  </Form.Label>
-                  <Form.Select {...register("year")} isInvalid={errors?.year}>
-                    <option value="">Selecione um ano</option>
-                    {year.map((year) => (
-                      <option key={year.id} value={year.id}>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.course}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Ano */}
+                <Form.Group className="mb-3" controlId="year">
+                  <Form.Label>Ano de edição da Inovatec</Form.Label>
+                  <Form.Select name="year" isInvalid={!!errors.year}>
+                    <option value="">Seleccione um ano</option>
+                    {yearData.map((year) => (
+                      <option key={year.id} value={year.name}>
                         {year.name}
                       </option>
                     ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
-                    {errors.year?.message}
+                    {errors.year}
                   </Form.Control.Feedback>
-                </Form.Group> */}
+                </Form.Group>
+
+                {/* TECH */}
+                <Form.Group className="mb-3" controlId="tech">
+                  <Form.Label>Que tipo de tecnologia o projeto usa?</Form.Label>
+                  <Form.Select name="tech" isInvalid={!!errors.tech}>
+                    <option value="">Seleccione uma tecnologia</option>
+                    {techData.map((tech) => (
+                      <option key={tech.id} value={tech.name}>
+                        {tech.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.tech}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* INDUSTRY */}
+                <Form.Group className="mb-3" controlId="industry">
+                  <Form.Label>
+                    Em que industria o projeto se encaixa?
+                  </Form.Label>
+                  <Form.Select name="industry" isInvalid={!!errors.industry}>
+                    <option value="">Seleccione uma industria</option>
+                    {industryData.map((industry) => (
+                      <option key={industry.id} value={industry.name}>
+                        {industry.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.industry}
+                  </Form.Control.Feedback>
+                </Form.Group>
               </div>
 
               {/* Seguinte */}
