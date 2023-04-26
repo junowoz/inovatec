@@ -43,6 +43,7 @@ export default function FiltrosMobile(props) {
               Aplicar Filtro
             </Button>
             <Button
+            className="mb-3"
               onClick={() => {
                 ClearFilters();
                 handleClose();

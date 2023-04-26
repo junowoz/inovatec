@@ -31,7 +31,7 @@ export default function Projetos() {
       </Card>
 
       {/* FiltersMobile */}
-      <div className="justify-content-center">
+      <div className="justify-content-center mt-4">
         <FiltersMobile className="d-block d-xl-none" />
       </div>
       {/* End FiltersMobile */}
