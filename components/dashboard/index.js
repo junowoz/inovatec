@@ -3,10 +3,6 @@ import React from "react";
 import { Col, Row, Container, Button } from "react-bootstrap";
 
 export default function DashboardContainer(props) {
-
-
-
-
   const styles = (puntero, name) => {
     return puntero === name
       ? { color: "#000000E5", background: "#CFEEEB" }
@@ -72,7 +68,7 @@ export default function DashboardContainer(props) {
           >
             Miembros
           </Link>
-          <Link className="ps-1 Link" href={"#"} style={{color: "#0000008C"}}>
+          <Link className="ps-1 Link" href={"#"} style={{ color: "#0000008C" }}>
             Cerrar sesión
           </Link>
         </div>
