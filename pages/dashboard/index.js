@@ -2,8 +2,9 @@ import { Col, Container, Row, Button } from "react-bootstrap";
 import Canva from "./canva";
 import Dashboard from "./dashboard";
 import React from 'react';
+import withAuth from "utils/withAuth";
 
-export default function Index() {
+const Index = () => {
 
   return (
     <Container fluid>
@@ -24,4 +25,6 @@ export default function Index() {
       </Row>
     </Container>
   );
-}
+};
+
+export default withAuth(Index);

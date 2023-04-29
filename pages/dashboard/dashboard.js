@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Row, Col, Table, Button, Form } from "react-bootstrap";
-import Link from "next/link";
-import supabase from "supabase/client";
+
 
 const Dashboard = () => {
   return (
