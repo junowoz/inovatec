@@ -1,7 +1,7 @@
 import Main from "components/main";
 import { Container } from "react-bootstrap";
-import Cards from "pages/home/Cards";
-import Presentation from "pages/home/Presentation";
+import Cards from "./home/Cards";
+import Presentation from "./home/Presentation";
 
 export default function HomePage() {
   return (

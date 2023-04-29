@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import Main from "components/main";
-import Article from "../home/Article";
 import Descriptons from "components/publicacion/vender";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import Carractristicas from "components/publicacion/Caracteristicas";
@@ -76,8 +75,6 @@ const Vender = () => {
           </Row>
         </Row>
       </Container>
-
-      <Article Title="Explora más project" />
     </Main>
   )
 };
