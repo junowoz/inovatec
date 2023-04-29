@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import classnames from "classnames";
 import data from "./data.json";
-import Main from "/components/Main";
+import Main from "components/main";
 import Head from "next/head";
 
 const Manual = () => {
