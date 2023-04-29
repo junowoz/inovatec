@@ -10,7 +10,6 @@ import { Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import { FiShoppingCart } from "react-icons/fi";
 import { BiSearchAlt } from "react-icons/bi";
 
-
 export default function Header({}) {
   const user = userState((state) => state.user); // User state
 
@@ -43,14 +42,12 @@ export default function Header({}) {
 
           <Nav className="me-auto flex-fill">
             <Nav.Link href="/">Inicio</Nav.Link>
-            <Nav.Link href="projetos">Projetos</Nav.Link>
-            <Nav.Link href="inscrever">Inscriçao</Nav.Link>
-
-            <Nav.Link href="manual">Manual</Nav.Link>
-
-            <Nav.Link href="#features" disabled>
+            <Nav.Link href="/projetos">Projetos</Nav.Link>
+            <Nav.Link href="/inscrever">Inscriçao</Nav.Link>
+            <Nav.Link href="/manual">Manual</Nav.Link>
+            {/* <Nav.Link href="#features" disabled>
               Rank
-            </Nav.Link>
+            </Nav.Link> */}
           </Nav>
 
           <Nav>

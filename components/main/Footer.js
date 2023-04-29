@@ -3,8 +3,8 @@ import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import Link from "next/link";
 import React from "react";
 import { BsInstagram } from "react-icons/bs";
-import {BsWindow} from "react-icons/bs";
-import {BsLink45Deg} from "react-icons/bs";
+import { BsWindow } from "react-icons/bs";
+import { BsLink45Deg } from "react-icons/bs";
 
 const Footer = (props) => {
   return (
@@ -65,7 +65,7 @@ const Footer = (props) => {
                     <h6 className="text-uppercase fw-bold mb-3">Contato</h6>
                     <div className="">
                       <p>
-                      <Link
+                        <Link
                           href="mailto:inovatecfametro@gmail.com"
                           target="_blank"
                           className="text-reset"
@@ -123,6 +123,12 @@ const Footer = (props) => {
         {/*Bottom Footer*/}
         <MDBContainer fluid className="pt-2 pb-3 text-center">
           <MDBRow className="justify-content-between p-4">
+            <div className="xxl:text-center text-reset mb-2">
+              Designed and developed by{" "}
+              <Link target="_blank" href="https://junowoz.github.io/portfolio/">
+                @junowoz
+              </Link>
+            </div>
             <div className="xxl:text-center text-reset mb-4">
               2023 © Inovatec. Todos os direitos reservados{" "}
             </div>
