@@ -77,7 +77,7 @@ const Vender = () => {
         </Row>
       </Container>
 
-      <Article Title="Explora más projects" />
+      <Article Title="Explora más project" />
     </Main>
   )
 };

@@ -12,7 +12,7 @@ export default function GetProjetos() {
   // const filters = filtersState((state) => state.filters);
 
   // const { isLoading, isError, error, data } = useQuery({
-  //   queryKey: ["projects"],
+  //   queryKey: ["project"],
   //   queryFn: setProjetos,
   // });
 
