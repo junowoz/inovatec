@@ -1,6 +1,6 @@
 import Main from "components/main";
-import Projetos from "./Listado/Projetos";
-import Filtro from "./Listado/Filtro";
+// import Projetos from "./Listado/Projetos";
+// import Filtro from "./Listado/Filtro";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Head from "next/head";
 
