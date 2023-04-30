@@ -6,9 +6,7 @@ import Link from "next/link";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { Form, FormControl, InputGroup, Row } from "react-bootstrap";
-import { FiShoppingCart } from "react-icons/fi";
-import { BiSearchAlt } from "react-icons/bi";
+
 
 export default function Header({}) {
   const user = userState((state) => state.user); // User state
@@ -41,13 +39,13 @@ export default function Header({}) {
           <Nav className="ms-auto flex-fill"></Nav>
 
           <Nav className="me-auto flex-fill">
-            <Nav.Link href="/">Inicio</Nav.Link>
-            <Nav.Link href="/projetos">Projetos</Nav.Link>
-            <Nav.Link href="/inscrever">Inscriçao</Nav.Link>
-            <Nav.Link href="/manual">Manual</Nav.Link>
-            {/* <Nav.Link href="#features" disabled>
+            <Link href="/" className="me-4 text-secondary">Inicio</Link>
+            <Link href="/projetos" className="me-4 text-secondary">Projetos</Link>
+            <Link href="/inscrever" className="me-4 text-secondary">Inscriçao</Link>
+            <Link href="/manual" className="text-secondary">Manual</Link>
+            {/* <Link href="#features" disabled>
               Rank
-            </Nav.Link> */}
+            </Link> */}
           </Nav>
 
           <Nav>

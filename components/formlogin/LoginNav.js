@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Container, Button } from "react-bootstrap";
-import { BsArrowBarLeft } from "react-icons/bs";
+import { BsHouse } from "react-icons/bs";
 
 export default function LoginNav() {
   return (
@@ -18,8 +18,8 @@ export default function LoginNav() {
             height: "5vh",
           }}
         >
-          <BsArrowBarLeft className="me-2" />
-          Voltar à página Inicial{" "}
+          <BsHouse className="me-2" />
+          Inicio
         </Button>
       </Link>
     </Container>

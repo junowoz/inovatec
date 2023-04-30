@@ -37,7 +37,9 @@ export default function User() {
             <NavDropdown.Item href="/dashboard">
               Admin Dashboard
             </NavDropdown.Item>
-            {/* <NavDropdown.Item href="/">Something else here</NavDropdown.Item> */}
+            <NavDropdown.Item href="/dashboard/alterarsenha">
+              Alterar Senha
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/" onClick={() => signOut()}>
               Encerrar sessão
