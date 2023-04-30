@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -18,17 +17,16 @@
     "@tanstack/react-query": "^4.19.1",
     "bootstrap": "^5.2.2",
     "formik": "^2.2.9",
-    "libphonenumber-js": "^1.10.21",
     "mdb-react-ui-kit": "^4.2.0",
     "next": "^13.0.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.41.5",
     "react-icons": "^4.6.0",
     "react-images-uploading": "^3.1.7",
-    "react-phone-input-2": "^2.15.1",
     "react-slick": "^0.29.0",
     "sass": "^1.55.0",
     "supabase": "^1.37.1",
@@ -38,7 +36,6 @@
     "zustand": "^4.2.0"
   },
   "devDependencies": {
-    "@types/node": "18.14.6",
-    "rome": "^11.0.0"
+    "@types/node": "18.14.6"
   }
 }
