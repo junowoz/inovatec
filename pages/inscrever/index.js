@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Main from "components/main";
 import { Row, Form, Col, Container, Button, Card } from "react-bootstrap";
 import { BsChevronRight } from "react-icons/bs";
-import { InscreverState } from "context/InscreverProjetos/InscreverState";
+import { useInscreverState } from "context/InscreverProjetos/InscreverState";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -41,8 +41,8 @@ const schema = yup.object({
 
 export default function Inscrever() {
   const router = useRouter();
-  const [hydrate, setHydrate] = useState(false);
-  const { setFormData } = InscreverState();
+  const [hydration, setHydration] = useState(false);
+  const { setFormData } = useInscreverState();
 
   const {
     register,
@@ -53,11 +53,6 @@ export default function Inscrever() {
     resolver: yupResolver(schema),
     /* defaultValues: "", */
   });
-
-  useEffect(() => {
-    setHydrate(true);
-  }, []);
-
 
   const handleOnSubmit = (items) => {
     console.log(items);
@@ -73,7 +68,7 @@ export default function Inscrever() {
     techData,
     industryData,
     fetchData,
-  } = InscreverState();
+  } = useInscreverState();
 
   useEffect(() => {
     fetchData();
@@ -91,11 +86,13 @@ export default function Inscrever() {
   //   // Do something with the file, such as upload it to a server
   // };
 
-  if (!hydrate) {
-    return <></>;
-  }
+  useEffect(() => {
+    setHydration(false);
+  }, []);
 
-  return (
+  return hydration ? (
+    ""
+  ) : (
     <Main>
       <Head>
         <title>Inovatec | Inscrever</title>

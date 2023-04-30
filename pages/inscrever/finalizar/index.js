@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Main from "components/main";
-import { FaUserPlus, FaTrash, FaEnvelope, FaCheck } from "react-icons/fa";
-import { Row, Col, Form, Button, Card, Alert, Modal } from "react-bootstrap";
+import { FaUserPlus, FaTrash, FaCheck } from "react-icons/fa";
+import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Progress2 from "../progress/progress2";
 import { Container } from "react-bootstrap";
-import { InscreverState } from "context/InscreverProjetos/InscreverState";
+import { useInscreverState } from "context/InscreverProjetos/InscreverState";
 import { supabase } from "supabase/client";
 
 export default function Submit() {
   //AQUI TRAGO A INFORMAÇAO ARMAZENADA DO FORMULARIO ANTERIOR.
-  const { formData, members: membersData, submitData } = InscreverState();
+  const { formData, members: membersData, submitData } = useInscreverState();
 
   //ROUTER
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function Submit() {
   ]);
 
   //FETCH ROLES
-  const { roleData, fetchData } = InscreverState();
+  const { roleData, fetchData } = useInscreverState();
 
   useEffect(() => {
     fetchData();
