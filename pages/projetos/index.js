@@ -1,6 +1,6 @@
 import Main from "components/main";
-// import Projetos from "./Listado/Projetos";
-// import Filtro from "./Listado/Filtro";
+// import Projetos from "/Projetos";
+import FiltroWeb from "./filtros/filtroWeb";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Head from "next/head";
 
@@ -33,10 +33,10 @@ export default function TodosProjetos() {
         <Row>
           <div className="separador my-4 px-4"></div>
           <Col className="d-none d-xl-grid" xl="3">
-            <Filtro />
+            <FiltroWeb />
           </Col>
           <Col>
-            <Projetos />
+            {/* <Projetos /> */}
           </Col>
         </Row>
       </Container>
