@@ -31,9 +31,7 @@ export const userState = create(
           set((state) => ({ user: user.data.user }));
           return user;
         },
-        emailResetPassword: async (data) => {
-          return await emailResetPassword(data);
-        },
+
 
         confirmUser: async (gata) => {
           const { data: user, error } = await supabase.auth.getUser();
@@ -83,12 +81,6 @@ const signOutUser = async () => {
   error ? console.log(error) : null;
 };
 
-const emailResetPassword = async ({ email }) => {
-  const data = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "https://www.recyclingbikes.co/form/newpass",
-  });
-  return data;
-};
 
 const registerNewUser = async ({ email, password, first_name, last_name }) => {
   const data = await supabase.auth.signUp({

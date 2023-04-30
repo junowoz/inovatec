@@ -1,7 +1,7 @@
 import { supabase } from "supabase/client";
 import create from "zustand";
 
-export const InscreverState = create((set) => ({
+export const useInscreverState = create((set) => ({
   //StoreData
   formData: {},
   setFormData: (data) => set((state) => ({ formData: data })),
@@ -66,7 +66,7 @@ export const InscreverState = create((set) => ({
     // Inserir novo projeto na tabela "project", adiciona data, e status = false
     const { data: newProject, error: newProjectError } = await supabase
       .from("project")
-      .insert([{ ...formData, date: new Date(), status: false }])
+      .insert([{ ...formData, date: new Date().toISOString(), status: false }])
       .single();
 
     if (newProjectError) {
@@ -112,8 +112,5 @@ export const InscreverState = create((set) => ({
       }
     }
 
-    // // Redirecionar para outra página ou dar feedback ao usuário que a inscrição foi finalizada
-    // const router = useRouter();
-    // router.push("/inscrever/sucesso");
   },
 }));
