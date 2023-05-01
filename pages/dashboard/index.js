@@ -244,46 +244,46 @@ const Index = () => {
             </Dropdown>
           </div>
 
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead className="fw-bold">
               <tr>
-                <th>
+                <th className="text-center">
                   <input
                     type="checkbox"
                     onChange={handleSelectAllProjects}
                     checked={selectedProjects.length === projects.length}
                   />
                 </th>
-                <th>Nome</th>
-                <th>Data</th>
-                <th>Status</th>
-                <th>Administrar</th>
+                <th className="text-center">Nome</th>
+                <th className="text-center">Data</th>
+                <th className="text-center">Status</th>
+                <th className="text-center">Administrar</th>
               </tr>
             </thead>
             <tbody>
               {currentProjects.map((project) => (
                 <tr key={project.id}>
-                  <td>
+                  <td className="text-center">
                     <input
                       type="checkbox"
                       onChange={() => handleSelectProject(project.id)}
                       checked={selectedProjects.includes(project.id)}
                     />
                   </td>
-                  <td>{project.name}</td>
-                  <td>{new Date(project.date).toLocaleString()}</td>
-                  <td>
-                    <td>
-                      <Badge pill bg={project.status ? "success" : "danger"}>
-                        {project.status ? "Publicado" : "Despublicado"}
-                      </Badge>
-                    </td>
+                  <td className="">{project.name}</td>
+                  <td className="text-center">
+                    {new Date(project.date).toLocaleString()}
                   </td>
-                  <td>
+                  <td className="text-center">
+                    <Badge pill bg={project.status ? "success" : "danger"}>
+                      {project.status ? "Publicado" : "Despublicado"}
+                    </Badge>
+                  </td>
+                  <td className="text-center">
                     {selectedProjects.length <= 1 &&
                       project.status === false && (
                         <Button
-                          variant="outline-primary"
+                          variant="primary"
                           size="sm"
                           className="me-2"
                           onClick={() => publishProject(project.id)}
@@ -291,11 +291,10 @@ const Index = () => {
                           Publicar
                         </Button>
                       )}
-
                     {selectedProjects.length <= 1 &&
                       project.status === true && (
                         <Button
-                          variant="outline-primary"
+                          variant="primary"
                           size="sm"
                           className="me-2"
                           onClick={() => unpublishProject(project.id)}
@@ -307,7 +306,7 @@ const Index = () => {
                     {selectedProjects.length > 1 &&
                       project.status === false && (
                         <Button
-                          variant="outline-primary"
+                          variant="primary"
                           size="sm"
                           className="me-2"
                           onClick={publishSelectedProjects}
@@ -318,7 +317,7 @@ const Index = () => {
 
                     {selectedProjects.length > 1 && project.status === true && (
                       <Button
-                        variant="outline-primary"
+                        variant="primary"
                         size="sm"
                         className="me-2"
                         onClick={unpublishSelectedProjects}
@@ -328,16 +327,16 @@ const Index = () => {
                     )}
 
                     <Button
-                      variant="outline-warning"
-                      size="sm"
-                      className="me-2"
+                      variant="info"
+                      size="sm text-white"
+                      className="me-0 me-md-2 mt-2 mt-lg-0"
                       onClick={() => openEditModal(project)}
                     >
                       Revisar
                     </Button>
 
                     <Button
-                      variant="outline-danger"
+                      variant="danger mt-2 mt-lg-0 text-center"
                       size="sm"
                       onClick={() => handleDeleteProject(project.id)}
                     >
@@ -348,6 +347,7 @@ const Index = () => {
               ))}
             </tbody>
           </Table>
+
           <Pagination>{renderPagination}</Pagination>
           {/* MODAL EXCLUIR */}
           <Modal
