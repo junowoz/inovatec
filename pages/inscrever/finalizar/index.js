@@ -6,63 +6,115 @@ import { useRouter } from "next/router";
 import Progress2 from "../progress/progress2";
 import { Container } from "react-bootstrap";
 import { useInscreverState } from "context/InscreverProjetos/InscreverState";
-import { supabase } from "supabase/client";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-export default function Submit() {
-  //AQUI TRAGO A INFORMAÇAO ARMAZENADA DO FORMULARIO ANTERIOR.
-  const { formData, members: membersData, submitData } = useInscreverState();
+const schema = yup.object().shape({
+  members: yup
+    .array()
+    .of(
+      yup.object().shape({
+        name: yup.string().required("Nome é obrigatório"),
+        role: yup.string().required("Função é obrigatória"),
+        showContact: yup.boolean(),
+        contact: yup
+          .string()
+          .email("Email inválido")
+          .when("showContact", {
+            is: true,
+            then: yup.string().required("Contato é obrigatório"),
+            otherwise: yup.string(),
+          }),
+      })
+    )
+    .min(1, "Pelo menos um membro com função e contato é necessário")
+    .required("Membros são obrigatórios"),
+});
 
-  //ROUTER
+
+export default function Finalizar() {
+  const [hydration, setHydration] = useState(true);
   const router = useRouter();
+
+  const {
+    formData,
+    members: membersData,
+    submitData,
+    roleData,
+    fetchData,
+  } = useInscreverState();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      members: [{ name: "", role: "", contact: "", showContact: false }],
+    },
+  });
 
   const [members, setMembers] = useState([
     { name: "", role: "", contact: "", showContact: false },
   ]);
 
-  //FETCH ROLES
-  const { roleData, fetchData } = useInscreverState();
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   //OTHER FUNCTIONS
-  const handleInputChange = (index, event) => {
-    const values = [...members];
-    values[index][event.target.name] = event.target.value;
-    setMembers(values);
+  const handleInputChange = (memberIndex, event) => {
+    const newMembers = [...members];
+    newMembers[memberIndex][event.target.name] = event.target.value;
+    setMembers(newMembers);
+    setValue(
+      `members[${memberIndex}].${event.target.name}`,
+      event.target.value
+    );
+    console.log(newMembers);
   };
 
   const handleAddClick = () => {
-    setMembers([
-      ...members,
-      { name: "", role: "", contact: "", showContact: false },
-    ]);
+    const newMember = { name: "", role: "", contact: "", showContact: false };
+    setMembers([...members, newMember]);
+    const newMembers = [
+      ...getValues("members"),
+      newMember,
+    ];
+    setValue("members", newMembers);
   };
-
+  
   const handleRemoveClick = (index) => {
-    const values = [...members];
-    values.splice(index, 1);
-    setMembers(values);
+    const newMembersLocal = members.filter((_, i) => i !== index);
+    setMembers(newMembersLocal);
+    const newMembersForm = getValues("members").filter((_, i) => i !== index);
+    setValue("members", newMembersForm);
   };
+  
 
-  //SUBMISSAO
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Submeter dados
+  //POSTAR TUDO
+  const handleOnSubmit = async (event) => {
+    console.log(event);
     submitData(formData, members);
     router.push("/inscrever/sucesso");
+    console.log(formData);
+    console.log(members);
   };
 
-  console.log(formData);
+  //HYDRATION
+  useEffect(() => {
+    fetchData();
+    setHydration(false);
+  }, []);
 
-  return (
+  return hydration ? (
+    ""
+  ) : (
     <Main>
       <Container>
         <Row className="justify-content-md-center">
           <Col md="8" xl="6">
-            <Form onSubmit={handleSubmit} className="py-5">
+            <Form onSubmit={handleSubmit(handleOnSubmit)} className="py-5">
               <Progress2 />
               <Alert variant="primary">
                 <Alert.Heading>
@@ -77,6 +129,8 @@ export default function Submit() {
                   "Finalizar Inscrição".
                 </p>
               </Alert>
+
+              {/* MEMBROS */}
               {members.map((member, index) => (
                 <Card className="p-3 mb-3" key={index}>
                   <Row className="align-items-center">
@@ -92,26 +146,32 @@ export default function Submit() {
                       </Button>
                     </Col>
 
+                    {/* NOME DO MEMBRO */}
                     <Col lg="6">
                       <Form.Group>
-                        {/* <Form.Label>
-                          <FaUserPlus /> Nome
-                        </Form.Label> */}
                         <Form.Control
                           type="text"
-                          name="name"
+                          name={`members[${index}].name`}
                           placeholder="Nome do membro"
-                          value={member.name}
+                          {...register(`members[${index}].name`)}
                           onChange={(event) => handleInputChange(index, event)}
                         />
+                        {errors.members &&
+                          errors.members[index] &&
+                          errors.members[index].name && (
+                            <Form.Control.Feedback type="invalid">
+                              {errors.members[index].name.message}
+                            </Form.Control.Feedback>
+                          )}
                       </Form.Group>
                     </Col>
+
+                    {/* FUNÇÃO DO MEMBRO */}
                     <Col lg="5">
                       <Form.Group className="mt-2 mt-lg-0">
-                        {/* <Form.Label>Função</Form.Label> */}
                         <Form.Select
-                          name="role"
-                          value={member.role}
+                          name={`members[${index}].role`}
+                          {...register(`members[${index}].role`)}
                           onChange={(event) => handleInputChange(index, event)}
                         >
                           <option value="">Escolher função</option>
@@ -121,6 +181,13 @@ export default function Submit() {
                             </option>
                           ))}
                         </Form.Select>
+                        {errors.members &&
+                          errors.members[index] &&
+                          errors.members[index].role && (
+                            <Form.Control.Feedback type="invalid">
+                              {errors.members[index].role.message}
+                            </Form.Control.Feedback>
+                          )}
                       </Form.Group>
                     </Col>
 
@@ -137,6 +204,7 @@ export default function Submit() {
                     </Col>
                   </Row>
 
+                  {/* ADICIONAR EMAIL PARA CONTATO */}
                   <Row className="mt-2">
                     <Col lg="8">
                       <Form.Check
@@ -152,19 +220,28 @@ export default function Submit() {
                     </Col>
                   </Row>
 
+                  {/* EMAIL PARA CONTATO */}
+
                   {member.showContact && (
                     <Row className="mt-2">
                       <Col lg="11">
                         <Form.Group>
                           <Form.Control
                             type="email"
-                            name="contact"
+                            name={`members[${index}].contact`}
                             placeholder="Digite seu email"
-                            value={member.contact}
+                            {...register(`members[${index}].contact`)}
                             onChange={(event) =>
                               handleInputChange(index, event)
                             }
                           />
+                          {errors.members &&
+                            errors.members[index] &&
+                            errors.members[index].contact && (
+                              <Form.Control.Feedback type="invalid">
+                                {errors.members[index].contact.message}
+                              </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                       </Col>
                     </Row>
