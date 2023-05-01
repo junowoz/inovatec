@@ -1,5 +1,6 @@
 import { supabase } from "supabase/client";
 import create from "zustand";
+import { v4 as uuidv4 } from "uuid";
 
 export const useInscreverState = create((set) => ({
   //StoreData
@@ -63,10 +64,50 @@ export const useInscreverState = create((set) => ({
       return;
     }
 
+    // Generate a UUID for the project
+    const projectImageId = uuidv4();
+
+    // Handle the image upload, load numerous images
+    const logoImgPath = await uploadFile(
+      formData.logoImg,
+      "logo",
+      projectImageId
+    );
+    const teamImgPath = await uploadFile(
+      formData.teamImg,
+      "team",
+      projectImageId
+    );
+    const productImgPath = await uploadFile(
+      formData.productImg,
+      "product",
+      projectImageId
+    );
+
+    // Then you can save the paths to these images in your formData
+    formData.logoImg = logoImgPath;
+    formData.teamImg = teamImgPath;
+    formData.productImg = productImgPath;
+
     // Inserir novo projeto na tabela "project", adiciona data, e status = false
     const { data: newProject, error: newProjectError } = await supabase
       .from("project")
-      .insert([{ ...formData, date: new Date().toISOString(), status: false }])
+      .insert([
+        {
+          ...formData,
+          date: new Date().toISOString(),
+          status: false,
+          logoImg: formData.logoImg
+            ? JSON.stringify({ path: formData.logoImg })
+            : null,
+          teamImg: formData.teamImg
+            ? JSON.stringify({ path: formData.teamImg })
+            : null,
+          productImg: formData.productImg
+            ? JSON.stringify({ path: formData.productImg })
+            : null,
+        },
+      ])
       .single();
 
     if (newProjectError) {
@@ -80,37 +121,65 @@ export const useInscreverState = create((set) => ({
       return;
     }
 
-    // Para cada membro, inserir um novo membro na tabela "member"
-    for (const member of members) {
-      const { name, role, contact } = member;
+    //Upload Files
+    async function uploadFile(fileList, path, projectImageId) {
+      const files = Array.from(fileList);
+      const uploadedFilePaths = await Promise.all(
+        files.map(async (file) => {
+          const fileName = `${uuidv4()}-${file.name}`;
+          const folderPath = `${path}/${projectImageId}`; // Create a folder with projectImageId
+          const filePath = `${folderPath}/${fileName}`;
+          let { error } = await supabase.storage
+            .from("midia")
+            .upload(filePath, file);
+          if (error) {
+            throw error;
+          }
+          return filePath;
+        })
+      );
+      return uploadedFilePaths;
+    }
 
-      // Inserir novo membro na tabela "member"
+    //INSERT MEMBERS
+    for (const member of members) {
+      // Insert member into "member" table
       const { data: newMember, error: newMemberError } = await supabase
         .from("member")
-        .insert([{ name, contact }])
+        .insert([
+          {
+            name: member.name,
+            contact: member.contact,
+          },
+        ])
         .single();
 
       if (newMemberError) {
         console.error(newMemberError);
-        // opcional: se houver um erro ao inserir um membro, você pode decidir se deseja excluir o projeto que acabou de ser inserido
+        return;
       }
 
-      // Inserir novo registro na tabela "ProjectMember"
-      const { error: newProjectMemberError } = await supabase
+      // Check if newMember is valid
+      if (!newMember) {
+        console.error("Error while creating new member, newMember is null");
+        return;
+      }
+
+      // Insert member into "project_member" table
+      const { error: projectMemberError } = await supabase
         .from("project_member")
         .insert([
           {
             project_id: newProject.id,
-            member_id: newMember.id,
-            role_id: role.id,
+            role_id: member.role,
+            member_id: newMember.id, // Use the ID of the newly created member
           },
         ]);
 
-      if (newProjectMemberError) {
-        console.error(newProjectMemberError);
+      if (projectMemberError) {
+        console.error(projectMemberError);
         return;
       }
     }
-
   },
 }));

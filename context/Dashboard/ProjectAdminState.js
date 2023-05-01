@@ -34,7 +34,43 @@ export const useProjectAdminState = create((set) => ({
       ),
     }));
   },
+
   deleteProject: async (id) => {
+    // Fetch project data to get image paths
+    const { data: projectData, error: fetchError } = await supabase
+      .from("project")
+      .select("logoImg, teamImg, productImg")
+      .eq("id", id);
+
+    if (fetchError) {
+      console.error(fetchError);
+      return;
+    }
+
+    // Extract image paths
+    const imagePaths = [
+      ...(projectData[0].logoImg
+        ? JSON.parse(projectData[0].logoImg).path
+        : []),
+      ...(projectData[0].teamImg
+        ? JSON.parse(projectData[0].teamImg).path
+        : []),
+      ...(projectData[0].productImg
+        ? JSON.parse(projectData[0].productImg).path
+        : []),
+    ];
+
+    // Delete images from storage
+    await Promise.all(
+      imagePaths.map(async (path) => {
+        let { error } = await supabase.storage.from("midia").remove([path]);
+        if (error) {
+          console.error(error);
+        }
+      })
+    );
+
+    // Delete project from database
     await supabase.from("project").delete().match({ id });
     set((state) => ({
       projects: state.projects.filter((project) => project.id !== id),
