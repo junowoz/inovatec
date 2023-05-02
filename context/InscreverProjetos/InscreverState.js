@@ -2,7 +2,7 @@ import { supabase } from "supabase/client";
 import create from "zustand";
 import { v4 as uuidv4 } from "uuid";
 
-export const useInscreverState = create((set) => ({
+export const useInscreverState = create((set, get) => ({
   //StoreData
   formData: {},
   setFormData: (data) => set((state) => ({ formData: data })),
@@ -13,22 +13,19 @@ export const useInscreverState = create((set) => ({
   yearData: [],
   techData: [],
   industryData: [],
-  roleData: [],
   setSemesterData: (data) => set(() => ({ semesterData: data })),
   setCourseData: (data) => set(() => ({ courseData: data })),
   setYearData: (data) => set(() => ({ yearData: data })),
   setTechData: (data) => set(() => ({ techData: data })),
   setIndustryData: (data) => set(() => ({ industryData: data })),
-  setRoleData: (data) => set(() => ({ roleData: data })),
 
   fetchData: async () => {
-    const [semester, course, year, tech, industry, role] = await Promise.all([
+    const [semester, course, year, tech, industry] = await Promise.all([
       supabase.from("semester").select("*").order("id", { ascending: true }),
       supabase.from("course").select("*").order("id", { ascending: true }),
       supabase.from("year").select("*").order("id", { ascending: true }),
       supabase.from("tech").select("*").order("id", { ascending: true }),
       supabase.from("industry").select("*").order("id", { ascending: true }),
-      supabase.from("role").select("*").order("id", { ascending: true }),
     ]);
 
     if (
@@ -36,15 +33,13 @@ export const useInscreverState = create((set) => ({
       course.error ||
       year.error ||
       tech.error ||
-      industry.error ||
-      role.error
+      industry.error
     ) {
       console.log(semester.error);
       console.log(course.error);
       console.log(year.error);
       console.log(tech.error);
       console.log(industry.error);
-      console.log(role.error);
     } else {
       set(() => ({
         semesterData: semester.data,
@@ -52,12 +47,12 @@ export const useInscreverState = create((set) => ({
         yearData: year.data,
         techData: tech.data,
         industryData: industry.data,
-        roleData: role.data,
       }));
     }
   },
 
-  submitData: async (formData, members) => {
+  //Submit Data
+  submitData: async (formData, member) => {
     // Verificar se formData tem todos os campos necessários
     if (!formData.name) {
       console.error("O campo 'name' está faltando ou é null");
@@ -65,29 +60,24 @@ export const useInscreverState = create((set) => ({
     }
 
     // Generate a UUID for the project
-    const projectImageId = uuidv4();
+    const projectUUID = uuidv4();
 
     // Handle the image upload, load numerous images
-    const logoImgPath = await uploadFile(
-      formData.logoImg,
-      "logo",
-      projectImageId
-    );
-    const teamImgPath = await uploadFile(
-      formData.teamImg,
-      "team",
-      projectImageId
-    );
+    const logoImgPath = await uploadFile(formData.logoImg, "logo", projectUUID);
+    const teamImgPath = await uploadFile(formData.teamImg, "team", projectUUID);
     const productImgPath = await uploadFile(
       formData.productImg,
       "product",
-      projectImageId
+      projectUUID
     );
 
     // Then you can save the paths to these images in your formData
     formData.logoImg = logoImgPath;
     formData.teamImg = teamImgPath;
     formData.productImg = productImgPath;
+    formData.projectUUID = projectUUID;
+    
+    console.log(projectUUID);
 
     // Inserir novo projeto na tabela "project", adiciona data, e status = false
     const { data: newProject, error: newProjectError } = await supabase
@@ -110,24 +100,45 @@ export const useInscreverState = create((set) => ({
       ])
       .single();
 
+    //Upload Members
+    const { data: newMembers, error: newMembersError } = await supabase
+      .from("member")
+      .insert(
+        member.map(({ id, ...members }) => ({
+          projectUUID: projectUUID,
+          ...members,
+        }))
+      );
+
+    // Verificar se newProject é válido
     if (newProjectError) {
       console.error(newProjectError);
       return;
     }
 
-    // Verificar se newProject é válido
     if (!newProject) {
       console.error("Erro ao criar novo projeto, newProject é null");
       return;
     }
 
+    // Verificar se newMembers é válido
+    if (newMembersError) {
+      console.error(newMembersError);
+      return;
+    }
+
+    if (!newMembers) {
+      console.error("Erro ao criar novo projeto, newMembers é null");
+      return;
+    }
+
     //Upload Files
-    async function uploadFile(fileList, path, projectImageId) {
+    async function uploadFile(fileList, path, projectUUID) {
       const files = Array.from(fileList);
       const uploadedFilePaths = await Promise.all(
         files.map(async (file) => {
           const fileName = `${uuidv4()}-${file.name}`;
-          const folderPath = `${path}/${projectImageId}`; // Create a folder with projectImageId
+          const folderPath = `${path}/${projectUUID}`; // Create a folder with projectUUID
           const filePath = `${folderPath}/${fileName}`;
           let { error } = await supabase.storage
             .from("midia")
@@ -139,47 +150,6 @@ export const useInscreverState = create((set) => ({
         })
       );
       return uploadedFilePaths;
-    }
-
-    //INSERT MEMBERS
-    for (const member of members) {
-      // Insert member into "member" table
-      const { data: newMember, error: newMemberError } = await supabase
-        .from("member")
-        .insert([
-          {
-            name: member.name,
-            contact: member.contact,
-          },
-        ])
-        .single();
-
-      if (newMemberError) {
-        console.error(newMemberError);
-        return;
-      }
-
-      // Check if newMember is valid
-      if (!newMember) {
-        console.error("Error while creating new member, newMember is null");
-        return;
-      }
-
-      // Insert member into "project_member" table
-      const { error: projectMemberError } = await supabase
-        .from("project_member")
-        .insert([
-          {
-            project_id: newProject.id,
-            role_id: member.role,
-            member_id: newMember.id, // Use the ID of the newly created member
-          },
-        ]);
-
-      if (projectMemberError) {
-        console.error(projectMemberError);
-        return;
-      }
     }
   },
 }));
