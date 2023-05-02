@@ -357,10 +357,10 @@ const Index = () => {
             onHide={() => setShowDeleteConfirmationModal(false)}
           >
             <Modal.Header closeButton>
-              <Modal.Title>Confirmação</Modal.Title>
+              <Modal.Title>Excluir Projeto</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Tem certeza que deseja excluir este projeto?
+              Tem certeza que deseja excluir este projeto? Esta ação é irreversível e deletará todos os dados associados ao projeto.
             </Modal.Body>
             <Modal.Footer>
               <Button
