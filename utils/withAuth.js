@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { userState } from 'context/User/UserState';
+import { userState } from 'context/UserState';
 
 const withAuth = (Component) => {
-  return (props) => {
+  const WithAuth = (props) => {
     const user = userState((state) => state.user);
     const router = useRouter();
 
@@ -15,6 +15,15 @@ const withAuth = (Component) => {
 
     return <Component {...props} />;
   };
+
+  WithAuth.displayName = `WithAuth(${getDisplayName(Component)})`;
+
+  return WithAuth;
 };
 
+function getDisplayName(Component) {
+  return Component.displayName || Component.name || 'Component';
+}
+
 export default withAuth;
+
