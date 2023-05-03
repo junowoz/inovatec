@@ -7,17 +7,14 @@ import {
   FloatingLabel,
   Card,
 } from "react-bootstrap";
-import { useInscreverState } from "context/InscreverProjetos/InscreverState";
+import { useInscreverState } from "context/useInscreverState";
 import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
 
 export default function ModalEditar({ project, isEditing }) {
   const [hydration, setHydration] = useState(false);
 
-  const {
-    register,
-    formState: { errors },
-    setValue,
-  } = useForm();
+  const { register, setValue } = useForm();
 
   /*SUPABASE FETCH */
   const {
@@ -49,7 +46,6 @@ export default function ModalEditar({ project, isEditing }) {
       setValue("course", project.course);
       setValue("tech", project.tech);
       setValue("industry", project.industry);
-      // ... preencha os outros campos do formulário ...
     }
   }, [project, setValue]);
 
@@ -313,10 +309,28 @@ export default function ModalEditar({ project, isEditing }) {
                 </Form>
               </Card>
             </Row>
-              {/* END CARD 3 */}
+            {/* END CARD 3 */}
           </Col>
         </Row>
       </div>
     </Container>
   );
 }
+
+//PROPTYPES
+ModalEditar.propTypes = {
+  project: PropTypes.shape({
+    name: PropTypes.string,
+    slogan: PropTypes.string,
+    projectDescription: PropTypes.string,
+    targetAudience: PropTypes.string,
+    productDescription: PropTypes.string,
+    projectViability: PropTypes.string,
+    year: PropTypes.number,
+    semester: PropTypes.number,
+    course: PropTypes.string,
+    tech: PropTypes.string,
+    industry: PropTypes.string,
+  }),
+  isEditing: PropTypes.bool,
+};

@@ -1,5 +1,4 @@
-import { useProjectAdminState } from "context/Dashboard/ProjectAdminState";
-import { useInscreverState } from "context/InscreverProjetos/InscreverState";
+import { useAdminState } from "context/useAdminState";
 import React, { useEffect, useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import Main from "components/main";
@@ -28,7 +27,7 @@ const Index = () => {
     unpublishProject,
     deleteProject,
     updateProject,
-  } = useProjectAdminState();
+  } = useAdminState();
 
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
@@ -150,13 +149,13 @@ const Index = () => {
 
   //EDIT PROJECTS
   const [isEditing, setIsEditing] = useState(false);
-  const { register, handleSubmit, setValue } = useForm();
+  const { handleSubmit, setValue } = useForm();
   const [showEditModal, setShowEditModal] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState(null);
 
-  const toggleEdit = () => {
-    setIsEditing(!isEditing);
-  };
+  // const toggleEdit = () => {
+  //   setIsEditing(!isEditing);
+  // };
 
   const openEditModal = (project) => {
     setProjectToEdit(project);
@@ -178,8 +177,8 @@ const Index = () => {
   }, []);
 
   //FETCH COLUNAS DO PROJETO PARA EDITAR
-  const { techData, courseData, yearData, semesterData, industryData } =
-    useInscreverState();
+  // const { techData, courseData, yearData, semesterData, industryData } =
+  //   useInscreverState();
 
   //MENSAGEM DE ATUALIZAÇAO
   if (isLoading) {
