@@ -1,5 +1,5 @@
 import { NavDropdown, Spinner } from "react-bootstrap";
-import { userState } from "context/User/UserState";
+import { userState } from "context/UserState";
 import Link from "next/link";
 import { BsPersonCircle } from "react-icons/bs";
 import { useEffect, useState } from "react";

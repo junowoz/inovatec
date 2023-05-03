@@ -43,6 +43,8 @@ export default function Cards() {
                     style={{
                       width: "auto",
                       backgroundColor: "none",
+                      minHeight: "15rem",
+
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "scale(1.05)";

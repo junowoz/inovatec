@@ -1,5 +1,5 @@
 import React from "react";
-import { userState } from "context/User/UserState";
+import { userState } from "context/UserState";
 import User from "./user";
 import Image from "next/image";
 import Link from "next/link";

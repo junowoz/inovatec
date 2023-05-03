@@ -1,27 +1,26 @@
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Image,
-  Card,
-  InputGroup,
-} from "react-bootstrap";
-import { useState } from "react";
-import { BiSearch } from "react-icons/bi";
+import { Container, Row, Col, Form, Image, Card } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useProjetoState } from "context/useProjetoState";
+import { useRouter } from "next/router";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 export default function Presentation() {
-  const [searchText, setSearchText] = useState("");
+  const { projects, fetchProjects } = useProjetoState();
+  const [selectedProject, setSelectedProject] = useState(null);
+  const router = useRouter();
 
-  function handleSearch(e) {
-    e.preventDefault();
-    props.onSearch(searchText);
-  }
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-  function handleInputChange(e) {
-    setSearchText(e.target.value);
-  }
+  const handleSearchChange = (selected) => {
+    if (selected.length > 0) {
+      setSelectedProject(selected[0]);
+      router.push(`/projetos/${selected[0].name}`);
+    } else {
+      setSelectedProject(null);
+    }
+  };
 
   return (
     <Container className="text-center py-5 px-md-5">
@@ -32,12 +31,7 @@ export default function Presentation() {
             <Image
               src="/Inovatec.png"
               alt="Inovatec"
-              style={{ maxWidth: "75%"}}
-
-              // Set width for different breakpoints using w- utility classes
-              // w-100: full width for xs breakpoint
-              // w-sm-75: 75% width for sm breakpoint and above
-              // w-lg-70: 70% width for lg breakpoint and above
+              style={{ maxWidth: "75%" }}
               className="d-lg-none align-self-center"
             />
             <h5 className="fw-bold fs-4 tittle-custom py-3 py-sm-3 d-lg-none">
@@ -57,7 +51,7 @@ export default function Presentation() {
                 variant="top"
                 src="/Inovatec.png"
                 className="align-self-center img-fluid"
-                style={{ maxWidth: "85%"}}
+                style={{ maxWidth: "85%" }}
               />
             </div>
           </Col>
@@ -65,27 +59,20 @@ export default function Presentation() {
 
         {/* Search Bar */}
         <Row>
-          <Form
-            onSubmit={handleSearch}
-            className="pb-3 pt-3 justify-content-center align-items-center"
-          >
+          <Form className="pb-3 pt-3 justify-content-center align-items-center">
             <Row className="align-items-center justify-content-center">
               <Col lg={12} md={12} sm={12} xs={12} className="text-center">
-                <InputGroup>
-                  <InputGroup.Text id="search-icon">
-                    <BiSearch />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type="text"
-                    placeholder="Pesquisar..."
-                    value={searchText}
-                    onChange={handleInputChange}
-                    className="px-3 py-2"
-                  />
-                  <Button type="submit" variant="primary" className="py-2 px-3">
-                    Pesquisar
-                  </Button>
-                </InputGroup>
+                <Typeahead
+                  className="w-100"
+                  style={{ height: '42px' }}
+                  minLength={1}
+                  id="basic-typeahead-single"
+                  labelKey="name"
+                  onChange={handleSearchChange}
+                  options={projects.filter((project) => project.status)}
+                  placeholder="Pesquisar projetos..."
+                  selected={selectedProject ? [selectedProject] : []}
+                />
               </Col>
             </Row>
           </Form>
