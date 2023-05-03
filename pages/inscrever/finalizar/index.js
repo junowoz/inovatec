@@ -5,7 +5,7 @@ import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Progress2 from "../progress/progress2";
 import { Container } from "react-bootstrap";
-import { useInscreverState } from "context/InscreverProjetos/InscreverState";
+import { useInscreverState } from "context/useInscreverState";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -35,7 +35,7 @@ const schema = yup.object().shape({
 export default function Finalizar() {
   const router = useRouter();
   const [hydration, setHydration] = useState(true);
-  const { formData, submitData, submitMember } = useInscreverState();
+  const { formData, submitData } = useInscreverState();
   const randomNumber = Math.floor(Math.random() * 100) + 1;
 
   const {
@@ -100,7 +100,7 @@ export default function Finalizar() {
                 </Alert.Heading>
                 <p>
                   Insira os nomes dos membros do projeto abaixo. Se o membro for
-                  um líder, marque a caixa de seleção "Líder", e insira o email
+                  um líder, marque a caixa de seleção &quot;Líder&quot;, e insira o email
                   para contato.
                 </p>
                 <p>
@@ -109,7 +109,7 @@ export default function Finalizar() {
                 </p>
                 <p>
                   Ao finalizar inscrição, simplesmente clique no botão
-                  "Finalizar Inscrição".
+                  &quot;Finalizar Inscrição&quot;.
                 </p>
               </Alert>
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Main from "components/main";
 import Head from "next/head";
-import { Container, Row, Col, Button, Card, Alert } from "react-bootstrap";
+import { Container, Row, Col, Card, Alert } from "react-bootstrap";
 import { FaCheckCircle } from "react-icons/fa";
 import Link from "next/link";
 

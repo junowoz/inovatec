@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Main from "components/main";
 import {
   Row,
@@ -12,7 +12,7 @@ import {
   OverlayTrigger,
 } from "react-bootstrap";
 import { BsChevronRight } from "react-icons/bs";
-import { useInscreverState } from "context/InscreverProjetos/InscreverState";
+import { useInscreverState } from "context/useInscreverState";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -141,7 +141,6 @@ export default function Inscrever() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -235,8 +234,8 @@ export default function Inscrever() {
                         overlay={
                           <Tooltip id={`tooltip-right`}>
                             Breve introdução ao propósito da empresa. Para o
-                            iFood seria: "Marketplace de delivery de comida e
-                            compras."
+                            iFood seria: &quot;Marketplace de delivery de comida e
+                            compras.&quot;
                             <hr /> 
                             Min: 10 caracteres
                             <br />
@@ -517,8 +516,8 @@ export default function Inscrever() {
                               <Tooltip id={`tooltip-right`}>
                                 Selecione a tecnologia principal que o seu
                                 projeto utiliza. Por exemplo, se o seu projeto
-                                usa IA, você pode escolher "Inteligência
-                                Artificial (IA)".
+                                usa IA, você pode escolher &quot;Inteligência
+                                Artificial (IA)&quot;.
                               </Tooltip>
                             }
                           >
