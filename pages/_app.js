@@ -1,7 +1,9 @@
+import React from "react";
+import PropTypes from "prop-types";
 import "../styles/custom.scss";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   const queryClient = new QueryClient();
 
   return (
@@ -11,4 +13,9 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+App.propTypes = {
+  Component: PropTypes.func.isRequired,
+  pageProps: PropTypes.object,
+};
+
+export default App;

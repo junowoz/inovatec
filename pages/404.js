@@ -1,3 +1,4 @@
+import React from "react";
 import Main from "components/main";
 import Image from "react-bootstrap/Image";
 import { Button, Container } from "react-bootstrap";
