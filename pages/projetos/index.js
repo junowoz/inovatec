@@ -1,42 +1,34 @@
+import React from "react";
 import Main from "components/main";
-// import Projetos from "/Projetos";
 import FiltroWeb from "./filtros/filtroWeb";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Head from "next/head";
+import PresentationProjetos from "components/projetos/presentation";
+import Vista from "./vista";
 
-export default function TodosProjetos() {
+export default function Projetos() {
   return (
     <Main>
       <Head>
         <title>Inovatec | Projetos</title>
       </Head>
-      <Container className="my-5">
+      <Container className="my-5 px-5">
+        {/* PRESENTATION */}
         <Row>
-          <Card variant="primary" className="">
-            <Card.Body>
-              <Card.Title className="fw-bold">Diretorio de Projetos</Card.Title>
-
-              <Card.Text className="">
-                Bem-vindo ao diretório de projetos Inovatec, uma iniciativa do
-                Centro Universitário Fametro para divulgar os projetos
-                desenvolvidos pelos alunos dos cursos de computação ao longo dos
-                anos.
-              </Card.Text>
-              <Card.Text className="">
-                Aqui você pode filtrar os projetos por ano, semestre, tipo de
-                tecnologia utilizada, indústria de atuação e muito mais. Não
-                deixe de conferir a criatividade e inovação dos nossos alunos!
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          <PresentationProjetos />
         </Row>
+        {/* FILTROS */}
         <Row>
-          <div className="separador my-4 px-4"></div>
-          <Col className="d-none d-xl-grid" xl="3">
+          <Container>
+            <div className="separador my-4 px-5"></div>
+          </Container>
+          <Col className="d-none d-xl-grid" xl="4">
             <FiltroWeb />
           </Col>
+
+          {/* PROJETOS */}
           <Col>
-            {/* <Projetos /> */}
+            <Vista />
           </Col>
         </Row>
       </Container>

@@ -1,13 +1,13 @@
-import { filtersState } from "context/Filters/filtersState";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFilter } from "react-icons/bs";
 import FiltroWeb from "../filtroWeb";
+import { useFiltroState } from "context/useFiltroState";
 
 export default function FiltroMobile(props) {
   const [show, setShow] = useState(false);
-  const ClearFilters = filtersState((state) => state.ClearFilters);
+  const clearFilter = useFiltroState((state) => state.clearFilter);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -45,7 +45,7 @@ export default function FiltroMobile(props) {
             <Button
             className="mb-3"
               onClick={() => {
-                ClearFilters();
+                clearFilter();
                 handleClose();
               }}
             >

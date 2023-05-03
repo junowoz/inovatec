@@ -1,51 +1,77 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, Form, Row, Col, Card } from "react-bootstrap";
-
-import tech from "components/projetos/filtros/tech";
-import year from "components/projetos/filtros/year";
-import industry from "components/projetos/filtros/industry";
-import semester from "components/projetos/filtros/semester";
-import course from "components/projetos/filtros/course";
-
-import { filtersState } from "context/Filters/filtersState";
+import { Accordion, Form, Card } from "react-bootstrap";
+import { useInscreverState } from "context/useInscreverState";
+import { useFiltroState } from "context/useFiltroState";
 
 export default function FiltroWeb() {
   const [hydration, setHydration] = useState(false);
+  const {
+    semesterData,
+    courseData,
+    yearData,
+    techData,
+    industryData,
+    fetchData,
+  } = useInscreverState();
+
+  const setFilter = useFiltroState((state) => state.setFilter);
+  const filters = useFiltroState((state) => state.filters);
+  const [allSelected, setAllSelected] = useState(true);
 
   useEffect(() => {
+    setFilter("year", true);
+    setFilter("course", true);
+    setFilter("semester", true);
+    setFilter("industry", true);
+    setFilter("tech", true);
+
+    fetchData();
     setHydration(true);
   }, []);
-  const setFilters = filtersState((state) => state.setFilters);
-  const filters = filtersState((state) => state.filters);
 
-  const Iters = (data, category) => {
+  const Iters = (data, setFilter, filters) => {
+    
+    const handleChange = (event) => {
+      const { name, checked } = event.target;
+      if (name === "all") {
+        setFilter("year", checked);
+        setFilter("course", checked);
+        setFilter("semester", checked);
+        setFilter("industry", checked);
+        setFilter("tech", checked);
+        setAllSelected(checked);
+      } else {
+        setFilter(name, checked);
+
+        // Se qualquer filtro é desmarcado, desmarcamos o "all" também.
+        if (!checked) {
+          setAllSelected(false);
+        }
+      }
+    };
+
     return (
       <>
-        {data.map((option, index) => {
-          // Verificar se a opcao pertence à categoria selecionada
-
+        <Form.Check
+          type="checkbox"
+          id="all"
+          name="all"
+          label="Todos"
+          value="all"
+          onChange={handleChange}
+          checked={filters.all || false}
+        />
+        {data.map((index) => {
           return (
             <Form.Check
               key={index}
               type={"checkbox"}
-              id={option.id}
-              name={option.id}
-              label={option.label}
-              value={option.id}
-              defaultChecked={filters[category]?.includes(option.id)}
-              onChange={(e) => {
-                setFilters((prevFilters) => {
-                  let filters = { ...prevFilters };
-                  if (e.target.checked) {
-                    filters[category] = [...filters[category], option.id];
-                  } else {
-                    filters[category] = filters[category].filter(
-                      (filter) => filter !== option.id
-                    );
-                  }
-                  return filters;
-                });
-              }}
+              id={index.id}
+              name={index.name}
+              label={index.name}
+              value={index.id}
+              onChange={handleChange}
+              checked={filters[index.name] || false}
             />
           );
         })}
@@ -66,7 +92,9 @@ export default function FiltroWeb() {
             <Accordion.Header className="py-0">
               <h5 className="fw-bolder fs-6">Ano</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(year, "year")}</Accordion.Body>
+            <Accordion.Body>
+              {Iters(yearData, setFilter, filters)}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Ano */}
 
@@ -75,7 +103,9 @@ export default function FiltroWeb() {
             <Accordion.Header className="py-0">
               <h5 className="fw-bolder fs-6">Curso</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(course, "course")}</Accordion.Body>
+            <Accordion.Body>
+              {Iters(courseData, setFilter, filters)}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Curso */}
 
@@ -84,7 +114,9 @@ export default function FiltroWeb() {
             <Accordion.Header>
               <h5 className="fw-bolder fs-6">Periodo</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(semester, "semester")}</Accordion.Body>
+            <Accordion.Body>
+              {Iters(semesterData, setFilter, filters)}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Periodo */}
 
@@ -93,7 +125,9 @@ export default function FiltroWeb() {
             <Accordion.Header>
               <h5 className="fw-bolder fs-6">Indústria</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(industry, "industry")}</Accordion.Body>
+            <Accordion.Body>
+              {Iters(industryData, setFilter, filters)}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Indústria */}
 
@@ -102,7 +136,9 @@ export default function FiltroWeb() {
             <Accordion.Header>
               <h5 className="fw-bolder fs-6">Tecnologia</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(tech, "tech")}</Accordion.Body>
+            <Accordion.Body>
+              {Iters(techData, setFilter, filters)}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Tecnologia */}
         </Accordion>
