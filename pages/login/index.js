@@ -1,5 +1,4 @@
-import Link from "next/link";
-import Image from "next/image";
+import React from "react";
 import ContainerLogin from "components/formlogin/ContainerLogin";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -8,7 +7,7 @@ import { useRouter } from "next/router";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { userState } from "context/User/UserState";
+import { userState } from "context/UserState";
 
 import * as yup from "yup";
 
@@ -17,7 +16,7 @@ const schema = yup.object({
   password: yup.string().required("A Senha é requerida"),
 });
 
-export default function Login(props) {
+export default function Login() {
   const signIn = userState((state) => state.signIn);
   const router = useRouter();
 
@@ -25,7 +24,7 @@ export default function Login(props) {
     handleSubmit,
     register,
     setError,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -44,7 +43,6 @@ export default function Login(props) {
     };
 
     const {
-      data: { user },
       error,
     } = await signIn(event);
 
