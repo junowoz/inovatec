@@ -3,7 +3,7 @@ import Main from "components/main";
 import FiltroWeb from "./filtros/filtroWeb";
 import { Container, Row, Col } from "react-bootstrap";
 import Head from "next/head";
-import PresentationProjetos from "components/projetos/presentation";
+import PresentationProjetos from "components/projetos/PresentationProjetos";
 import Vista from "./vista";
 
 export default function Projetos() {
@@ -12,7 +12,7 @@ export default function Projetos() {
       <Head>
         <title>Inovatec | Projetos</title>
       </Head>
-      <Container className="my-5 px-5">
+      <Container className="my-5">
         {/* PRESENTATION */}
         <Row>
           <PresentationProjetos />

@@ -59,7 +59,7 @@ export default function GetProjetos({ projects }) {
           return (
             <Link href={`/projetos/${project.name}`} key={project.id}>
               <Card
-                className="mb-3 mt-4 mt-xl-0 p-2"
+                className="mb-3 mt-4 mt-xl-0"
                 style={{ transition: "0.1s" }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.filter = "brightness(97%)")
@@ -67,12 +67,20 @@ export default function GetProjetos({ projects }) {
                 onMouseLeave={(e) => (e.currentTarget.style.filter = "")}
               >
                 <Card.Body>
-                  <Row>
-                    <Col xs="3" sm="3" md="2" lg="2">
+                  <Row className="align-items-center">
+                    <Col
+                      xs={5}
+                      sm={4}
+                      md={3}
+                      lg={3}
+                      xl={2}
+                      xxl={2}
+                      className="align-items-center justify-content-center"
+                    >
                       {/* LOGO */}
                       <Image
                         src={logoImg}
-                        className="align-items-center"
+                        className="d-block mx-auto m-2 w-100"
                         roundedCircle
                         fluid
                       />

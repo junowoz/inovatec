@@ -16,7 +16,7 @@ export default function FiltroWeb() {
 
   const setFilter = useFiltroState((state) => state.setFilter);
   const filters = useFiltroState((state) => state.filters);
-  const [allSelected, setAllSelected] = useState(true);
+  const [setAllSelected] = useState(true);
 
   useEffect(() => {
     setFilter("year", true);
@@ -30,7 +30,6 @@ export default function FiltroWeb() {
   }, []);
 
   const Iters = (data, setFilter, filters) => {
-    
     const handleChange = (event) => {
       const { name, checked } = event.target;
       if (name === "all") {
@@ -79,7 +78,9 @@ export default function FiltroWeb() {
     );
   };
 
-  return hydration ? (
+  return !hydration ? (
+    ""
+  ) : (
     <Card className="shadow-sm">
       <Card.Body>
         <Accordion
@@ -144,5 +145,5 @@ export default function FiltroWeb() {
         </Accordion>
       </Card.Body>
     </Card>
-  ) : null;
+  );
 }
