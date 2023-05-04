@@ -1,5 +1,4 @@
 import React from "react";
-import { userState } from "context/UserState";
 import User from "./user";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,10 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 
-
-export default function Header({}) {
-  const user = userState((state) => state.user); // User state
-
+export default function Header() {
   return (
     <Navbar
       collapseOnSelect
@@ -39,10 +35,18 @@ export default function Header({}) {
           <Nav className="ms-auto flex-fill"></Nav>
 
           <Nav className="me-auto flex-fill">
-            <Link href="/" className="me-4 text-secondary">Inicio</Link>
-            <Link href="/projetos" className="me-4 text-secondary">Projetos</Link>
-            <Link href="/inscrever" className="me-4 text-secondary">Inscriçao</Link>
-            <Link href="/manual" className="text-secondary">Manual</Link>
+            <Link href="/" className="me-4 text-secondary">
+              Inicio
+            </Link>
+            <Link href="/projetos" className="me-4 text-secondary">
+              Projetos
+            </Link>
+            <Link href="/inscrever" className="me-4 text-secondary">
+              Inscriçao
+            </Link>
+            <Link href="/manual" className="text-secondary">
+              Manual
+            </Link>
             {/* <Link href="#features" disabled>
               Rank
             </Link> */}

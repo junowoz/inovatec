@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import Link from "next/link";
 import React from "react";
@@ -6,9 +5,9 @@ import { BsInstagram } from "react-icons/bs";
 import { BsWindow } from "react-icons/bs";
 import { BsLink45Deg } from "react-icons/bs";
 
-const Footer = (props) => {
+const Footer = () => {
   return (
-    <MDBContainer style={{}}>
+    <MDBContainer>
       <div className="text-center text-lg-start text-muted footer-customs">
         <section className="d-flex justify-content-center justify-content-lg-between p-1">
           <MDBContainer className="text-center text-md-start mt-5" fluid="true">

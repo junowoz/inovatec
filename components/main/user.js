@@ -2,7 +2,7 @@ import { NavDropdown, Spinner } from "react-bootstrap";
 import { userState } from "context/UserState";
 import Link from "next/link";
 import { BsPersonCircle } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function User() {
   const signOut = userState((state) => state.signOut);
@@ -48,7 +48,9 @@ export default function User() {
         </div>
       );
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 
   return (
     <div>
