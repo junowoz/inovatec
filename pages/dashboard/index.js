@@ -13,6 +13,7 @@ import {
   InputGroup,
   Form,
   Pagination,
+  Spinner,
 } from "react-bootstrap";
 import { FaTrash, FaSync } from "react-icons/fa";
 import withAuth from "utils/withAuth";
@@ -22,7 +23,7 @@ const Index = () => {
   const {
     projects,
     isLoading,
-    fetchProjects,
+    fetchAdminProjects,
     publishProject,
     unpublishProject,
     deleteProject,
@@ -173,7 +174,7 @@ const Index = () => {
 
   //FETCH PROJECTS
   useEffect(() => {
-    fetchProjects();
+    fetchAdminProjects();
   }, []);
 
   //FETCH COLUNAS DO PROJETO PARA EDITAR
@@ -191,6 +192,12 @@ const Index = () => {
           height: "100vh", // isso faz o div ocupar a altura total da tela
         }}
       >
+        <Spinner
+          animation="grow"
+          size="sm"
+          className="me-2"
+          role="status"
+        ></Spinner>
         Atualizando projetos...
       </div>
     );
@@ -219,7 +226,7 @@ const Index = () => {
               className="me-2"
               size="md"
               onClick={() => {
-                fetchProjects();
+                fetchAdminProjects();
               }}
             >
               <FaSync />
@@ -359,7 +366,8 @@ const Index = () => {
               <Modal.Title>Excluir Projeto</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Tem certeza que deseja excluir este projeto? Esta ação é irreversível e deletará todos os dados associados ao projeto.
+              Tem certeza que deseja excluir este projeto? Esta ação é
+              irreversível e deletará todos os dados associados ao projeto.
             </Modal.Body>
             <Modal.Footer>
               <Button

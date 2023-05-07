@@ -62,10 +62,10 @@ export default function ModalEditar({ project, isEditing }) {
   // };
 
   useEffect(() => {
-    setHydration(false);
+    setHydration(true);
   }, []);
 
-  return hydration ? (
+  return !hydration ? (
     ""
   ) : (
     <Container>

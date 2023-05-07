@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.react-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.react-tagsinput--focused {
+  border-color: #b2b2b2;
+}
+
+.react-tagsinput-input::placeholder {
+  color: #6C757D; /* Altere para a cor desejada */
+}
+
+
+.react-tagsinput-tag {
+  background-color: #d2dfed;
+  border-radius: 2px;
+  border: 1px solid #aac5e2;
+  color: #212529;
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  line-height: normal;
+  font-weight: 400;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 5px;
+}
+
+.react-tagsinput-remove {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.react-tagsinput-tag a::before {
+  content: " ×";
+}
+
+.react-tagsinput-input {
+  background: transparent;
+  border: 0;
+  color: #212529;
+  
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  margin-top: 1px;
+  outline: none;
+  padding: 5px;
+  width: 80px;
+}

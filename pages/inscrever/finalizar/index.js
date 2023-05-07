@@ -1,86 +1,198 @@
 import React, { useState, useEffect } from "react";
 import Main from "components/main";
 import { FaUserPlus, FaTrash, FaCheck } from "react-icons/fa";
-import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Form,
+  Button,
+  Card,
+  ButtonGroup,
+  ToggleButton,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { useRouter } from "next/router";
-import Progress2 from "../progress/progress2";
+import ProgressFinalizar from "components/inscrever/progressFinalizar";
 import { Container } from "react-bootstrap";
 import { useInscreverState } from "context/useInscreverState";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Head from "next/head";
+import { BsChevronLeft } from "react-icons/bs";
+import { MembrosMensagem } from "components/inscrever/membrosMensagem";
+
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
+import InscreverSucesso from "../../../components/inscrever/InscreverSucesso";
+
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const linkedinRegex = /linkedin\./i;
+
+const contactValidation = (value) => {
+  if (emailRegex.test(value) || linkedinRegex.test(value)) {
+    return true;
+  }
+  return false;
+};
 
 const schema = yup.object().shape({
-  member: yup
+  leaderMember: yup
     .array()
     .of(
       yup.object().shape({
         name: yup.string().required("Nome obrigatório"),
-        email: yup.string().when("isLeader", {
-          is: true,
-          then: yup
-            .string()
-            .required("Email é obrigatório para os líderes")
-            .email("Email inválido"),
-          otherwise: yup.string().email("Email inválido"),
-        }),
-        isLeader: yup.boolean(),
+        contact: yup
+          .string()
+          .required("Contato é obrigatório")
+          .test(
+            "contactValidation",
+            "Contato inválido, insira um e-mail válido ou um link do LinkedIn",
+            contactValidation
+          ),
+        isFounder: yup.boolean(),
       })
     )
     .min(1, "Pelo menos um membro é necessário")
     .required("Membros são obrigatórios"),
 });
 
-export default function Finalizar() {
+export default function InscreverFinalizar() {
   const router = useRouter();
-  const [hydration, setHydration] = useState(true);
-  const { formData, submitData } = useInscreverState();
+  const [hydration, setHydration] = useState(false);
+  const { formData, submitData, resetFormData } = useInscreverState();
+  const [isLoading, setIsLoading] = useState(false); // Crie um novo estado para controlar o carregamento
   const randomNumber = Math.floor(Math.random() * 100) + 1;
+  const [commonMember, setCommonMember] = useState([]);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const {
     register,
     unregister,
     handleSubmit,
+    setValue,
+    trigger,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  //ADD, DELETE CARDS, AND SET VALUES
-  const [member, setMember] = useState([
-    { id: randomNumber, name: "", email: "", isLeader: false },
+  const [leaderMember, setLeaderMember] = useState([
+    { id: randomNumber, name: "", contact: "", isFounder: true },
   ]);
 
-  const handleAddClick = () => {
-    setMember([
-      ...member,
-      { id: randomNumber, name: "", email: "", isLeader: false },
-    ]);
+  //ALTERACOES DE TAGS
+  const maxLength = 45; // Escolha o comprimento máximo desejado para um nome
+
+  const isTagValid = (tag) => {
+    return tag.length <= maxLength;
   };
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedText = e.clipboardData.getData("text");
+    const names = pastedText.split(/,|\r\n|\n/).map((name) => name.trim());
+    const newNames = names.slice(0, 50 - commonMember.length);
+    setCommonMember([...commonMember, ...newNames]);
+  };
+
+  //REMOVE LEADER CARD
   const handleRemoveClick = (index) => {
-    const list = [...member];
-    list.splice(index, 1);
-    setMember(list);
-
-    // Unregister fields
-    unregister(`member.${index}.name`);
-    unregister(`member.${index}.email`);
-    unregister(`member.${index}.isLeader`);
+    if (index !== 0) {
+      const list = [...leaderMember];
+      list.splice(index, 1);
+      setLeaderMember(list);
+      // Unregister fields
+      unregister(`leaderMember.${index}.name`);
+      unregister(`leaderMember.${index}.contact`);
+      unregister(`leaderMember.${index}.isFounder`);
+    }
   };
 
-  // POSTAR TUDO
-  const onSubmit = async (event) => {
-    console.log(event);
-    submitData(formData, member);
-    router.push("/inscrever/sucesso");
+  //ADD LEADER CARD
+  const handleAddClick = () => {
+    if (leaderMember.length < 6) {
+      setLeaderMember([
+        ...leaderMember,
+        { id: randomNumber, name: "", contact: "", isFounder: false },
+      ]);
+    }
   };
 
-  //HYDRATION
+  //VERIFICAR SE TUDO ESTÁ PREENCHIDO
+  const checkFormValidity = () => {
+    if (
+      Object.keys(formData).length > 0 &&
+      leaderMember.some(
+        (item) => item.name.trim() !== "" && item.contact.trim() !== ""
+      )
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  };
+
+  //RESET MEMBERS
+  const resetMemberData = () => {
+    setLeaderMember([
+      { id: randomNumber, name: "", contact: "", isFounder: true },
+    ]);
+    setCommonMember([]);
+  };
+
+  //Efeito colateral para verificar a validade do formulário sempre que formData ou leaderMember forem alterados.
   useEffect(() => {
-    setHydration(false);
+    checkFormValidity();
+  }, [formData, leaderMember]);
+
+  //REGISTRAR E ATUALIZAR COMMOM MEMBER
+  useEffect(() => {
+    register("commonMember");
+
+    // Atualizar o campo commonMember no React Hook Form quando o estado local mudar
+    setValue("commonMember", commonMember);
+    trigger("commonMember");
+
+    return () => {
+      unregister("commonMember");
+    };
+  }, [commonMember, register, setValue, trigger, unregister]);
+
+  //SUBMIT
+  const onSubmit = async () => {
+    setIsLoading(true); // Defina o estado de carregamento como verdadeiro ao enviar
+    await submitData(formData, leaderMember, commonMember);
+    setIsLoading(false); // Defina o estado de carregamento como falso após a conclusão
+    resetFormData();
+    resetMemberData();
+    setShowSuccess(true);
+  };
+
+  const handleBack = () => {
+    router.push("/inscrever/tres");
+  };
+
+  useEffect(() => {
+    setHydration(true);
   }, []);
 
-  return hydration ? (
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url !== "/inscrever/tres" && url !== "/inscrever/sucesso") {
+        resetFormData();
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
+
+  return !hydration ? (
     ""
   ) : (
     <Main>
@@ -88,163 +200,256 @@ export default function Finalizar() {
         <title>Inovatec | Inscrever</title>
       </Head>
       <Container>
-        <Row className="justify-content-md-center">
-          <Col md="8" xl="6">
-            <Form onSubmit={handleSubmit(onSubmit)} className="py-5">
-              <Progress2 />
+        {!showSuccess ? (
+          <Row className="justify-content-md-center">
+            <Col md="8" xl="6">
+              <Form onSubmit={handleSubmit(onSubmit)} className="py-5">
+                <ProgressFinalizar />
+                <MembrosMensagem />
 
-              {/* MENSAGEM */}
-              <Alert variant="primary">
-                <Alert.Heading>
-                  <FaUserPlus className="me-2" /> Adicione os membros do projeto
-                </Alert.Heading>
-                <p>
-                  Insira os nomes dos membros do projeto abaixo. Se o membro for
-                  um líder, marque a caixa de seleção &quot;Líder&quot;, e insira o email
-                  para contato.
-                </p>
-                <p>
-                  Líderes são os responsáveis pelo projeto, membros são outros
-                  integrantes do projeto.
-                </p>
-                <p>
-                  Ao finalizar inscrição, simplesmente clique no botão
-                  &quot;Finalizar Inscrição&quot;.
-                </p>
-              </Alert>
-
-              {/* MEMBROS */}
-              {member.map((item, index) => (
-                <Card className="p-3 mb-3" key={item.id}>
-                  <Row className="align-items-center">
-                    {/* MOBILE DELETE */}
-                    <Col lg="1" className="d-block d-lg-none">
-                      <Button
-                        variant="outline-danger"
-                        onClick={() => handleRemoveClick(index)}
-                        disabled={member.length === 1}
-                        className="w-xs-0 w-100 mb-2 mb-lg-0"
-                        size="md"
-                      >
-                        <FaTrash />
-                      </Button>
-                    </Col>
-
-                    {/* NOME DO MEMBRO */}
-                    <Col
-                      lg={item.isLeader ? "5" : "10"}
-                      className="mb-2 mb-lg-0"
-                    >
-                      <Form.Group controlId={`name${index}`}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Nome do membro"
-                          {...register(`member.${index}.name`)}
-                          value={item.name}
-                          onChange={(e) => {
-                            const updatedMember = [...member];
-                            updatedMember[index].name = e.target.value;
-                            setMember(updatedMember);
-                          }}
-                        />
-                        <Form.Text className="text-danger">
-                          {errors.member &&
-                            errors.member[index] &&
-                            errors.member[index].name?.message}
-                        </Form.Text>
-                      </Form.Group>
-                    </Col>
-
-                    {/* EMAIL PARA CONTATO */}
-                    {item.isLeader && (
-                      <Col lg="5" className="mb-2 mb-lg-0 mr-3">
-                        <Form.Group
-                          controlId={`email${index}`}
-                          className="mt-2 m-sm-0"
-                        >
-                          <Form.Control
-                            type="email"
-                            placeholder="digite@email.com"
-                            {...register(`member.${index}.email`)}
-                            value={item.email}
-                            onChange={(e) => {
-                              const updatedMember = [...member];
-                              updatedMember[index].email = e.target.value;
-                              setMember(updatedMember);
-                            }}
-                          />
-                          <Form.Text className="text-danger">
-                            {errors.member &&
-                              errors.member[index] &&
-                              errors.member[index].email?.message}
-                          </Form.Text>
-                        </Form.Group>
-                      </Col>
-                    )}
-
-                    {/* BOTÃO EXCLUIR MEMBRO */}
-                    <Col lg="1" className="d-none d-lg-block">
-                      <Button
-                        variant="outline-danger"
-                        onClick={() => handleRemoveClick(index)}
-                        disabled={member.length === 1}
-                        size="md"
-                      >
-                        <FaTrash />
-                      </Button>
-                    </Col>
-                  </Row>
-
-                  {/* CHECKBOX LÍDER */}
-                  <Row lg="1">
-                    <Form.Group controlId={`isLeader${index}`} className="mt-2">
-                      <Form.Check
-                        type="checkbox"
-                        label="Líder"
-                        {...register(`member.${index}.isLeader`)}
-                        checked={item.isLeader}
-                        onChange={(e) => {
-                          const updatedMember = [...member];
-                          updatedMember[index].isLeader = e.target.checked;
-                          // Unregister email field if not leader
-                          if (!e.target.checked) {
-                            updatedMember[index].email = "";
-                            unregister(`member.${index}.email`);
+                {/* MEMBROS - isLeader = FALSE*/}
+                <h5 className="text-secondary">Membros</h5>
+                <Card className="p-3 mb-3">
+                  <Row>
+                    <Col>
+                      <TagsInput
+                        value={commonMember}
+                        onChange={(tags) => {
+                          if (tags.length <= 50) {
+                            setCommonMember(tags);
                           }
-                          setMember(updatedMember);
                         }}
+                        inputProps={{
+                          placeholder: "Nomes dos membros",
+                          style: { minWidth: "360px" },
+                          onPaste: handlePaste, // Adicionado manipulador de eventos onPaste
+                        }}
+                        addKeys={[188, 13]} // Adicionado o código da tecla Enter (13)
+                        validate={isTagValid} // Adicionado função de validação personalizada
                       />
-                    </Form.Group>
+                    </Col>
                   </Row>
                 </Card>
-              ))}
-              <Row className="align-items-center mt-2">
-                <Col xl="8"></Col>
-                <Col md="4">
-                  <Button
-                    variant="outline-primary"
-                    style={{ minWidth: "150px" }}
-                    onClick={handleAddClick}
-                  >
-                    <FaUserPlus className="me-1" /> Adicionar membro
-                  </Button>
-                </Col>
-              </Row>
-              <Row className="align-items-center mt-4">
-                <Col>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    className="w-100 py-2"
-                    size="md"
-                  >
-                    <FaCheck /> Finalizar Inscrição
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </Col>
-        </Row>
+                {/* END MEMBROS */}
+
+                {/* LIDERES */}
+                <h5 className="text-secondary">Lideres</h5>
+
+                {leaderMember.map((item, index) => (
+                  <Card className="p-3 mb-3" key={item.id}>
+                    {/* ROW MASTER */}
+                    <Row className="align-items-center">
+                      {/* COL 1 ( NAME, CONTACT, ISFOUNDER?)*/}
+                      <Col lg={10}>
+                        {/* ROW 1 INSIDE COL 1 (NAME, ISFOUNDER?) */}
+                        <Row>
+                          <Col lg={5} className="mb-2 mb-lg-0">
+                            <Form.Group controlId={`name${index}`}>
+                              <Form.Control
+                                type="text"
+                                placeholder="Nome"
+                                {...register(`leaderMember.${index}.name`)}
+                                value={item.name}
+                                onChange={(e) => {
+                                  const updatedLeaderMember = [...leaderMember];
+                                  updatedLeaderMember[index].name =
+                                    e.target.value;
+                                  setLeaderMember(updatedLeaderMember);
+                                }}
+                              />
+                              <Form.Text className="text-danger">
+                                {errors.leaderMember &&
+                                  errors.leaderMember[index] &&
+                                  errors.leaderMember[index].name?.message}
+                              </Form.Text>
+                            </Form.Group>
+                          </Col>
+
+                          <Col>
+                            <ButtonGroup className="w-100">
+                              <ToggleButton
+                                id={`founder${index}`}
+                                type="radio"
+                                variant="outline-primary"
+                                name={`leaderMember.${index}.isFounder`}
+                                value={true}
+                                checked={item.isFounder}
+                                onChange={(e) => {
+                                  const updatedLeaderMember = [...leaderMember];
+                                  updatedLeaderMember[index].isFounder =
+                                    e.currentTarget.value;
+                                  setLeaderMember(updatedLeaderMember);
+                                }}
+                                {...register(
+                                  `leaderMember.${index}.isFounder`,
+                                  {
+                                    value: item.isFounder,
+                                  }
+                                )}
+                              >
+                                Fundador
+                              </ToggleButton>
+                              <ToggleButton
+                                id={`cofounder${index}`}
+                                type="radio"
+                                variant="outline-primary"
+                                name={`leaderMember.${index}.isFounder`}
+                                value={false}
+                                checked={!item.isFounder}
+                                onChange={(e) => {
+                                  const updatedLeaderMember = [...leaderMember];
+                                  updatedLeaderMember[index].isFounder =
+                                    e.currentTarget.value;
+                                  setLeaderMember(updatedLeaderMember);
+                                }}
+                                {...register(`leaderMember.${index}.isFounder`)}
+                              >
+                                Cofundador
+                              </ToggleButton>
+                            </ButtonGroup>
+                          </Col>
+                        </Row>
+
+                        {/* ROW 2 INSIDE COL 1 (CONTACT) */}
+                        <Row>
+                          <Col className="my-2 mr-3">
+                            <Form.Group controlId={`contact${index}`}>
+                              <Form.Control
+                                type="text"
+                                placeholder="LinkedIn ou Email"
+                                {...register(`leaderMember.${index}.contact`)}
+                                value={item.contact}
+                                onChange={(e) => {
+                                  const updatedLeaderMember = [...leaderMember];
+                                  updatedLeaderMember[index].contact =
+                                    e.target.value;
+                                  setLeaderMember(updatedLeaderMember);
+                                }}
+                              />
+                              <Form.Text className="text-danger">
+                                {errors.leaderMember &&
+                                  errors.leaderMember[index] &&
+                                  errors.leaderMember[index].contact?.message}
+                              </Form.Text>
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                      </Col>
+                      {/* END COL 1 */}
+
+                      {/* COL 2 - BOTÃO EXCLUIR MEMBRO */}
+                      <Col className="d-none d-lg-flex align-items-center justify-content-center">
+                        <Button
+                          variant=""
+                          className="border-0 w-100"
+                          onClick={() => handleRemoveClick(index)}
+                          disabled={index === 0 || leaderMember.length === 1}
+                          size="md"
+                        >
+                          <FaTrash />
+                        </Button>
+                      </Col>
+                    </Row>
+                    {/* END ROW MASTER */}
+
+                    {/* MOBILE DELETE */}
+                    <Col className="d-block d-lg-none">
+                      <Button
+                        variant=""
+                        onClick={() => handleRemoveClick(index)}
+                        disabled={index === 0 || leaderMember.length === 1}
+                        className="w-xs-0 w-100 mb-2 mb-lg-0 border-0"
+                        size="md"
+                      >
+                        <FaTrash />
+                      </Button>
+                    </Col>
+                  </Card>
+                ))}
+
+                <Row className="align-items-center mt-2">
+                  <Col>
+                    <div className="d-flex justify-content-between">
+                      <div></div>
+
+                      <Button
+                        variant="outline-primary"
+                        style={{ minWidth: "150px" }}
+                        onClick={handleAddClick}
+                        disabled={leaderMember.length >= 6}
+                      >
+                        <FaUserPlus className="me-1" /> Adicionar Líder
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+
+                <Row className="align-items-center mt-4">
+                  <Col>
+                    {/* Atras e Finalizar */}
+                    <div className="d-flex justify-content-between pt-3">
+                      <Button variant="outline-primary" onClick={handleBack}>
+                        <BsChevronLeft
+                          size={18}
+                          className="me-1 align-items-center"
+                        />
+                        Voltar
+                      </Button>
+                      <div></div>
+                      {isFormValid ? (
+                        <Button
+                          variant="primary"
+                          type="submit"
+                          className="py-2"
+                          size="md"
+                          disabled={!isFormValid}
+                        >
+                          {isLoading ? (
+                            <Spinner
+                              animation="border"
+                              size="sm"
+                              className="me-2"
+                            />
+                          ) : (
+                            <FaCheck className="me-2" />
+                          )}
+                          Finalizar Inscrição
+                        </Button>
+                      ) : (
+                        <OverlayTrigger
+                          key="right"
+                          placement="right"
+                          overlay={
+                            <Tooltip id={`tooltip-right`}>
+                              Preencha todo o formulário para enviar a
+                              inscrição.
+                            </Tooltip>
+                          }
+                        >
+                          <span className="d-inline-block">
+                            <Button
+                              variant="primary"
+                              type="submit"
+                              className="py-2"
+                              size="md"
+                              disabled
+                            >
+                              <FaCheck className="me-2" />
+                              Finalizar Inscrição
+                            </Button>
+                          </span>
+                        </OverlayTrigger>
+                      )}
+                    </div>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
+        ) : (
+          // Conteúdo da mensagem de sucesso
+          <InscreverSucesso />
+        )}
       </Container>
     </Main>
   );

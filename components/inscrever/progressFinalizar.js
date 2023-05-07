@@ -1,7 +1,7 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
-export default function Progress2() {
+export default function ProgressFinalizar() {
   return (
     <div>
       <ProgressBar now={100} className="mb-4" />

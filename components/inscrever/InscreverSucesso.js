@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from "react";
-import Main from "components/main";
 import Head from "next/head";
-import { Container, Row, Col, Card, Alert } from "react-bootstrap";
+import { Container, Row, Col, Card, Alert, Spinner } from "react-bootstrap";
 import { FaCheckCircle } from "react-icons/fa";
 import Link from "next/link";
+import { BsWhatsapp } from "react-icons/bs";
 
-const Sucesso = () => {
+const InscreverSucesso = () => {
   const [countdown, setCountdown] = useState(20);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (countdown <= 0) {
+      setLoading(false);
+      return;
+    }
+
     const interval = setInterval(() => {
+      setLoading(false);
       setCountdown((prevCountdown) => prevCountdown - 1);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [countdown]);
 
   useEffect(() => {
     if (countdown === 0) {
-      // redirecionar para tela inicial após 10 segundos
+      // redirecionar para tela inicial após 20 segundos
       window.location.href = "/";
     }
   }, [countdown]);
 
   return (
-    <Main>
+    <div>
       <Head>
         <title>Inovatec | Sucesso</title>
       </Head>
@@ -43,26 +50,38 @@ const Sucesso = () => {
                   para referência na aba <Link href="/projetos">projetos</Link>.
                 </p>
                 <hr />
-
                 <p className="mb-4">
                   Caso haja algum erro ou se você precisar comunicar algo, envie
                   um e-mail para{" "}
-                  <a href="mailto:inovatecfametro@gmail.com">
+                  <Link href="mailto:inovatecfametro@gmail.com">
                     inovatecfametro@gmail.com
-                  </a>
-                  .
+                  </Link>
+                </p>
+                <p className="mb-4">
+                  Se preferir, nos envie uma mensagem pelo{" "}
+                  <Link
+                    href="https://wa.link/7shszi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp <BsWhatsapp />
+                  </Link>
                 </p>
                 <Alert variant="success">
-                    Você será redirecionado à tela inicial em {countdown}{" "}
-                    segundos.
+                  Você será redirecionado à tela inicial em{" "}
+                  {loading ? (
+                    <Spinner animation="border" size="sm" className="me-2" />
+                  ) : (
+                    `${countdown} segundos.`
+                  )}
                 </Alert>
               </Card.Body>
             </Card>
           </Col>
         </Row>
       </Container>
-    </Main>
+    </div>
   );
 };
 
-export default Sucesso;
+export default InscreverSucesso;

@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
 
 export default function Presentation() {
-  const { projects, fetchProjects } = useProjetoState();
+  const { projects, fetchProject } = useProjetoState();
   const [selectedProject, setSelectedProject] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    fetchProjects();
+    fetchProject();
   }, []);
 
   const handleSearchChange = (selected) => {

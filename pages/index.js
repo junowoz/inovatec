@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import Cards from "../components/home/cards.js";
 import Presentation from "../components/home/intro.js";
 
-export default function HomePage() {
+export default function Home() {
   return (
     <Main>
       <Container fluid className="presentation">

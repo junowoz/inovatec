@@ -1,32 +1,64 @@
-import React from "react";
 import { Card, Row, Col, Form } from "react-bootstrap";
 import FiltroMobile from "../filtros/filtroMobile";
 import GetProjetos from "./getProjetos";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useProjetoState } from "context/useProjetoState";
+import { useFiltroState } from "context/useFiltroState";
 
 export default function Vista() {
-  const { projects, fetchProjects } = useProjetoState();
+  const [hydration, setHydration] = useState(false);
+  const { projects, fetchProject } = useProjetoState();
+  const { filters } = useFiltroState();
 
   // Inicializando searchTerm antes de usá-lo na filtragem de projetos
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetchProjects();
+    fetchProject();
+    setHydration(true);
   }, []);
 
-  const filteredProjects = projects
-    .filter((project) => project.status)
-    .filter((project) =>
-      project.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  // //Checkea si el proyecto esta activo
+  // const activeProject = projects
+  //   .filter((project) => project.status)
+  //   .filter((project) =>
+  //     project.name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
 
   // função para manipular a mudança na barra de pesquisa
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  return (
+  //FILTERS
+  const filterProjects = (project) => {
+    const filterByCategory = (category) => {
+      if (
+        filters[category] &&
+        Array.isArray(filters[category]) &&
+        filters[category].length > 0
+      ) {
+        return filters[category].includes(project[category]);
+      }
+      return true;
+    };
+
+    return (
+      project.status &&
+      project.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      filterByCategory("year") &&
+      filterByCategory("course") &&
+      filterByCategory("semester") &&
+      filterByCategory("industry") &&
+      filterByCategory("tech")
+    );
+  };
+
+  const activeProject = projects.filter(filterProjects);
+
+  return !hydration ? (
+    ""
+  ) : (
     <div>
       <Card className="lg w-100" style={{ width: "auto" }}>
         <Card.Body>
@@ -55,13 +87,13 @@ export default function Vista() {
         {/* NUMERO DE RESULTADOS */}
         <Col sm="3">
           <span className="text-secondary">
-            {filteredProjects.length} resultados
+            {activeProject.length} resultados
           </span>
         </Col>
       </Row>
 
       {/* PROJETOS */}
-      <GetProjetos projects={filteredProjects} />
+      <GetProjetos projects={activeProject} />
     </div>
   );
 }

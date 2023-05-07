@@ -1,47 +1,36 @@
-import { supabase } from "supabase/client";
+// import { supabase } from "supabase/client";
 import create from "zustand";
+import { persist } from "zustand/middleware";
 
-export const useFiltroState = create((set) => ({
-
-  filters: {
-    year: null,
-    course: null,
-    semester: null,
-    industry: null,
-    tech: null,
-  },
-  
-  setFilter: (name, value) =>
-    set((state) => ({ filters: { ...state.filters, [name]: value } })),
-
-  clearFilter: () =>
-    set(() => ({
+// filtroState.js
+export const useFiltroState = create(
+  persist(
+    (set) => ({
       filters: {
-        year: null,
-        course: null,
-        semester: null,
-        industry: null,
-        tech: null,
+        year: "all",
+        course: "all",
+        semester: "all",
+        industry: "all",
+        tech: "all",
       },
-    })),
+      setFilter: (filterType, value) =>
+        set((state) => ({
+          filters: { ...state.filters, [filterType]: value },
+        })),
 
-  fetchFilter: async (filters) => {
-    let query = supabase.from("project").select("*");
-
-    // adicione filtros à consulta
-    for (const [name, value] of Object.entries(filters)) {
-      if (value) {
-        query = query.eq(name, value);
-      }
+      clearFilter: () =>
+        set(() => ({
+          filters: {
+            year: [],
+            course: [],
+            semester: [],
+            industry: [],
+            tech: [],
+          },
+        })),
+    }),
+    {
+      name: "FiltroData",
     }
-
-    const { data, error } = await query;
-
-    if (error) {
-      console.log(error);
-      return;
-    }
-
-    set({ projects: data });
-  },
-}));
+  )
+);

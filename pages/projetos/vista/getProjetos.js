@@ -7,7 +7,8 @@ import { useProjetoState } from "context/useProjetoState";
 import PropTypes from "prop-types";
 
 export default function GetProjetos({ projects }) {
-  const { fetchProjects } = useProjetoState();
+  const [hydration, setHydration] = useState(false);
+  const { fetchProject } = useProjetoState();
   const { techData, industryData, yearData } = useInscreverState();
   const CDN =
     "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/midia/";
@@ -18,7 +19,8 @@ export default function GetProjetos({ projects }) {
 
   //USEFFECT
   useEffect(() => {
-    fetchProjects();
+    fetchProject();
+    setHydration(true);
   }, []);
 
   // Obter projetos atuais
@@ -38,7 +40,9 @@ export default function GetProjetos({ projects }) {
     pageNumbers.push(i);
   }
 
-  return (
+  return !hydration ? (
+    ""
+  ) : (
     <div>
       {currentProjects
         .filter((project) => project.status)
