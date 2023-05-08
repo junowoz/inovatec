@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "../components/main";
+import Main from "components/main";
 import { Container } from "react-bootstrap";
 import Cards from "../components/home/cards.js";
 import Presentation from "../components/home/intro.js";

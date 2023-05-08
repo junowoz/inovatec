@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import Scrollspy from "react-scrollspy";
 import manualData from "./data.json";
-import Main from "/components/Main";
+import Main from "components/main";
 
 const Manual = () => {
   const [showSidebar, setShowSidebar] = useState(false);
