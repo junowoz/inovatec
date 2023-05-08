@@ -9,6 +9,7 @@ import {
   Button,
 } from "react-bootstrap";
 import Scrollspy from "react-scrollspy";
+// import { Scrollspy } from "@makotot/ghostui";
 import manualData from "./data.json";
 import Main from "components/main";
 
@@ -56,23 +57,26 @@ const Manual = () => {
               {showSidebar ? "Fechar sumário" : "Abrir sumário"}
             </Button>
             {showSidebar || (
-              <div className="sticky-top d-none d-md-block" style={{ top: "6rem" }}>
-                <Scrollspy
-                items={manualData.sections.map((section) => section.id)}
-                currentClassName="bg-primary text-white"
-                componentTag={ListGroup}
+              <div
+                className="sticky-top d-none d-md-block"
+                style={{ top: "6rem" }}
               >
-                {manualData.sections.map((section) => (
-                  <ListGroup.Item
-                    action
-                    href={`#${section.id}`}
-                    key={section.id}
-                  >
-                    {section.title}
-                  </ListGroup.Item>
-                ))}
-              </Scrollspy>
-            </div>
+                <Scrollspy
+                  items={manualData.sections.map((section) => section.id)}
+                  currentClassName="bg-primary text-white"
+                  componentTag={ListGroup}
+                >
+                  {manualData.sections.map((section) => (
+                    <ListGroup.Item
+                      action
+                      href={`#${section.id}`}
+                      key={section.id}
+                    >
+                      {section.title}
+                    </ListGroup.Item>
+                  ))}
+                </Scrollspy>
+              </div>
             )}
           </Col>
         </Row>

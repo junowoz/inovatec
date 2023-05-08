@@ -6,7 +6,7 @@ import Head from "next/head";
 import { useProjetoState } from "context/useProjetoState";
 import { FiExternalLink } from "react-icons/fi";
 import Midia from "components/projetos/slug/Midia";
-import { Membros } from "components/projetos/slug/Membros";
+import { Membros } from "components/projetos/Membros";
 import { CardIndex } from "components/projetos/slug/CardIndex";
 import { CardSecundario } from "components/projetos/slug/CardSecundario";
 import { Info } from "components/projetos/slug/Info";
