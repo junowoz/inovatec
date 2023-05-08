@@ -1,6 +1,6 @@
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import Image from "react-bootstrap/Image";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import { BsInstagram } from "react-icons/bs";
 import { BsWindow } from "react-icons/bs";
@@ -18,11 +18,11 @@ const Footer = () => {
               <MDBCol md="3" lg="2" xl="3">
                 <Link href="/">
                   <Image
-                    src="/inovatec.png"
-                    alt=""
+                    src="/Inovatec.png"
+                    alt="Logo"
                     className="img-fluid pb-5"
-                    width={200}
-                    height={100}
+                    width={250}
+                    height={150}
                   />
                 </Link>
               </MDBCol>
