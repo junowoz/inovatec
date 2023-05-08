@@ -113,12 +113,14 @@ export default function InscreverFinalizar() {
   //ADD LEADER CARD
   const handleAddClick = () => {
     if (leaderMember.length < 6) {
+      const newRandomNumber = Math.floor(Math.random() * 100) + 1;
       setLeaderMember([
         ...leaderMember,
-        { id: randomNumber, name: "", contact: "", isFounder: false },
+        { id: newRandomNumber, name: "", contact: "", isFounder: false },
       ]);
     }
   };
+  
 
   //VERIFICAR SE TUDO ESTÁ PREENCHIDO
   const checkFormValidity = () => {
