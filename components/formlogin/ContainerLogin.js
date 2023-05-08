@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import { Container, SSRProvider } from "react-bootstrap";
 import LoginNav from "./LoginNav";
 import LoginFooter from "./LoginFooter";
-import { supabase } from "supabase/client";
-import Router from "next/router";
+import PropTypes from "prop-types";
+
 export default function ContainerLogin(props) {
   return (
     <>
@@ -21,7 +21,7 @@ export default function ContainerLogin(props) {
               height: "100vh",
             }}
           >
-              <LoginNav className='ml-auto' />
+            <LoginNav className="ml-auto" />
 
             <Container className="d-flex flex-column justify-content-center align-content-center align-items-center">
               {props.children}
@@ -34,3 +34,7 @@ export default function ContainerLogin(props) {
     </>
   );
 }
+
+ContainerLogin.propTypes = {
+  children: PropTypes.node.isRequired,
+};

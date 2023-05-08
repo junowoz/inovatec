@@ -64,22 +64,24 @@ const Footer = () => {
                     <h6 className="text-uppercase fw-bold mb-3">Contato</h6>
                     <div className="">
                       <p>
-                        <Link
+                        <a
                           href="mailto:inovatecfametro@gmail.com"
                           target="_blank"
+                          rel="noreferrer"
                           className="text-reset"
                         >
                           Email
-                        </Link>
+                        </a>
                       </p>
                       <p>
-                        <Link
+                        <a
                           href="https://goo.gl/maps/KUzTbZ35p5w7AFWo7"
                           target="_blank"
+                          rel="noreferrer"
                           className="text-reset"
                         >
                           Endereço
-                        </Link>
+                        </a>
                       </p>
                     </div>
                   </MDBCol>
@@ -89,27 +91,30 @@ const Footer = () => {
                     <h6 className="text-uppercase fw-bold mb-3 text-reset">
                       REDES E SITES
                     </h6>
-                    <Link
+                    <a
                       href="https://www.instagram.com/computacaofametro/"
                       target="_blank"
+                      rel="noreferrer"
                       className="me-3 text-reset"
                     >
                       <BsInstagram size={25} />
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="https://fametro.edu.br/"
                       target="_blank"
+                      rel="noreferrer"
                       className="me-3 text-reset"
                     >
                       <BsWindow size={25} />
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="https://www.flowcode.com/page/computacaofametro"
                       target="_blank"
+                      rel="noreferrer"
                       className="text-reset"
                     >
                       <BsLink45Deg size={25} />
-                    </Link>
+                    </a>
                   </MDBCol>
                 </MDBRow>
               </MDBCol>
@@ -124,9 +129,13 @@ const Footer = () => {
           <MDBRow className="justify-content-between p-4">
             <div className="xxl:text-center text-reset mb-2">
               Designed and developed by{" "}
-              <Link target="_blank" href="https://junowoz.github.io/portfolio/">
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://junowoz.github.io/portfolio/"
+              >
                 @junowoz
-              </Link>
+              </a>
             </div>
             <div className="xxl:text-center text-reset mb-4">
               2023 © Inovatec. Todos os direitos reservados{" "}

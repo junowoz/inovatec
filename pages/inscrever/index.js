@@ -1,13 +1,6 @@
 import React from "react";
 import Main from "components/main";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Card,
-  Alert,
-} from "react-bootstrap";
+import { Container, Button, Row, Col, Card, Alert } from "react-bootstrap";
 import { BsWhatsapp } from "react-icons/bs";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -32,14 +25,15 @@ export default function Inscrever() {
 
       <Container>
         <Row className="justify-content-center my-5">
-          <Col xs="12" sm="10" md="8" lg="6">
+          <Col xs="12" sm="14" md="14" lg="8" xl="6" xxl="6">
             <Card className="p-5">
               <Card.Body>
                 <h2 className="mb-4">Inscreva seu projeto</h2>
                 <p>
-                  Para inscrever seu projeto, siga o processo de inscrição passo a
-                  passo. Após a inscrição, nosso time de administradores irá revisar
-                  e aprovar seu projeto. O processo pode levar até 24 horas.
+                  Para inscrever seu projeto, siga o processo de inscrição passo
+                  a passo. Após a inscrição, nosso time de administradores irá
+                  revisar e aprovar seu projeto. O processo pode levar até 24
+                  horas.
                 </p>
                 <p>
                   Se você tiver alguma dúvida durante o processo de inscrição,
@@ -61,11 +55,22 @@ export default function Inscrever() {
                 <Alert variant="warning" className="my-4">
                   <strong>Atenção:</strong> Antes de inscrever seu projeto, por
                   favor, verifique a lista de{" "}
-                  <Link href="/projetos">projetos existentes</Link> para garantir
-                  que não haja projetos similares já inscritos.
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/projetos"
+                  >
+                    projetos existentes
+                  </Link>{" "}
+                  para garantir que não haja projetos similares já inscritos.
                 </Alert>
                 {/* Seguinte */}
-                <Button variant="primary" type="submit"  className="w-100" onClick={handleOnSubmit}>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="w-100"
+                  onClick={handleOnSubmit}
+                >
                   Inscrever Projeto
                 </Button>
               </Card.Body>

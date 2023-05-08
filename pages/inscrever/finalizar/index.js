@@ -232,8 +232,8 @@ export default function InscreverFinalizar() {
                 </Card>
                 {/* END MEMBROS */}
 
-                {/* LIDERES */}
-                <h5 className="text-secondary">Lideres</h5>
+                {/* FUNDADORES */}
+                <h5 className="text-secondary">Fundadores</h5>
 
                 {leaderMember.map((item, index) => (
                   <Card className="p-3 mb-3" key={item.id}>
@@ -378,7 +378,7 @@ export default function InscreverFinalizar() {
                         onClick={handleAddClick}
                         disabled={leaderMember.length >= 6}
                       >
-                        <FaUserPlus className="me-1" /> Adicionar Líder
+                        <FaUserPlus className="me-1" /> Adicionar
                       </Button>
                     </div>
                   </Col>

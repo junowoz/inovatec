@@ -5,7 +5,6 @@ import Relleno from "utils/relleno";
 import { useInscreverState } from "context/useInscreverState";
 import { useProjetoState } from "context/useProjetoState";
 import PropTypes from "prop-types";
-
 export default function GetProjetos({ projects }) {
   const [hydration, setHydration] = useState(false);
   const { fetchProject } = useProjetoState();
@@ -64,7 +63,7 @@ export default function GetProjetos({ projects }) {
             <Link href={`/projetos/${project.name}`} key={project.id}>
               <Card
                 className="mb-3 mt-4 mt-xl-0"
-                style={{ transition: "0.1s" }}
+                style={{ background: "#FAFAFA", transition: "0.1s" }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.filter = "brightness(97%)")
                 }
@@ -73,20 +72,20 @@ export default function GetProjetos({ projects }) {
                 <Card.Body>
                   <Row className="align-items-center">
                     <Col
-                      xs={5}
-                      sm={4}
-                      md={3}
-                      lg={3}
+                      xs={4}
+                      sm={3}
+                      md={2}
+                      lg={2}
                       xl={2}
                       xxl={2}
-                      className="align-items-center justify-content-center"
+                      className="align-items-center justify-content-center me-2"
                     >
                       {/* LOGO */}
                       <Image
                         src={logoImg}
-                        className="d-block mx-auto m-2 w-100"
-                        roundedCircle
+                        className="m-2"
                         fluid
+                        roundedCircle
                       />
                     </Col>
                     <Col>

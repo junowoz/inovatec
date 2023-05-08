@@ -3,131 +3,77 @@ import {
   Container,
   Row,
   Col,
-  Card,
   ListGroup,
-  ListGroupItem,
+  Card,
+  Alert,
   Button,
-  Offcanvas,
 } from "react-bootstrap";
-import classnames from "classnames";
-import data from "./data.json";
-import Main from "components/main";
-import Head from "next/head";
+import Scrollspy from "react-scrollspy";
+import manualData from "./data.json";
+import Main from "/components/Main";
 
 const Manual = () => {
-  const { topics, content } = data;
-  const [selectedTopicIndex, setSelectedTopicIndex] = useState(0);
-  const selectedTopic = topics[selectedTopicIndex];
-  const [showSummary, setShowSummary] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
-  const handleTopicClick = (index) => {
-    setSelectedTopicIndex(index);
-    setShowSummary(false);
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
   };
-
-  const handlePrevTopic = () => {
-    if (selectedTopicIndex > 0) {
-      setSelectedTopicIndex(selectedTopicIndex - 1);
-    }
-  };
-
-  const handleNextTopic = () => {
-    if (selectedTopicIndex < topics.length - 1) {
-      setSelectedTopicIndex(selectedTopicIndex + 1);
-    }
-  };
-
-  const toggleSummary = () => {
-    setShowSummary(!showSummary);
-  };
-
   return (
     <Main>
-      <Head>
-        <title>Inovatec | Manual</title>
-      </Head>
-      <Container className="text-center py-5 px-md-5">
-        <Row>
-          <Button
-            variant="primary"
-            className="d-block d-lg-none mb-3"
-            onClick={toggleSummary}
-          >
-            Sumário
-          </Button>
-          <Col md={9}>
-            <Card>
-              <Card.Header>
-                <h3>{selectedTopic}</h3>
-              </Card.Header>
-              <Card.Body>
-                <Card.Text>{content[selectedTopic]}</Card.Text>
-              </Card.Body>
+      <Container className="py-5">
+        <Alert variant="primary">
+          <Alert.Heading>Manual</Alert.Heading>
+          <p>
+            Este é um manual para a Feira de Inovação <strong>Inovatec</strong>.
+            A Inovatec é um evento anual que reúne empreendedores, investidores,
+            acadêmicos e entusiastas da tecnologia para promover a inovação e o
+            desenvolvimento de novas ideias no Brasil. Neste manual, você
+            encontrará informações detalhadas sobre como participar do evento,
+            as atividades e palestras oferecidas, além de dicas para tirar o
+            máximo proveito da experiência. Estamos ansiosos para vê-lo na
+            próxima edição da Inovatec e juntos construirmos um futuro mais
+            inovador e sustentável para todos nós!
+          </p>
+        </Alert>
+
+        <Row className="pb-5">
+          <Col md={8}>
+            <Card className="p-5">
+              {manualData.sections.map((section) => (
+                <div key={section.id} id={section.id}>
+                  <h3>{section.title}</h3>
+                  <p>{section.content}</p>
+                </div>
+              ))}
             </Card>
-            <div className="d-flex justify-content-between mt-3">
-              <Button
-                variant="secondary"
-                onClick={handlePrevTopic}
-                disabled={selectedTopicIndex === 0}
-              >
-                Página anterior
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={handleNextTopic}
-                disabled={selectedTopicIndex === topics.length - 1}
-              >
-                Próxima página
-              </Button>
-            </div>
           </Col>
-          <Col md={3}>
-            <Offcanvas
-              show={showSummary}
-              onHide={toggleSummary}
-              placement="end"
+          <Col md={4}>
+            <Button
+              className="d-md-none mb-3"
+              variant="primary"
+              onClick={toggleSidebar}
             >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Sumário</Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <ListGroup>
-                  {topics.map((topic, index) => (
-                    <ListGroupItem
-                      key={topic}
-                      action
-                      className={classnames({
-                        active: selectedTopicIndex === index,
-                      })}
-                      onClick={() => handleTopicClick(index)}
-                    >
-                      {topic}
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
-              </Offcanvas.Body>
-            </Offcanvas>
-            <Card className="d-none d-lg-block">
-              <Card.Header>
-                <h4>Sumário</h4>
-              </Card.Header>
-              <Card.Body>
-                <ListGroup>
-                  {topics.map((topic, index) => (
-                    <ListGroupItem
-                      key={topic}
-                      action
-                      className={classnames({
-                        active: selectedTopicIndex === index,
-                      })}
-                      onClick={() => handleTopicClick(index)}
-                    >
-                      {topic}
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
-              </Card.Body>
-            </Card>
+              {showSidebar ? "Fechar sumário" : "Abrir sumário"}
+            </Button>
+            {showSidebar || (
+              <div className="sticky-top d-none d-md-block" style={{ top: "6rem" }}>
+                <Scrollspy
+                items={manualData.sections.map((section) => section.id)}
+                currentClassName="bg-primary text-white"
+                componentTag={ListGroup}
+              >
+                {manualData.sections.map((section) => (
+                  <ListGroup.Item
+                    action
+                    href={`#${section.id}`}
+                    key={section.id}
+                  >
+                    {section.title}
+                  </ListGroup.Item>
+                ))}
+              </Scrollspy>
+            </div>
+            )}
           </Col>
         </Row>
       </Container>

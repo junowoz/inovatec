@@ -53,19 +53,19 @@ const InscreverSucesso = () => {
                 <p className="mb-4">
                   Caso haja algum erro ou se você precisar comunicar algo, envie
                   um e-mail para{" "}
-                  <Link href="mailto:inovatecfametro@gmail.com">
+                  <a href="mailto:inovatecfametro@gmail.com">
                     inovatecfametro@gmail.com
-                  </Link>
+                  </a>
                 </p>
                 <p className="mb-4">
                   Se preferir, nos envie uma mensagem pelo{" "}
-                  <Link
+                  <a
                     href="https://wa.link/7shszi"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     WhatsApp <BsWhatsapp />
-                  </Link>
+                  </a>
                 </p>
                 <Alert variant="success">
                   Você será redirecionado à tela inicial em{" "}

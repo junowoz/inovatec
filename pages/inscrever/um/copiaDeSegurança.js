@@ -645,7 +645,7 @@ export default function Inscrever() {
                           <Tooltip id={`tooltip-right`}>
                             As fotos do seu time devem mostrar a equipe no
                             processo de construção do projeto. Se não possuir
-                            fotos do time, poste fotos dos líderes responsáveis
+                            fotos do time, poste fotos dos responsáveis
                             pelo projeto.
                           </Tooltip>
                         }

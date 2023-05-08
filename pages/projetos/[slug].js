@@ -4,18 +4,19 @@ import { Container, Spinner, Row, Breadcrumb, Col } from "react-bootstrap";
 import Main from "components/main";
 import Head from "next/head";
 import { useProjetoState } from "context/useProjetoState";
-import Link from "next/link";
 import { FiExternalLink } from "react-icons/fi";
 import Midia from "components/projetos/slug/Midia";
 import { Membros } from "components/projetos/slug/Membros";
 import { CardIndex } from "components/projetos/slug/CardIndex";
 import { CardSecundario } from "components/projetos/slug/CardSecundario";
 import { Info } from "components/projetos/slug/Info";
+import Erro404Projeto from "pages/404Projeto";
 
 export default function Slug() {
   const [hydration, setHydration] = useState(false);
   const [loading, setLoading] = useState(true); // estado para rastrear o carregamento
-  const { selectedProject, fetchSlugProject } = useProjetoState();
+  const { selectedProject, fetchSlugProject, clearSelectedProject } =
+    useProjetoState();
   const router = useRouter();
   const { slug } = router.query;
 
@@ -26,6 +27,10 @@ export default function Slug() {
         setHydration(true);
       });
     }
+    // Função de limpeza para definir selectedProject como null quando o componente for desmontado
+    return () => {
+      clearSelectedProject();
+    };
   }, [slug]);
 
   if (loading) {
@@ -53,20 +58,9 @@ export default function Slug() {
 
   if (!selectedProject) {
     return (
-      <Main>
-        <div
-          style={{
-            padding: "250px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "90hv",
-            textAlign: "center",
-          }}
-        >
-          <p>Projeto não encontrado.</p>
-        </div>
-      </Main>
+      <div>
+        <Erro404Projeto />
+      </div>
     );
   }
 
@@ -88,7 +82,7 @@ export default function Slug() {
         </Breadcrumb>
 
         <Row className="mt-4">
-          <Col md={8}>
+          <Col xs={14} sm={12} md={8} lg={8} xl={8} xxl={8} >
             <div border="none" className="p-2">
               <CardIndex />
             </div>
@@ -97,10 +91,20 @@ export default function Slug() {
             <hr style={{ color: "gray" }} />
             {selectedProject.link && (
               <div>
-                <Link className="w-100 my-2" href={selectedProject.link}>
+                <a
+                  className="w-100 my-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={
+                    selectedProject.link.startsWith("http://") ||
+                    selectedProject.link.startsWith("https://")
+                      ? selectedProject.link
+                      : "//" + selectedProject.link
+                  }
+                >
                   <FiExternalLink className="me-2" />
                   Link do projeto
-                </Link>
+                </a>
                 <hr style={{ color: "gray" }} />
               </div>
             )}
@@ -109,10 +113,15 @@ export default function Slug() {
 
             <br></br>
 
-            <hr style={{ color: "gray" }} className="my-4" />
+            <hr style={{ color: "gray" }} className="my-2" />
+            <Row>
+              <Col md={10}>
+                <Midia />
+              </Col>
+            </Row>
           </Col>
 
-          <Col md={4}>
+          <Col>
             <Row className="mb-4">
               <CardSecundario />
             </Row>
@@ -120,13 +129,8 @@ export default function Slug() {
             <Row>
               <Membros />
             </Row>
-          </Col>
 
-          <Row>
-            <Col md={8}>
-              <Midia />
-            </Col>
-          </Row>
+          </Col>
         </Row>
       </Container>
     </Main>

@@ -66,7 +66,7 @@ export const CardIndex = () => {
           className="d-block mx-auto m-2 w-100"
           roundedCircle
           fluid
-          style={{ border: "1px solid gray" }}
+          style={{ border: "1px solid rgba(241, 241, 241, 0.07)" }}
         />
       </Col>
       <Col>

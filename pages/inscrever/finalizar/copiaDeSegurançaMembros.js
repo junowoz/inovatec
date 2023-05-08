@@ -23,7 +23,7 @@ const schema = yup.object().shape({
           is: true,
           then: yup
             .string()
-            .required("Contato é obrigatório para os líderes")
+            .required("Contato é obrigatório para os fundadores")
             .email("Contato inválido"),
           otherwise: yup.string().email("Contato inválido"),
         }),
@@ -186,12 +186,12 @@ export default function InscreverFinalizar() {
                     </Col>
                   </Row>
 
-                  {/* CHECKBOX LÍDER */}
+                  {/* CHECKBOX Fundador */}
                   <Row lg="1">
                     <Form.Group controlId={`isLeader${index}`} className="mt-2">
                       <Form.Check
                         type="checkbox"
-                        label="Líder"
+                        label="Fundador"
                         {...register(`member.${index}.isLeader`)}
                         checked={item.isLeader}
                         onChange={(e) => {
@@ -217,7 +217,7 @@ export default function InscreverFinalizar() {
                     style={{ minWidth: "150px" }}
                     onClick={handleAddClick}
                   >
-                    <FaUserPlus className="me-1" /> Adicionar Lider
+                    <FaUserPlus className="me-1" /> Adicionar Fundador
                   </Button>
                 </Col>
               </Row>

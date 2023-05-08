@@ -9,6 +9,10 @@ export const useProjetoState = create(
       selectedProject: null,
       projectMembers: [],
 
+      clearSelectedProject: () => {
+        set({ selectedProject: null });
+      },
+
       //Traz todos os projetos fetchprojects
       fetchProject: async () => {
         const { data, error } = await supabase.from("project").select("*");

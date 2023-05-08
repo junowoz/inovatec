@@ -1,0 +1,12 @@
+.productImage {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .teamImage {
+    float: left;
+    max-width: 85%;
+    max-height: 85%;
+    height: auto;
+  }
+  

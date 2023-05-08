@@ -8,7 +8,7 @@ export const MembrosMensagem = () => {
     <div>
       <Alert variant="primary" className="p-4">
         <Alert.Heading>
-          <FaUserPlus className="me-2" /> Adicione membros e líderes do projeto
+          <FaUserPlus className="me-2" /> Adicione membros e fundadores do projeto
         </Alert.Heading>
         <ul>
           <li>
@@ -16,19 +16,19 @@ export const MembrosMensagem = () => {
             Enter ou colando uma lista com os nomes.
           </li>
           <li>
-            Adicione os <italic>líderes</italic> preenchendo os campos
+            Adicione os <italic>fundadores</italic> preenchendo os campos
             &quot;Nome&quot; e &quot;LinkedIn ou Email&quot; e selecionando
             &quot;Fundador&quot; ou &quot;Cofundador&quot;. Clique no botão
-            &quot;Adicionar Líder&quot; para adicionar mais líderes, se
+            &quot;Adicionar Fundador&quot; para adicionar mais fundadores, se
             necessário.
           </li>
         </ul>
         <p>
-          Líderes são responsáveis pelo projeto, enquanto membros são outros
+          Fundadores são responsáveis pelo projeto, enquanto membros são outros
           integrantes que contribuem.
         </p>
         <p>
-          Depois de adicionar todos os membros e líderes, clique em
+          Depois de adicionar todos os membros e fundadores, clique em
           &quot;Finalizar Inscrição&quot;.
         </p>
       </Alert>

@@ -41,6 +41,25 @@ const schema = yup.object({
         return value && value[0] && SUPPORTED_FORMATS.includes(value[0].type);
       }
     )
+    .test(
+      "FILE_DIMENSIONS",
+      "A imagem deve ser quadrada (mesmas dimensões).",
+      async (value) => {
+        if (value && value[0]) {
+          const dimensions = await new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+              resolve({ width: img.width, height: img.height });
+            };
+            img.src = URL.createObjectURL(value[0]);
+          });
+
+          return dimensions.width === dimensions.height;
+        }
+        return false;
+      }
+    )
+
     .required("Logo requerida"),
 
   teamImg: yup
@@ -175,9 +194,9 @@ export default function InscreverTres() {
                         placement="right"
                         overlay={
                           <Tooltip id={`tooltip-right`}>
-                            Seu logo é crucial para a identidade da sua marca.
-                            Recomendamos um fundo transparente e tamanho
-                            180x180px. Formatos recomendados: png e svg.
+                            A logo deve ter as mesmas dimensões (ex: 160x160,
+                            280x280). Seu logo é crucial para a identidade da
+                            sua marca. Formatos recomendados: png e svg.
                           </Tooltip>
                         }
                       >
@@ -202,8 +221,8 @@ export default function InscreverTres() {
                           <Tooltip id={`tooltip-right`}>
                             O ideal é que a foto do time mostre a equipe no
                             processo de construção do projeto. Se não possuir
-                            fotos do time, poste uma foto dos líderes
-                            responsáveis pelo projeto.
+                            fotos do time, poste uma foto dos responsáveis pelo
+                            projeto.
                           </Tooltip>
                         }
                       >
