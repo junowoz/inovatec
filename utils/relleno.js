@@ -1,5 +1,6 @@
 
-// Esto evita que el código se dañe ala cuadricula cuando usas grid con repeat
+//EVITA QUE O CODIGO TENHA BUGS QUANDO USAR GRID COM REPEAT
+import React from 'react'
 export default function Relleno() {
   return (<>
     <div />
