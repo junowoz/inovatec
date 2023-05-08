@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "../styles/custom.scss";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import "styles/react-tagsinput.css";
 
 function App({ Component, pageProps }) {
   const queryClient = new QueryClient();

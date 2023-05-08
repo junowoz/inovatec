@@ -25,7 +25,6 @@ import { BsChevronLeft } from "react-icons/bs";
 import { MembrosMensagem } from "components/inscrever/membrosMensagem";
 
 import TagsInput from "react-tagsinput";
-import "react-tagsinput/react-tagsinput.css";
 import InscreverSucesso from "../../../components/inscrever/InscreverSucesso";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
