@@ -28,7 +28,7 @@ export default function Erro404() {
               maxWidth: "567px",
             }}
           >
-            <Image src="/Erro404.png" alt="" className="img-fluid" style={{}} />
+            <Image src="/Erro404.png" alt="Erro404" className="img-fluid" />
           </div>
           <h3 style={{ color: "#0D62AD" }} className="mb-4">
             Página não encontrada

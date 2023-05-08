@@ -1,5 +1,5 @@
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import Image from "next/image";
+import Image from "react-bootstrap/Image";
 import Link from "next/link";
 import React from "react";
 import { BsInstagram } from "react-icons/bs";

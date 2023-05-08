@@ -5,11 +5,11 @@ import Main from "components/main";
 import Head from "next/head";
 import { useProjetoState } from "context/useProjetoState";
 import { FiExternalLink } from "react-icons/fi";
-import Midia from "components/projetos/slug/Midia";
+import { Midia } from "components/projetos/Midia";
 import { Membros } from "components/projetos/Membros";
-import { CardIndex } from "components/projetos/slug/CardIndex";
-import { CardSecundario } from "components/projetos/slug/CardSecundario";
-import { Info } from "components/projetos/slug/Info";
+import { CardIndex } from "components/projetos/CardIndex";
+import { CardSecundario } from "components/projetos/CardSecundario";
+import { Info } from "components/projetos/Info";
 import Erro404Projeto from "pages/404Projeto";
 
 export default function Slug() {
@@ -36,16 +36,7 @@ export default function Slug() {
   if (loading) {
     return (
       <Main>
-        <div
-          style={{
-            padding: "250px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "90hv",
-            textAlign: "center",
-          }}
-        >
+        <div className="d-flex align-items-center justify-content-center" style={{ height: "80vh" }}>
           <Spinner
             animation="border"
             variant="primary"
@@ -82,7 +73,7 @@ export default function Slug() {
         </Breadcrumb>
 
         <Row className="mt-4">
-          <Col xs={14} sm={12} md={8} lg={8} xl={8} xxl={8} >
+          <Col xs={14} sm={12} md={8} lg={8} xl={8} xxl={8}>
             <div border="none" className="p-2">
               <CardIndex />
             </div>
@@ -129,7 +120,6 @@ export default function Slug() {
             <Row>
               <Membros />
             </Row>
-
           </Col>
         </Row>
       </Container>
