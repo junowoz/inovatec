@@ -50,7 +50,6 @@ export default function Inscrever() {
                   >
                     WhatsApp <BsWhatsapp />
                   </a>
-                  .
                 </p>
                 <Alert variant="warning" className="my-4">
                   <strong>Atenção:</strong> Antes de inscrever seu projeto, por
