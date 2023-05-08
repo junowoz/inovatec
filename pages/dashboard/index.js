@@ -282,7 +282,7 @@ const Index = () => {
                   </td>
                   <td className="text-center">
                     <Badge pill bg={project.status ? "success" : "danger"}>
-                      {project.status ? "Publicado" : "Despublicado"}
+                      {project.status ? "Published" : "Unpublished"}
                     </Badge>
                   </td>
                   <td className="text-center">
@@ -294,7 +294,7 @@ const Index = () => {
                           className="me-2"
                           onClick={() => publishProject(project.id)}
                         >
-                          Publicar
+                          Publish
                         </Button>
                       )}
                     {selectedProjects.length <= 1 &&
@@ -305,7 +305,7 @@ const Index = () => {
                           className="me-2"
                           onClick={() => unpublishProject(project.id)}
                         >
-                          Despublicar
+                          Unpublish
                         </Button>
                       )}
 
