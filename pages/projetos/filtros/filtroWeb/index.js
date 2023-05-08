@@ -18,7 +18,7 @@ export default function FiltroWeb() {
   useEffect(() => {
     fetchData();
     setHydration(true);
-  }, []);
+  }, [fetchData]);
 
   const handleCheckboxChange = (filterType, value) => {
     setFilter(filterType, value);

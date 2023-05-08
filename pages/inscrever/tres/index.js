@@ -147,7 +147,7 @@ export default function InscreverTres() {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events]);
+  }, [router.events, resetFormData]);
 
   return !hydration ? (
     ""

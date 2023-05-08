@@ -20,22 +20,26 @@ export default function GetProjetos({ projects }) {
   useEffect(() => {
     fetchProject();
     setHydration(true);
-  }, []);
+  }, [fetchProject]);
 
   // Obter projetos atuais
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = projects.slice(
-    indexOfFirstProject,
-    indexOfLastProject
-  );
+
+  // const currentProjects = projects.slice(
+  //   indexOfFirstProject,
+  //   indexOfLastProject
+  // );
+
+  const currentProjects =
+    projects?.slice(indexOfFirstProject, indexOfLastProject) || [];
 
   // Alterar página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Gerar número de páginas
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(projects.length / projectsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(projects?.length / projectsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -83,6 +87,7 @@ export default function GetProjetos({ projects }) {
                       {/* LOGO */}
                       <Image
                         src={logoImg}
+                        alt="logo"
                         className="m-2"
                         fluid
                         roundedCircle
@@ -135,59 +140,3 @@ export default function GetProjetos({ projects }) {
 GetProjetos.propTypes = {
   projects: PropTypes.array.isRequired,
 };
-
-// // function filteredData(data, filters) {
-// //   return data.filter((datum) => {
-// //     let passesFilter = true;
-
-// //     if (filters.country?.length > 0 && !filters.country.includes(datum.country)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.category?.length > 0 && !filters.category.includes(datum.propiedades.category)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.subcategory?.length > 0 && !filters.subcategory.includes(datum.propiedades.subcategory)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.size?.length > 0 && !filters.size.includes(datum.size)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.brands?.length > 0 && !filters.brands.includes(datum.propiedades.brand)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.materials?.length > 0 && !filters.materials.includes(datum.propiedades.material)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.suspension?.length > 0 && !filters.suspension.includes(datum.propiedades.suspension)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters.frenos?.length > 0 && !filters.frenos.includes(datum.propiedades.freno)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters?.rines?.length > 0 && !filters.rines.includes(datum.propiedades.rine)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters?.years?.length > 0 && !filters.years.includes(datum.year)) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters?.minPrice !== null && datum.price < filters.minPrice) {
-// //       passesFilter = false;
-// //     }
-
-// //     if (filters?.maxPrice !== null && datum.price > filters.maxPrice) {
-// //       passesFilter = false;
-// //     }
-
-// //     return passesFilter;
-// //   });
-// // }

@@ -120,7 +120,7 @@ export default function InscreverUm() {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events]);
+  }, [router.events, resetFormData]);
   
 
   return !hydration ? (

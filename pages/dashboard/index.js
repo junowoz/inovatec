@@ -175,7 +175,7 @@ const Index = () => {
   //FETCH PROJECTS
   useEffect(() => {
     fetchAdminProjects();
-  }, []);
+  }, [fetchAdminProjects]);
 
   //FETCH COLUNAS DO PROJETO PARA EDITAR
   // const { techData, courseData, yearData, semesterData, industryData } =

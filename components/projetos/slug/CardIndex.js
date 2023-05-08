@@ -63,6 +63,7 @@ export const CardIndex = () => {
       >
         <Image
           src={logoImg}
+          alt="logo"
           className="d-block mx-auto m-2 w-100"
           roundedCircle
           fluid

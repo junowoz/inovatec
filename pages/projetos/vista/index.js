@@ -16,7 +16,7 @@ export default function Vista() {
   useEffect(() => {
     fetchProject();
     setHydration(true);
-  }, []);
+  }, [fetchProject]);
 
   // //Checkea si el proyecto esta activo
   // const activeProject = projects
@@ -54,7 +54,8 @@ export default function Vista() {
     );
   };
 
-  const activeProject = projects.filter(filterProjects);
+  // const activeProject = projects.filter(filterProjects);
+  const activeProject =(projects || []).filter(filterProjects);
 
   return !hydration ? (
     ""

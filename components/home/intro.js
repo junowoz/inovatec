@@ -11,7 +11,7 @@ export default function Presentation() {
 
   useEffect(() => {
     fetchProject();
-  }, []);
+  }, [fetchProject]);
 
   const handleSearchChange = (selected) => {
     if (selected.length > 0) {

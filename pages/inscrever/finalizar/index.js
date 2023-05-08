@@ -120,21 +120,6 @@ export default function InscreverFinalizar() {
       ]);
     }
   };
-  
-
-  //VERIFICAR SE TUDO ESTÁ PREENCHIDO
-  const checkFormValidity = () => {
-    if (
-      Object.keys(formData).length > 0 &&
-      leaderMember.some(
-        (item) => item.name.trim() !== "" && item.contact.trim() !== ""
-      )
-    ) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
-  };
 
   //RESET MEMBERS
   const resetMemberData = () => {
@@ -146,7 +131,19 @@ export default function InscreverFinalizar() {
 
   //Efeito colateral para verificar a validade do formulário sempre que formData ou leaderMember forem alterados.
   useEffect(() => {
-    checkFormValidity();
+    //VERIFICAR SE TUDO ESTÁ PREENCHIDO
+    const checkFormValidity = () => {
+      if (
+        Object.keys(formData).length > 0 &&
+        leaderMember.some(
+          (item) => item.name.trim() !== "" && item.contact.trim() !== ""
+        )
+      ) {
+        setIsFormValid(true);
+      } else {
+        setIsFormValid(false);
+      }
+    };
   }, [formData, leaderMember]);
 
   //REGISTRAR E ATUALIZAR COMMOM MEMBER
@@ -192,7 +189,7 @@ export default function InscreverFinalizar() {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events]);
+  }, [router.events, resetFormData]);
 
   return !hydration ? (
     ""

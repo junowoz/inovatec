@@ -31,7 +31,7 @@ export default function Slug() {
     return () => {
       clearSelectedProject();
     };
-  }, [slug]);
+  }, [slug, clearSelectedProject, fetchSlugProject]);
 
   if (loading) {
     return (

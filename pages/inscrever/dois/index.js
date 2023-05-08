@@ -80,7 +80,7 @@ export default function InscreverDois() {
   useEffect(() => {
     fetchData();
     setHydration(true);
-  }, []);
+  }, [fetchData, setHydration]);
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -94,7 +94,7 @@ export default function InscreverDois() {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events]);
+  }, [router.events, resetFormData]);
 
   return !hydration ? (
     ""

@@ -59,6 +59,7 @@ export default function Midia() {
         <a href={teamImg} target="blank">
           <Image
             src={teamImg}
+            alt="logo"
             // className="d-block mx-auto m-2 w-20"
             className={`d-block mb-4  ${styles.teamImage}`}
             rounded

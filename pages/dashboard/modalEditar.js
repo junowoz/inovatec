@@ -28,7 +28,7 @@ export default function ModalEditar({ project, isEditing }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   //TRAZER OS DADOS
 

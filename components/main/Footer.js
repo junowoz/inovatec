@@ -1,4 +1,5 @@
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BsInstagram } from "react-icons/bs";
@@ -16,7 +17,7 @@ const Footer = () => {
               {/*Logo*/}
               <MDBCol md="3" lg="2" xl="3">
                 <Link href="/">
-                  <img
+                  <Image
                     src="/inovatec.png"
                     alt=""
                     className="img-fluid pb-5"
