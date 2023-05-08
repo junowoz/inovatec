@@ -76,7 +76,10 @@ export const Membros = () => {
                 .filter((member) => !member.isLeader)
                 .flatMap((member, index) =>
                   parseMemberNames(member.name).map((name, i) => (
-                    <span key={`${index}-${i}`}>{name.trim()}<br/></span>
+                    <span key={`${index}-${i}`}>
+                      {name.trim()}
+                      <br />
+                    </span>
                   ))
                 )}
             </Card.Body>
