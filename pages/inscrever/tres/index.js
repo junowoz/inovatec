@@ -117,7 +117,6 @@ export default function InscreverTres() {
     resolver: yupResolver(schema),
   });
 
-
   //SUBMIT
   const handleOnSubmit = async (items) => {
     setIsLoading(true);
@@ -140,6 +139,8 @@ export default function InscreverTres() {
     const handleRouteChange = (url) => {
       if (url !== "/inscrever/dois" && url !== "/inscrever/finalizar") {
         resetFormData();
+        localStorage.removeItem("leaderMemberData");
+        localStorage.removeItem("commonMemberData");
       }
     };
 

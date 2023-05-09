@@ -89,6 +89,8 @@ export default function InscreverDois() {
     const handleRouteChange = (url) => {
       if (url !== "/inscrever/um" && url !== "/inscrever/tres") {
         resetFormData();
+        localStorage.removeItem("leaderMemberData");
+        localStorage.removeItem("commonMemberData");
       }
     };
 

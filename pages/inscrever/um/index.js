@@ -99,6 +99,8 @@ export default function InscreverUm() {
 
   //CLEARINFO
   const handleExit = () => {
+    localStorage.removeItem("leaderMemberData");
+    localStorage.removeItem("commonMemberData");
     resetFormData();
     router.push("/inscrever");
   };
@@ -112,16 +114,17 @@ export default function InscreverUm() {
     const handleRouteChange = (url) => {
       if (url !== "/inscrever/dois") {
         resetFormData();
+        localStorage.removeItem("leaderMemberData");
+        localStorage.removeItem("commonMemberData");
       }
     };
-  
+
     router.events.on("routeChangeStart", handleRouteChange);
-  
+
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
   }, [router.events, resetFormData]);
-  
 
   return !hydration ? (
     ""

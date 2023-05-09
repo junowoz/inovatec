@@ -14,6 +14,8 @@ export default function Inscrever() {
   //SUBMIT
   const handleOnSubmit = () => {
     resetFormData();
+    localStorage.removeItem("leaderMemberData");
+    localStorage.removeItem("commonMemberData");
     router.push("/inscrever/um");
   };
 
