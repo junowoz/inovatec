@@ -42,6 +42,7 @@ export default function InscreverDois() {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -73,6 +74,8 @@ export default function InscreverDois() {
 
   //BACK
   const handleBack = () => {
+    const currentValues = getValues();
+    setFormData({ ...formData, ...currentValues });
     router.push("/inscrever/um");
   };
 
