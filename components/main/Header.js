@@ -13,7 +13,7 @@ export default function Header() {
       expand="lg"
       bg="light"
       variant="light"
-      sticky="top"
+      // sticky="top"
       className="hover-custom shadow-sm w-100"
     >
       <Container>
