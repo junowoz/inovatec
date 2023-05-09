@@ -9,15 +9,20 @@ import {
   Button,
 } from "react-bootstrap";
 import Scrollspy from "react-scrollspy";
-// import { Scrollspy } from "@makotot/ghostui";
 import manualData from "./data.json";
 import Main from "components/main";
 
 const Manual = () => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null); // Nuevo estado para el elemento seleccionado
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
+  };
+
+  // Nueva función para manejar la selección de elementos
+  const handleSelect = (selectedKey) => {
+    setSelectedItem(selectedKey);
   };
   return (
     <Main>
@@ -37,6 +42,13 @@ const Manual = () => {
           </p>
         </Alert>
 
+        <Button
+          className="d-md-none mb-4 mt-2 w-100"
+          variant="primary"
+          onClick={toggleSidebar}
+        >
+          {showSidebar ? "Fechar sumário" : "Abrir sumário"}
+        </Button>
         <Row className="pb-5">
           <Col md={8}>
             <Card className="p-5">
@@ -49,13 +61,6 @@ const Manual = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Button
-              className="d-md-none mb-3"
-              variant="primary"
-              onClick={toggleSidebar}
-            >
-              {showSidebar ? "Fechar sumário" : "Abrir sumário"}
-            </Button>
             {showSidebar || (
               <div
                 className="sticky-top d-none d-md-block"
@@ -71,6 +76,8 @@ const Manual = () => {
                       action
                       href={`#${section.id}`}
                       key={section.id}
+                      onClick={() => handleSelect(section.id)} // Agregar el controlador onClick
+                      active={selectedItem === section.id} // Agregar la propiedad 'active' para mostrar solo el elemento seleccionado
                     >
                       {section.title}
                     </ListGroup.Item>

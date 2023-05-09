@@ -38,6 +38,11 @@ const contactValidation = (value) => {
 };
 
 const schema = yup.object().shape({
+  commonMember: yup
+    .array()
+    .min(1, "Pelo menos um membro é necessário")
+    .required("Membros comuns são obrigatórios"),
+
   leaderMember: yup
     .array()
     .of(
@@ -67,6 +72,7 @@ export default function InscreverFinalizar() {
   const [commonMember, setCommonMember] = useState([]);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [submitAttempted, setSubmitAttempted] = useState(false);
 
   const {
     register,
@@ -154,6 +160,11 @@ export default function InscreverFinalizar() {
 
   //SUBMIT
   const onSubmit = async () => {
+    setSubmitAttempted(true);
+    if (!isFormValid) {
+      return;
+    }
+
     setIsLoading(true); // Defina o estado de carregamento como verdadeiro ao enviar
     await submitData(formData, leaderMember, commonMember);
     setIsLoading(false); // Defina o estado de carregamento como falso após a conclusão
@@ -251,6 +262,9 @@ export default function InscreverFinalizar() {
                         validate={isTagValid} // Adicionado função de validação personalizada
                       />
                     </Col>
+                    <Form.Text className="text-secondary">
+                      {errors.commonMember && errors.commonMember.message}
+                    </Form.Text>
                   </Row>
                 </Card>
                 {/* END MEMBROS */}
