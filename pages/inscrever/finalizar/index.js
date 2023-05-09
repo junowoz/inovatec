@@ -120,14 +120,6 @@ export default function InscreverFinalizar() {
     }
   };
 
-  //RESET MEMBERS
-  const resetMemberData = () => {
-    setLeaderMember([
-      { id: randomNumber, name: "", contact: "", isFounder: true },
-    ]);
-    setCommonMember([]);
-  };
-
   //Efeito colateral para verificar a validade do formulário sempre que formData ou leaderMember forem alterados.
   useEffect(() => {
     //VERIFICAR SE TUDO ESTÁ PREENCHIDO
@@ -143,6 +135,8 @@ export default function InscreverFinalizar() {
         setIsFormValid(false);
       }
     };
+
+    checkFormValidity();
   }, [formData, leaderMember]);
 
   //REGISTRAR E ATUALIZAR COMMOM MEMBER
@@ -165,21 +159,47 @@ export default function InscreverFinalizar() {
     setIsLoading(false); // Defina o estado de carregamento como falso após a conclusão
     resetFormData();
     resetMemberData();
+    localStorage.removeItem("leaderMemberData");
+    localStorage.removeItem("commonMemberData");
     setShowSuccess(true);
   };
 
+  // IR PARA ATRAS
   const handleBack = () => {
+    localStorage.setItem("leaderMemberData", JSON.stringify(leaderMember));
+    localStorage.setItem("commonMemberData", JSON.stringify(commonMember));
     router.push("/inscrever/tres");
   };
 
+  //HA DADOS NO ARMAZENAMENTO LOCAL?
   useEffect(() => {
-    setHydration(true);
+    const storedLeaderMemberData = localStorage.getItem("leaderMemberData");
+    const storedCommonMemberData = localStorage.getItem("commonMemberData");
+
+    if (storedLeaderMemberData) {
+      setLeaderMember(JSON.parse(storedLeaderMemberData));
+    }
+    if (storedCommonMemberData) {
+      setCommonMember(JSON.parse(storedCommonMemberData));
+    }
   }, []);
 
+  //SE FOR PARA QUALQUER PAGINA, PERDE AS INFOS
   useEffect(() => {
+    //RESET MEMBERS
+    const resetMemberData = () => {
+      setLeaderMember([
+        { id: randomNumber, name: "", contact: "", isFounder: true },
+      ]);
+      setCommonMember([]);
+    };
+
     const handleRouteChange = (url) => {
       if (url !== "/inscrever/tres" && url !== "/inscrever/sucesso") {
         resetFormData();
+        resetMemberData();
+        localStorage.removeItem("leaderMemberData");
+        localStorage.removeItem("commonMemberData");
       }
     };
 
@@ -188,7 +208,13 @@ export default function InscreverFinalizar() {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events, resetFormData]);
+  }, [router.events, randomNumber, resetFormData]);
+
+  //HIDRATAR O SITE PELO ZUSTAND
+
+  useEffect(() => {
+    setHydration(true);
+  }, []);
 
   return !hydration ? (
     ""
