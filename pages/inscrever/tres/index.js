@@ -24,6 +24,7 @@ import * as yup from "yup";
 
 const FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png", "image/jpg", "image/svg"];
+const UNSUPPORTED_FORMATS = ["application/pdf"];
 
 const schema = yup.object({
   logoImg: yup
@@ -36,11 +37,26 @@ const schema = yup.object({
     })
     .test(
       "FILE_FORMAT",
-      "Formato não suportado. Apenas JPEG, JPG, PNG e SVG",
+      "Formato não suportado. Apenas JPEG, JPG, PNG e SVG são permitidos.",
       (value) => {
-        return value && value[0] && SUPPORTED_FORMATS.includes(value[0].type);
+        const fileList = Array.from(value);
+        return (
+          value &&
+          fileList.every((file) => SUPPORTED_FORMATS.includes(file.type))
+        );
       }
     )
+    .test(
+      "UNSUPPORTED_FORMAT",
+      "Formato não suportado. PDF não é permitido.",
+      (value) => {
+        const fileList = Array.from(value);
+        return (
+          value &&
+          fileList.every((file) => !UNSUPPORTED_FORMATS.includes(file.type))
+        );
+      }
+    )    
     .test(
       "FILE_DIMENSIONS",
       "A imagem deve ser quadrada (mesmas dimensões).",
@@ -59,7 +75,6 @@ const schema = yup.object({
         return false;
       }
     )
-
     .required("Logo requerida"),
 
   teamImg: yup
@@ -72,9 +87,24 @@ const schema = yup.object({
     })
     .test(
       "FILE_FORMAT",
-      "Formato não suportado. Apenas JPEG, JPG, PNG e SVG",
+      "Formato não suportado. Apenas JPEG, JPG, PNG e SVG são permitidos.",
       (value) => {
-        return value && value[0] && SUPPORTED_FORMATS.includes(value[0].type);
+        const fileList = Array.from(value);
+        return (
+          value &&
+          fileList.every((file) => SUPPORTED_FORMATS.includes(file.type))
+        );
+      }
+    )
+    .test(
+      "UNSUPPORTED_FORMAT",
+      "Formato não suportado. PDF não é permitido.",
+      (value) => {
+        const fileList = Array.from(value);
+        return (
+          value &&
+          fileList.every((file) => !UNSUPPORTED_FORMATS.includes(file.type))
+        );
       }
     )
     .required("Fotos requeridas"),
@@ -90,7 +120,7 @@ const schema = yup.object({
     })
     .test(
       "FILE_FORMAT",
-      "Formato não suportado. Apenas JPEG, JPG, PNG e SVG",
+      "Formato não suportado. Apenas JPEG, JPG, PNG e SVG são permitidos.",
       (value) => {
         const fileList = Array.from(value);
         return (
@@ -99,6 +129,17 @@ const schema = yup.object({
         );
       }
     )
+    .test(
+      "UNSUPPORTED_FORMAT",
+      "Formato não suportado. PDF não é permitido.",
+      (value) => {
+        const fileList = Array.from(value);
+        return (
+          value &&
+          fileList.every((file) => !UNSUPPORTED_FORMATS.includes(file.type))
+        );
+      }
+    )    
     .required("Imagens requeridas"),
 });
 
@@ -117,10 +158,34 @@ export default function InscreverTres() {
     resolver: yupResolver(schema),
   });
 
+  //TRANSFORM TO BASE64
+  const fileToBase64 = async (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   //SUBMIT
   const handleOnSubmit = async (items) => {
     setIsLoading(true);
-    setFormData({ ...formData, ...items });
+
+    const logoImgBase64 = await fileToBase64(items.logoImg[0]);
+    const teamImgBase64 = await fileToBase64(items.teamImg[0]);
+    const productImgBase64 = Array.isArray(items.productImg)
+      ? await Promise.all(items.productImg.map(fileToBase64))
+      : []; // Caso não seja um array, retorna um array vazio
+
+    //setFormData({ ...formData, ...items });
+    setFormData({
+      ...formData,
+      logoImg: logoImgBase64,
+      teamImg: teamImgBase64,
+      productImg: productImgBase64,
+    });
+
     setIsLoading(false);
     router.push("/inscrever/finalizar");
   };
@@ -278,7 +343,7 @@ export default function InscreverTres() {
                 <Button variant="primary" type="submit">
                   Seguinte
                   {isLoading ? (
-                    <Spinner animation="border" size="sm" className="me-2" />
+                    <Spinner animation="border" size="sm" className="mr-2" />
                   ) : (
                     <BsChevronRight
                       size={18}
