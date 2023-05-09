@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Main from "components/main";
 import { FaUserPlus, FaTrash, FaCheck } from "react-icons/fa";
 import {
@@ -152,15 +152,6 @@ export default function InscreverFinalizar() {
     };
   }, [commonMember, register, setValue, trigger, unregister]);
 
-  //RESET MEMBERS
-  const resetMemberData = useCallback(() => {
-    setLeaderMember([
-      { id: randomNumber, name: "", contact: "", isFounder: true },
-    ]);
-    setCommonMember([]);
-  }, [randomNumber]);
-  
-
   //SUBMIT
   const onSubmit = async () => {
     setIsLoading(true); // Defina o estado de carregamento como verdadeiro ao enviar
@@ -169,7 +160,6 @@ export default function InscreverFinalizar() {
     resetFormData();
     localStorage.removeItem("leaderMemberData");
     localStorage.removeItem("commonMemberData");
-    resetMemberData();
 
     setShowSuccess(true);
   };
@@ -196,6 +186,13 @@ export default function InscreverFinalizar() {
 
   //SE FOR PARA QUALQUER PAGINA, PERDE AS INFOS
   useEffect(() => {
+    //RESET MEMBERS
+    const resetMemberData = () => {
+      setLeaderMember([
+        { id: randomNumber, name: "", contact: "", isFounder: true },
+      ]);
+      setCommonMember([]);
+    };
     const handleRouteChange = (url) => {
       if (url !== "/inscrever/tres" && url !== "/inscrever/sucesso") {
         resetFormData();
@@ -210,7 +207,7 @@ export default function InscreverFinalizar() {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events, randomNumber, resetMemberData, resetFormData]);
+  }, [router.events, randomNumber, resetFormData]);
 
   //HIDRATAR O SITE PELO ZUSTAND
 

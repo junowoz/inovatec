@@ -30,6 +30,11 @@ const InscreverSucesso = () => {
     }
   }, [countdown]);
 
+  useEffect(() => {
+    localStorage.removeItem("leaderMemberData");
+    localStorage.removeItem("commonMemberData");
+  }, []);
+
   return (
     <div>
       <Head>
