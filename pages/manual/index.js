@@ -59,7 +59,7 @@ const Manual = () => {
             {showSidebar || (
               <div
                 className="sticky-top d-none d-md-block"
-                style={{ top: "6rem" }}
+                style={{ top: "1rem" }}
               >
                 <Scrollspy
                   items={manualData.sections.map((section) => section.id)}
