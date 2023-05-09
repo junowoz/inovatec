@@ -15,10 +15,17 @@ export const Membros = () => {
   // Contar fundadores
   const leaderCount = projectMembers.filter((member) => member.isLeader).length;
 
-  const parseMemberNames = (nameStr) => {
-    return nameStr.replace(/{|}|"/g, "").split(",");
-  };
+  // const parseMemberNames = (nameStr) => {
+  //   return nameStr.replace(/{|}|"/g, "").split(",");
+  // };
 
+  const parseMemberNames = (nameStr) => {
+    return nameStr
+      .substring(1, nameStr.length - 1) // Remove os colchetes
+      .split(',') // Separa os nomes por vírgula
+      .map((name) => name.trim().replace(/"/g, '')); // Remove as aspas duplas e espaços em branco
+  };
+  
   return !hydration ? (
     ""
   ) : (
