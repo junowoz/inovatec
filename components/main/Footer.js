@@ -133,7 +133,7 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noreferrer"
-                href="https://junowoz.github.io/portfolio/"
+                href="https://junowoz.com"
               >
                 @junowoz
               </a>
