@@ -59,7 +59,6 @@ const schema = yup.object({
         return false;
       }
     )
-
     .required("Logo requerida"),
 
   teamImg: yup
@@ -204,6 +203,7 @@ export default function InscreverTres() {
                       >
                         <Form.Control
                           type="file"
+                          accept=".jpeg, .png, .jpg, .svg"
                           {...register("logoImg")}
                           isInvalid={!!errors.logoImg}
                         />
@@ -230,6 +230,7 @@ export default function InscreverTres() {
                       >
                         <Form.Control
                           type="file"
+                          accept=".jpeg, .png, .jpg, .svg"
                           {...register("teamImg")}
                           isInvalid={!!errors.teamImg}
                         />
@@ -255,6 +256,7 @@ export default function InscreverTres() {
                         <Form.Control
                           type="file"
                           multiple
+                          accept=".jpeg, .png, .jpg, .svg"
                           {...register("productImg", { multiple: true })}
                           isInvalid={!!errors.productImg}
                         />
