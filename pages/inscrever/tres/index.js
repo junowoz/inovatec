@@ -23,7 +23,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const SUPPORTED_FORMATS = ["image/jpeg", "image/png", "image/jpg", "image/svg"];
+const FILE_NAME_REGEX = /^[a-zA-Z0-9_\-.]+$/; // No special characters
+const SUPPORTED_FORMATS = ["image/jpeg", "image/png", "image/jpg", "image/svg"]; // Only images
 
 const schema = yup.object({
   logoImg: yup
@@ -59,6 +60,17 @@ const schema = yup.object({
         return false;
       }
     )
+    .test(
+      "FILE_NAME",
+      "O nome do arquivo não deve conter caracteres especiais",
+      (value) => {
+        if (value && value[0]) {
+          const fileName = value[0].name.split("/").pop();
+          return FILE_NAME_REGEX.test(fileName);
+        }
+        return false;
+      }
+    )
     .required("Logo requerida"),
 
   teamImg: yup
@@ -74,6 +86,19 @@ const schema = yup.object({
       "Formato não suportado. Apenas JPEG, JPG, PNG e SVG",
       (value) => {
         return value && value[0] && SUPPORTED_FORMATS.includes(value[0].type);
+      }
+    )
+    .test(
+      "FILE_NAME",
+      "O nome do arquivo não deve conter caracteres especiais",
+      (value) => {
+        if (value && value.length > 0) {
+          const fileNamesAreValid = Array.from(value).every((file) =>
+            FILE_NAME_REGEX.test(file.name.split("/").pop())
+          );
+          return fileNamesAreValid;
+        }
+        return false;
       }
     )
     .required("Fotos requeridas"),
@@ -96,6 +121,19 @@ const schema = yup.object({
           value &&
           fileList.every((file) => SUPPORTED_FORMATS.includes(file.type))
         );
+      }
+    )
+    .test(
+      "FILE_NAME",
+      "O nome do arquivo não deve conter caracteres especiais",
+      (value) => {
+        if (value && value.length > 0) {
+          const fileNamesAreValid = Array.from(value).every((file) =>
+            FILE_NAME_REGEX.test(file.name.split("/").pop())
+          );
+          return fileNamesAreValid;
+        }
+        return false;
       }
     )
     .required("Imagens requeridas"),
