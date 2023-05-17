@@ -117,7 +117,7 @@ export default function InscreverFinalizar() {
 
   //ADD LEADER CARD
   const handleAddClick = () => {
-    if (leaderMember.length < 6) {
+    if (leaderMember.length < 10) {
       const newRandomNumber = Math.floor(Math.random() * 100) + 1;
       setLeaderMember([
         ...leaderMember,
@@ -413,7 +413,7 @@ export default function InscreverFinalizar() {
                         variant="outline-primary"
                         style={{ minWidth: "150px" }}
                         onClick={handleAddClick}
-                        disabled={leaderMember.length >= 6}
+                        disabled={leaderMember.length >= 10}
                       >
                         <FaUserPlus className="me-1" /> Adicionar
                       </Button>
