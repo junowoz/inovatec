@@ -62,7 +62,11 @@ const schema = yup.object({
       "A descrição da viabilidade do projeto deve ter menos de 1000 caracteres."
     )
     .required("Descrição da viabilidade do projeto requerida"),
-  link: yup.string().max(1000, "O link deve ter menos de 1000 caracteres."),
+  link: yup
+    .string()
+    .url("Por favor, insira um link válido.")
+    .max(1000, "O link deve ter menos de 1000 caracteres.")
+    .notRequired(),
 });
 
 export default function InscreverUm() {
@@ -370,7 +374,7 @@ export default function InscreverUm() {
                         overlay={
                           <Tooltip id={`tooltip-right`}>
                             Se você tiver um link para testar ou usar seu
-                            produto, insira-o.
+                            produto, insira-o. Apenas links são permitidos (http / https).
                           </Tooltip>
                         }
                       >
