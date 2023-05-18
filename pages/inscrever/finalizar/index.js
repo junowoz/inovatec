@@ -8,7 +8,6 @@ import {
   Button,
   Card,
   ButtonGroup,
-  ToggleButton,
   Spinner,
   OverlayTrigger,
   Tooltip,
@@ -304,45 +303,36 @@ export default function InscreverFinalizar() {
 
                           <Col>
                             <ButtonGroup className="w-100">
-                              <ToggleButton
+                              <Button
                                 id={`founder${index}`}
-                                type="radio"
-                                variant="outline-primary"
-                                name={`leaderMember.${index}.isFounder`}
-                                value={true}
-                                checked={item.isFounder}
-                                onChange={(e) => {
+                                type="button"
+                                variant={
+                                  item.isFounder ? "primary" : "outline-primary"
+                                } // Alterna a variante com base no estado
+                                onClick={() => {
                                   const updatedLeaderMember = [...leaderMember];
-                                  updatedLeaderMember[index].isFounder =
-                                    e.currentTarget.value;
+                                  updatedLeaderMember[index].isFounder = true; // Define como verdadeiro quando clicado
                                   setLeaderMember(updatedLeaderMember);
                                 }}
-                                {...register(
-                                  `leaderMember.${index}.isFounder`,
-                                  {
-                                    value: item.isFounder,
-                                  }
-                                )}
                               >
                                 Fundador
-                              </ToggleButton>
-                              <ToggleButton
+                              </Button>
+                              <Button
                                 id={`cofounder${index}`}
-                                type="radio"
-                                variant="outline-primary"
-                                name={`leaderMember.${index}.isFounder`}
-                                value={false}
-                                checked={!item.isFounder}
-                                onChange={(e) => {
+                                type="button"
+                                variant={
+                                  !item.isFounder
+                                    ? "primary"
+                                    : "outline-primary"
+                                } // Alterna a variante com base no estado
+                                onClick={() => {
                                   const updatedLeaderMember = [...leaderMember];
-                                  updatedLeaderMember[index].isFounder =
-                                    e.currentTarget.value;
+                                  updatedLeaderMember[index].isFounder = false; // Define como falso quando clicado
                                   setLeaderMember(updatedLeaderMember);
                                 }}
-                                {...register(`leaderMember.${index}.isFounder`)}
                               >
                                 Cofundador
-                              </ToggleButton>
+                              </Button>
                             </ButtonGroup>
                           </Col>
                         </Row>
