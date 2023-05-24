@@ -7,23 +7,40 @@ import {
   Card,
   Alert,
   Button,
+  Offcanvas,
 } from "react-bootstrap";
 import Scrollspy from "react-scrollspy";
 import manualData from "./data.json";
 import Main from "components/main";
+import { BsCloudDownloadFill } from "react-icons/bs";
+import { saveAs } from "file-saver";
+import ReactMarkdown from "react-markdown";
 
 const Manual = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null); // Nuevo estado para el elemento seleccionado
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [show, setShow] = useState(false);
 
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  // Nueva función para manejar la selección de elementos
   const handleSelect = (selectedKey) => {
     setSelectedItem(selectedKey);
   };
+
+  const pacote_inovatec_url =
+    "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/files/pacote-inovatec.zip?t=2023-05-23T14%3A29%3A04.375Z";
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(pacote_inovatec_url);
+      const blob = await response.blob();
+      saveAs(blob, "pacote-inovatec.zip");
+    } catch (error) {
+      console.error("Download failed: ", error);
+    }
+  };
+
   return (
     <Main>
       <Container className="py-5">
@@ -40,15 +57,58 @@ const Manual = () => {
             próxima edição da Inovatec e juntos construirmos um futuro mais
             inovador e sustentável para todos nós!
           </p>
+          <p>
+            Para começar, recomendamos que você baixe alguns documentos
+            importantes. Este pacote inclui um Documento de Resumo Expandido, um
+            Modelo de Visão Geral do Projeto, outro Modelo de Banner e um Modelo
+            de Camisas (tudo referente a 2023). Clique no link para realizar o download.
+          </p>
+          <div>
+          <Button
+          className="d-block w-49"
+          variant="primary"
+          onClick={handleDownload}
+          style={{ cursor: "pointer" }}
+        >
+              <BsCloudDownloadFill className="me-2" />
+              Download do Pacote Inovatec 2023
+            </Button>
+          </div>
         </Alert>
 
         <Button
           className="d-md-none mb-4 mt-2 w-100"
           variant="primary"
-          onClick={toggleSidebar}
+          onClick={handleShow}
         >
           {showSidebar ? "Fechar sumário" : "Abrir sumário"}
         </Button>
+
+        <Offcanvas show={show} onHide={handleClose}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Sumário</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Scrollspy
+              items={manualData.sections.map((section) => section.id)}
+              currentClassName="bg-primary text-white"
+              componentTag={ListGroup}
+            >
+              {manualData.sections.map((section) => (
+                <ListGroup.Item
+                  action
+                  href={`#${section.id}`}
+                  key={section.id}
+                  onClick={() => handleSelect(section.id)}
+                  active={selectedItem === section.id}
+                >
+                  {section.title}
+                </ListGroup.Item>
+              ))}
+            </Scrollspy>
+          </Offcanvas.Body>
+        </Offcanvas>
+
         <Row className="pb-5">
           <Col md={8}>
             <Card className="p-5">
@@ -61,30 +121,28 @@ const Manual = () => {
             </Card>
           </Col>
           <Col md={4}>
-            {showSidebar || (
-              <div
-                className="sticky-top d-none d-md-block"
-                style={{ top: "1rem" }}
+            <div
+              className="sticky-top d-none d-md-block"
+              style={{ top: "1rem" }}
+            >
+              <Scrollspy
+                items={manualData.sections.map((section) => section.id)}
+                currentClassName="bg-primary text-white"
+                componentTag={ListGroup}
               >
-                <Scrollspy
-                  items={manualData.sections.map((section) => section.id)}
-                  currentClassName="bg-primary text-white"
-                  componentTag={ListGroup}
-                >
-                  {manualData.sections.map((section) => (
-                    <ListGroup.Item
-                      action
-                      href={`#${section.id}`}
-                      key={section.id}
-                      onClick={() => handleSelect(section.id)} // Agregar el controlador onClick
-                      active={selectedItem === section.id} // Agregar la propiedad 'active' para mostrar solo el elemento seleccionado
-                    >
-                      {section.title}
-                    </ListGroup.Item>
-                  ))}
-                </Scrollspy>
-              </div>
-            )}
+                {manualData.sections.map((section) => (
+                  <ListGroup.Item
+                    action
+                    href={`#${section.id}`}
+                    key={section.id}
+                    onClick={() => handleSelect(section.id)}
+                    active={selectedItem === section.id}
+                  >
+                    {section.title}
+                  </ListGroup.Item>
+                ))}
+              </Scrollspy>
+            </div>
           </Col>
         </Row>
       </Container>

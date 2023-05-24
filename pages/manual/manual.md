@@ -1,0 +1,3 @@
+# JUAN
+
+A primeira coisa que precisamos definir é o que você está construindo e por quê...

@@ -1,49 +1,34 @@
 {
   "sections": [
     {
-      "id": "intro",
-      "title": "Introdução",
-      "content": "Antes de começar a montar um projeto de inovação/startup para a feira de tecnologia InovaTec, é importante entender alguns conceitos básicos. Uma startup é uma empresa emergente que busca criar um modelo de negócios escalável e repetível. Isso significa que ela tem o objetivo de crescer rapidamente e expandir seu alcance em um curto período de tempo, geralmente com o uso de tecnologia. Já a InovaTec é uma feira de tecnologia que reúne empresas e empreendedores que estão trabalhando em soluções inovadoras."
+      "id": "the_idea",
+      "title": "A Ideia",
+      "content": "A primeira coisa que precisamos definir é o que você está construindo e por quê. As respostas devem ser claras e concisas. É importante ser capaz de pensar e se comunicar claramente como fundador. Além disso, é crucial entender quem precisa desesperadamente do seu produto. No melhor dos casos, você mesmo é o usuário-alvo. No segundo melhor caso, você entende o usuário-alvo extremamente bem."
     },
     {
-      "id": "problem",
-      "title": "O Problema",
-      "content": "Antes de criar um projeto de inovação/startup, é importante identificar um problema que precisa ser resolvido. Isso pode envolver encontrar uma lacuna no mercado, uma necessidade não atendida pelos produtos ou serviços existentes, ou uma maneira de melhorar um processo ou sistema existente. É importante que o problema seja relevante e significativo o suficiente para justificar a criação de uma startup."
-    },
-    {
-      "id": "solution",
-      "title": "A Solução",
-      "content": "Depois de identificar o problema, é hora de pensar em uma solução inovadora. Isso pode envolver o uso de tecnologia de ponta, a criação de um novo modelo de negócios, a melhoria de um produto ou serviço existente, ou qualquer outra ideia criativa que resolva o problema de forma eficaz. É importante que a solução seja escalável e que haja um mercado em potencial para ela."
-    },
-    {
-      "id": "market",
-      "title": "O Mercado",
-      "content": "Antes de lançar sua startup, é importante entender o mercado em que você está entrando. Isso envolve identificar seus concorrentes e entender como eles estão atendendo às necessidades dos clientes, identificar as tendências e oportunidades no mercado e definir seu público-alvo. É importante que haja um mercado viável para sua solução e que você tenha uma estratégia clara para alcançar seus clientes."
-    },
-    {
-      "id": "team",
+      "id": "the_team",
       "title": "A Equipe",
-      "content": "Montar uma equipe forte e dedicada é essencial para o sucesso de uma startup. É importante que cada membro da equipe traga habilidades e experiências complementares, e que todos compartilhem da visão e dos objetivos da empresa. É importante que a equipe tenha uma liderança forte e uma cultura positiva que encoraje a colaboração e a inovação."
+      "content": "Equipes medíocres não constroem grandes empresas. Uma das coisas que mais observamos é a força dos fundadores. Quando costumávamos fazer investimentos em estágios posteriores, olhávamos com a mesma intensidade para a força dos funcionários que os fundadores contratavam."
     },
     {
-      "id": "funding",
-      "title": "Financiamento",
-      "content": "Para lançar uma startup, é necessário financiamento. Isso pode envolver a obtenção de investimentos de investidores externos, a participação em programas de aceleração ou incubação, ou até mesmo a obtenção de empréstimos. É importante ter um plano claro para como você irá financiar sua startup e garantir que você tenha os recursos necessários para lançar e expandir sua empresa."
+      "id": "the_product",
+      "title": "O Produto",
+      "content": "Aqui está o segredo do sucesso: tenha um ótimo produto. Esta é a única coisa que todas as grandes empresas têm em comum. Se você não construir um produto que os usuários amem, você acabará falhando. No entanto, os fundadores sempre procuram algum outro truque. As startups são o ponto em sua vida quando os truques param de funcionar."
     },
     {
-      "id": "launch",
-      "title": "Lançamento",
-      "content": "Depois de identificar o problema, criar uma solução inovadora, entender o mercado, montar uma equipe forte e garantir o financiamento, é hora de lançar sua startup. Isso pode envolver o desenvolvimento de um MVP (Minimum Viable Product), o lançamento de uma campanha de marketing, a participação em eventos e conferências ou qualquer outra estratégia que ajude a divulgar sua empresa e a atrair clientes. É importante ter um plano claro para o lançamento e garantir que todos os membros da equipe estejam alinhados com os objetivos e metas da empresa."
+      "id": "execution",
+      "title": "Execução",
+      "content": "Embora seja necessário construir um ótimo produto, você não termina depois disso. Você ainda precisa transformá-lo em uma grande empresa, e você tem que fazer isso sozinho - a fantasia de contratar um 'gerente experiente' para fazer todo esse trabalho é extremamente prevalente e um cemitério para empresas fracassadas. Você não pode terceirizar o trabalho para outra pessoa por muito tempo."
     },
     {
       "id": "growth",
       "title": "Crescimento",
-      "content": "Depois de lançar sua startup, é hora de focar no crescimento. Isso pode envolver a expansão para novos mercados, o desenvolvimento de novos produtos ou serviços, a contratação de mais funcionários, ou qualquer outra estratégia que ajude a escalar seu negócio. É importante ter um plano claro para o crescimento e garantir que você tenha os recursos necessários para expandir sua empresa de forma sustentável."
+      "content": "Crescimento e momentum são as chaves para uma grande execução. O crescimento (desde que não seja um crescimento do tipo 'vender notas de um dólar por 90 centavos') resolve todos os problemas, e a falta de crescimento não é solucionável por nada além de crescimento. Se você está crescendo, parece que está vencendo, e as pessoas estão felizes."
     },
     {
-      "id": "conclusion",
-      "title": "Conclusão",
-      "content": "Montar um projeto de inovação/startup para a feira de tecnologia InovaTec pode ser desafiador, mas também pode ser uma oportunidade emocionante para criar algo novo e impactante. Ao seguir estes passos básicos, você pode aumentar suas chances de sucesso e ajudar a transformar sua ideia em uma empresa de sucesso. Montar um projeto de inovação/startup para a feira de tecnologia InovaTec pode ser desafiador, mas também pode ser uma oportunidade emocionante para criar algo novo e impactante. Ao seguir estes passos básicos, você pode aumentar suas chances de sucesso e ajudar a transformar sua ideia em uma empresa de sucesso. Montar um projeto de inovação/startup para a feira de tecnologia InovaTec pode ser desafiador, mas também pode ser uma oportunidade emocionante para criar algo novo e impactante. Ao seguir estes passos básicos, você pode aumentar suas chances de sucesso e ajudar a transformar sua ideia em uma empresa de sucesso. Montar um projeto de inovação/startup para a feira de tecnologia InovaTec pode ser desafiador, mas também pode ser uma oportunidade emocionante para criar algo novo e impactante. Ao seguir estes passos básicos, você pode aumentar suas chances de sucesso e ajudar a transformar sua ideia em uma empresa de sucesso. Montar um projeto de inovação/startup para a feira de tecnologia InovaTec pode ser desafiador, mas também pode ser uma oportunidade emocionante para criar algo novo e impactante. Ao seguir estes passos básicos, você pode aumentar suas chances de sucesso e ajudar a transformar sua ideia em uma empresa de sucesso. Montar um projeto de inovação/startup para a feira de tecnologia InovaTec pode ser desafiador, mas também pode ser uma oportunidade emocionante para criar algo novo e impactante. Ao seguir estes passos básicos, você pode aumentar suas chances de sucesso e ajudar a transformar sua ideia em uma empresa de sucesso."
+      "id": "references",
+      "title": "Referências",
+      "content": "Para mais informações, consulte o 'Startup Playbook' escrito por Sam Altman e ilustrado por Gregory Koberger. Disponível em: https://playbook.samaltman.com/"
     }
   ]
 }
