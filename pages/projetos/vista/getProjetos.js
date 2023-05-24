@@ -3,11 +3,9 @@ import { Card, Badge, Row, Col, Image, Pagination } from "react-bootstrap";
 import Link from "next/link";
 import Relleno from "utils/relleno";
 import { useInscreverState } from "context/useInscreverState";
-import { useProjetoState } from "context/useProjetoState";
 import PropTypes from "prop-types";
 export default function GetProjetos({ projects }) {
   const [hydration, setHydration] = useState(false);
-  const { fetchProject } = useProjetoState();
   const { techData, industryData, yearData } = useInscreverState();
   const CDN =
     "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/midia/";
@@ -18,21 +16,18 @@ export default function GetProjetos({ projects }) {
 
   //USEFFECT
   useEffect(() => {
-    fetchProject();
     setHydration(true);
-  }, [fetchProject]);
+  }, []);
 
   // Obter projetos atuais
+  const filteredProjects = projects || [];
+
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-
-  // const currentProjects = projects.slice(
-  //   indexOfFirstProject,
-  //   indexOfLastProject
-  // );
-
-  const currentProjects =
-    projects?.slice(indexOfFirstProject, indexOfLastProject) || [];
+  const currentProjects = filteredProjects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
 
   // Alterar página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

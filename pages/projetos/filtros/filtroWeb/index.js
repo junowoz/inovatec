@@ -5,7 +5,7 @@ import { useFiltroState } from "context/useFiltroState";
 
 export default function FiltroWeb() {
   const [hydration, setHydration] = useState(false);
-  const { setFilter } = useFiltroState();
+  const { setFilter, filters } = useFiltroState();
   const {
     semesterData,
     courseData,
@@ -18,41 +18,20 @@ export default function FiltroWeb() {
   useEffect(() => {
     fetchData();
     setHydration(true);
-  }, [fetchData]);
+    console.log(setFilter);
+    console.log(filters);
+  }, [fetchData, setFilter, filters]);
 
-  const handleCheckboxChange = (filterType, value) => {
-    setFilter(filterType, value);
+  //VER MAIS
+  const [isOpenYear, setIsOpenYear] = useState(false);
+  const [isOpenCourse, setIsOpenCourse] = useState(false);
+  const [isOpenSemester, setIsOpenSemester] = useState(false);
+  const [isOpenIndustry, setIsOpenIndustry] = useState(false);
+  const [isOpenTech, setIsOpenTech] = useState(false);
+
+  const handleCheckboxChange = (category, id) => {
+    setFilter(category, id);
   };
-
-  const Iters = (filterType, value) => {
-    return (
-      <>
-        <Form.Check
-          type="checkbox"
-          id="all"
-          name="all"
-          label="Todos"
-          value="all"
-          onChange={(e) => handleCheckboxChange(value, e.target.value)}
-        />
-        {filterType.map((index) => {
-          return (
-            <Form.Check
-              key={index}
-              type={"checkbox"}
-              id={index.id}
-              name={index.name}
-              label={index.name}
-              value={index.id}
-              onChange={(e) => handleCheckboxChange(value, e.target.value)}
-            />
-          );
-        })}
-      </>
-    );
-  };
-  
-
 
   return !hydration ? (
     ""
@@ -69,7 +48,32 @@ export default function FiltroWeb() {
             <Accordion.Header className="py-0">
               <h5 className="fw-bolder fs-6">Ano</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(yearData, "year")}</Accordion.Body>
+            <Accordion.Body>
+              {(isOpenYear ? yearData : yearData.slice(0, 5)).map(
+                (item, index) => (
+                  <Form.Check
+                    key={index}
+                    type="checkbox"
+                    id={item.id}
+                    name={item.name}
+                    label={item.name}
+                    value={item.id}
+                    onChange={(e) =>
+                      handleCheckboxChange("year", e.target.value)
+                    }
+                  />
+                )
+              )}
+              {yearData.length > 5 && (
+                <span
+                  className="text-primary clickable"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                  onClick={() => setIsOpenYear(!isOpenYear)}
+                >
+                  {isOpenYear ? "Ver menos" : "Ver mais"}
+                </span>
+              )}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Ano */}
 
@@ -78,7 +82,32 @@ export default function FiltroWeb() {
             <Accordion.Header className="py-0">
               <h5 className="fw-bolder fs-6">Curso</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(courseData, "course")}</Accordion.Body>
+            <Accordion.Body>
+              {(isOpenCourse ? courseData : courseData.slice(0, 5)).map(
+                (item, index) => (
+                  <Form.Check
+                    key={index}
+                    type="checkbox"
+                    id={item.id}
+                    name={item.name}
+                    label={item.name}
+                    value={item.id}
+                    onChange={(e) =>
+                      handleCheckboxChange("course", e.target.value)
+                    }
+                  />
+                )
+              )}
+              {courseData.length > 5 && (
+                <span
+                  className="text-primary clickable"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                  onClick={() => setIsOpenCourse(!isOpenCourse)}
+                >
+                  {isOpenCourse ? "Ver menos" : "Ver mais"}
+                </span>
+              )}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Curso */}
 
@@ -87,7 +116,32 @@ export default function FiltroWeb() {
             <Accordion.Header>
               <h5 className="fw-bolder fs-6">Periodo</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(semesterData, "semester")}</Accordion.Body>
+            <Accordion.Body>
+              {(isOpenSemester ? semesterData : semesterData.slice(0, 5)).map(
+                (item, index) => (
+                  <Form.Check
+                    key={index}
+                    type="checkbox"
+                    id={item.id}
+                    name={item.name}
+                    label={item.name}
+                    value={item.id}
+                    onChange={(e) =>
+                      handleCheckboxChange("semester", e.target.value)
+                    }
+                  />
+                )
+              )}
+              {semesterData.length > 5 && (
+                <span
+                  className="text-primary clickable"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                  onClick={() => setIsOpenSemester(!isOpenSemester)}
+                >
+                  {isOpenSemester ? "Ver menos" : "Ver mais"}
+                </span>
+              )}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Periodo */}
 
@@ -96,7 +150,32 @@ export default function FiltroWeb() {
             <Accordion.Header>
               <h5 className="fw-bolder fs-6">Indústria</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(industryData, "industry")}</Accordion.Body>
+            <Accordion.Body>
+              {(isOpenIndustry ? industryData : industryData.slice(0, 5)).map(
+                (item, index) => (
+                  <Form.Check
+                    key={index}
+                    type="checkbox"
+                    id={item.id}
+                    name={item.name}
+                    label={item.name}
+                    value={item.id}
+                    onChange={(e) =>
+                      handleCheckboxChange("industry", e.target.value)
+                    }
+                  />
+                )
+              )}
+              {industryData.length > 5 && (
+                <span
+                  className="text-primary clickable"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                  onClick={() => setIsOpenIndustry(!isOpenIndustry)}
+                >
+                  {isOpenIndustry ? "Ver menos" : "Ver mais"}
+                </span>
+              )}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Indústria */}
 
@@ -105,7 +184,32 @@ export default function FiltroWeb() {
             <Accordion.Header>
               <h5 className="fw-bolder fs-6">Tecnologia</h5>
             </Accordion.Header>
-            <Accordion.Body>{Iters(techData, "tech")}</Accordion.Body>
+            <Accordion.Body>
+              {(isOpenTech ? techData : techData.slice(0, 5)).map(
+                (item, index) => (
+                  <Form.Check
+                    key={index}
+                    type="checkbox"
+                    id={item.id}
+                    name={item.name}
+                    label={item.name}
+                    value={item.id}
+                    onChange={(e) =>
+                      handleCheckboxChange("tech", e.target.value)
+                    }
+                  />
+                )
+              )}{" "}
+              {techData.length > 5 && (
+                <span
+                  className="text-primary clickable"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                  onClick={() => setIsOpenTech(!isOpenTech)}
+                >
+                  {isOpenTech ? "Ver menos" : "Ver mais"}
+                </span>
+              )}
+            </Accordion.Body>
           </Accordion.Item>
           {/* End - Tecnologia */}
         </Accordion>

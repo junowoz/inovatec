@@ -7,23 +7,15 @@ import { useFiltroState } from "context/useFiltroState";
 
 export default function Vista() {
   const [hydration, setHydration] = useState(false);
-  const { projects, fetchProject } = useProjetoState();
+  const { projects } = useProjetoState();
   const { filters } = useFiltroState();
 
   // Inicializando searchTerm antes de usá-lo na filtragem de projetos
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetchProject();
     setHydration(true);
-  }, [fetchProject]);
-
-  // //Checkea si el proyecto esta activo
-  // const activeProject = projects
-  //   .filter((project) => project.status)
-  //   .filter((project) =>
-  //     project.name.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
+  }, []);
 
   // função para manipular a mudança na barra de pesquisa
   const handleSearchChange = (event) => {
@@ -38,8 +30,11 @@ export default function Vista() {
         Array.isArray(filters[category]) &&
         filters[category].length > 0
       ) {
-        return filters[category].includes(project[category]);
+        // Verifica se o valor da chave estrangeira no projeto está nos filtros
+        return filters[category].includes(String(project[category]));
       }
+      console.log("this are the projects", project)
+      console.log("this are the filters", filters)
       return true;
     };
 
@@ -54,8 +49,7 @@ export default function Vista() {
     );
   };
 
-  // const activeProject = projects.filter(filterProjects);
-  const activeProject =(projects || []).filter(filterProjects);
+  const activeProject = (projects || []).filter(filterProjects);
 
   return !hydration ? (
     ""
