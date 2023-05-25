@@ -14,7 +14,7 @@ import manualData from "./data.json";
 import Main from "components/main";
 import { BsCloudDownloadFill } from "react-icons/bs";
 import { saveAs } from "file-saver";
-import ReactMarkdown from "react-markdown";
+import Head from "next/head";
 
 const Manual = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -43,6 +43,9 @@ const Manual = () => {
 
   return (
     <Main>
+      <Head>
+        <title>Inovatec | Manual</title>
+      </Head>
       <Container className="py-5">
         <Alert variant="primary">
           <Alert.Heading>Manual</Alert.Heading>
@@ -61,15 +64,16 @@ const Manual = () => {
             Para começar, recomendamos que você baixe alguns documentos
             importantes. Este pacote inclui um Documento de Resumo Expandido, um
             Modelo de Visão Geral do Projeto, outro Modelo de Banner e um Modelo
-            de Camisas (tudo referente a 2023). Clique no link para realizar o download.
+            de Camisas (tudo referente a 2023). Clique no link para realizar o
+            download.
           </p>
           <div>
-          <Button
-          className="d-block w-49"
-          variant="primary"
-          onClick={handleDownload}
-          style={{ cursor: "pointer" }}
-        >
+            <Button
+              className="d-block w-49"
+              variant="primary"
+              onClick={handleDownload}
+              style={{ cursor: "pointer" }}
+            >
               <BsCloudDownloadFill className="me-2" />
               Download do Pacote Inovatec 2023
             </Button>

@@ -25,7 +25,7 @@ import * as yup from "yup";
 
 const schema = yup.object({
   year: yup.string().required("Ano requerido"),
-  semester: yup.string().required("Periodo requerido"),
+  semester: yup.string().required("Período requerido"),
   course: yup.string().required("Curso requerido"),
   tech: yup.string().required("Tecnologia requerida"),
   industry: yup.string().required("Industria requerida"),
@@ -134,7 +134,7 @@ export default function InscreverDois() {
                 {/* CARD 2 */}
                 <Card className="p-4 mb-3">
                   <Card.Title className="text-primary pb-2">
-                    Informaçōes Específicas
+                    Informações Específicas
                   </Card.Title>
 
                   {/* Ano */}
@@ -171,7 +171,7 @@ export default function InscreverDois() {
 
                   {/* Semester */}
                   <Form.Group className="mb-3" controlId="semester">
-                    <FloatingLabel label="Periodo">
+                    <FloatingLabel label="Período">
                       <OverlayTrigger
                         key="right"
                         placement="right"
@@ -219,7 +219,7 @@ export default function InscreverDois() {
                           {...register("course")}
                           isInvalid={!!errors.course}
                         >
-                          <option value="">Seleccione um curso</option>
+                          <option value="">Selecione um curso</option>
                           {courseData.map((course) => (
                             <option key={course.id} value={course.id}>
                               {course.name}
@@ -304,7 +304,7 @@ export default function InscreverDois() {
                 </Card>
               </div>
 
-              {/* Atras e Seguinte */}
+              {/* Atrás e Seguinte */}
               <div className="d-flex justify-content-between pt-3">
                 <Button variant="outline-primary" onClick={handleBack}>
                   <BsChevronLeft

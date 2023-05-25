@@ -3,12 +3,16 @@ import Main from "components/main";
 import Image from "react-bootstrap/Image";
 import { Button, Container } from "react-bootstrap";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Erro404() {
   const router = useRouter();
 
   return (
     <Main>
+      <Head>
+        <title>404 | Página não encontrada</title>
+      </Head>
       <Container
         style={{
           display: "flex",

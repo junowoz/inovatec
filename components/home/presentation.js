@@ -37,14 +37,10 @@ export default function Presentation() {
               />
             </div>
             <h5 className="fw-bold fs-4 tittle-custom py-3 py-sm-3 d-lg-none blur-bg">
-              A Inovatec é uma iniciativa de empreendedorismo tecnológico
-              formada por alunos e professores do setor de Computação da
-              Fametro.
+            A Inovatec é uma iniciativa de empreendedorismo tecnológico formada por alunos e professores dos cursos de Computação da Fametro.
             </h5>
             <h5 className="fw-bold fs-3 tittle-custom py-3 py-sm-3 d-none d-lg-block blur-bg">
-              A Inovatec é uma iniciativa de empreendedorismo tecnológico
-              formada por alunos e professores do setor de Computação da
-              Fametro.
+            A Inovatec é uma iniciativa de empreendedorismo tecnológico formada por alunos e professores dos cursos de Computação da Fametro.
             </h5>
           </Col>
           <Col className="d-none d-lg-block d-flex flex-column">

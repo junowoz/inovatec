@@ -42,7 +42,7 @@ export default function Header() {
               Projetos
             </Link>
             <Link href="/inscrever" className="me-4 text-secondary">
-              Inscriçao
+              Inscrever
             </Link>
             <Link href="/manual" className="text-secondary">
               Manual

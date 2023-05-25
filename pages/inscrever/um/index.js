@@ -163,7 +163,7 @@ export default function InscreverUm() {
                 {/* CARD 1 */}
                 <Card className="p-4 mb-3">
                   <Card.Title className="text-primary pb-2">
-                    Informaçōes Básicas
+                    Informações Básicas
                   </Card.Title>
 
                   {/* Nome */}
@@ -395,7 +395,7 @@ export default function InscreverUm() {
                 {/* FINAL CARD 1 */}
               </div>
 
-              {/* Atras e Seguinte */}
+              {/* Atrás e Seguinte */}
               <div className="d-flex justify-content-between pt-3">
                 <Button variant="outline-primary" onClick={handleExit}>
                   <BsChevronLeft

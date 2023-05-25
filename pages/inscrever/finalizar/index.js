@@ -86,7 +86,7 @@ export default function InscreverFinalizar() {
     { id: randomNumber, name: "", contact: "", isFounder: true },
   ]);
 
-  //ALTERACOES DE TAGS
+  //ALTERAÇÕES DE TAGS
   const maxLength = 45; // Escolha o comprimento máximo desejado para um nome
 
   const isTagValid = (tag) => {
@@ -174,7 +174,7 @@ export default function InscreverFinalizar() {
     setShowSuccess(true);
   };
 
-  // IR PARA ATRAS
+  // IR PARA ATRÁS
   const handleBack = () => {
     localStorage.setItem("leaderMemberData", JSON.stringify(leaderMember));
     localStorage.setItem("commonMemberData", JSON.stringify(commonMember));
@@ -230,7 +230,7 @@ export default function InscreverFinalizar() {
   ) : (
     <Main>
       <Head>
-        <title>Inovatec | Inscrever</title>
+        <title>Inovatec | Finalizar Inscrição</title>
       </Head>
       <Container>
         {!showSuccess ? (
@@ -413,7 +413,7 @@ export default function InscreverFinalizar() {
 
                 <Row className="align-items-center mt-4">
                   <Col>
-                    {/* Atras e Finalizar */}
+                    {/* Atrás e Finalizar */}
                     <div className="d-flex justify-content-between pt-3">
                       <Button variant="outline-primary" onClick={handleBack}>
                         <BsChevronLeft

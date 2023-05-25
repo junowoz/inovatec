@@ -181,7 +181,7 @@ const Index = () => {
   // const { techData, courseData, yearData, semesterData, industryData } =
   //   useInscreverState();
 
-  //MENSAGEM DE ATUALIZAÇAO
+  //MENSAGEM DE ATUALIZAÇÃO
   if (isLoading) {
     return (
       <div

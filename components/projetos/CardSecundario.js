@@ -53,7 +53,7 @@ export const CardSecundario = () => {
             <br />
             <span>Curso: </span> {courseName}
             <br />
-            <span>Periodo: </span> {semesterName}
+            <span>Período: </span> {semesterName}
           </Card.Text>
         </Card.Body>
       </Card>

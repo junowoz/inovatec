@@ -6,7 +6,7 @@ export default function PresentationProjetos() {
     <div>
       <Card variant="primary" className="">
         <Card.Body>
-          <Card.Title className="fw-bold">Diretorio de Projetos</Card.Title>
+          <Card.Title className="fw-bold">Diretório de Projetos</Card.Title>
 
           <Card.Text className="">
             Bem-vindo ao diretório de projetos Inovatec, uma iniciativa do

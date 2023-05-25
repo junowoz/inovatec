@@ -45,7 +45,7 @@ const Footer = () => {
                     </p>
                     <p>
                       <Link href="inscrever" className="text-reset">
-                        Inscrição
+                        Inscrever
                       </Link>
                     </p>
                     <p>
@@ -72,6 +72,16 @@ const Footer = () => {
                           className="text-reset"
                         >
                           Email
+                        </a>
+                      </p>
+                      <p>
+                        <a
+                          href="https://wa.link/7shszi"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-reset"
+                        >
+                          Whatsapp
                         </a>
                       </p>
                       <p>
@@ -130,11 +140,7 @@ const Footer = () => {
           <MDBRow className="justify-content-between p-4">
             <div className="xxl:text-center text-reset mb-2">
               Designed and developed by{" "}
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://junowoz.com"
-              >
+              <a target="_blank" rel="noreferrer" href="https://junowoz.com">
                 @junowoz
               </a>
             </div>

@@ -3,12 +3,16 @@ import Main from "components/main";
 import Image from "react-bootstrap/Image";
 import { Button, Container } from "react-bootstrap";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Erro404Projeto() {
   const router = useRouter();
 
   return (
     <Main>
+      <Head>
+        <title>404 | Projeto não encontrado</title>
+      </Head>
       <Container
         style={{
           display: "flex",
@@ -28,7 +32,11 @@ export default function Erro404Projeto() {
               maxWidth: "567px",
             }}
           >
-            <Image src="/Erro404.png" alt="Erro404Projeto" className="img-fluid" />
+            <Image
+              src="/Erro404.png"
+              alt="Erro404Projeto"
+              className="img-fluid"
+            />
           </div>
           <h3 style={{ color: "#0D62AD" }} className="mb-4">
             Projeto não encontrado

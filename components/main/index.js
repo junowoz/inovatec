@@ -11,7 +11,6 @@ const Main = (props) => {
     <div style={{background:"#F5F5F5"}}>
       <Head>
         <link rel="shortcut icon" href="/LogoInovatec.svg" />
-        <title>Inovatec</title>
       </Head>
 
       <SSRProvider>

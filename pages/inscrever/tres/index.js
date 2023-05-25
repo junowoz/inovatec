@@ -307,7 +307,7 @@ export default function InscreverTres() {
                 </Card>
               </div>
 
-              {/* Atras e Seguinte */}
+              {/* Atrás e Seguinte */}
               <div className="d-flex justify-content-between pt-3">
                 <Button variant="outline-primary" onClick={handleBack}>
                   <BsChevronLeft

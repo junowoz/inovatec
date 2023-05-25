@@ -75,7 +75,7 @@ export default function ModalEditar({ project, isEditing }) {
           <Col>
             <Card className="p-4 mb-3">
               <Card.Title className="text-primary pb-2">
-                Informaçōes Básicas
+                Informações Básicas
               </Card.Title>
 
               {/* Nome */}
@@ -168,7 +168,7 @@ export default function ModalEditar({ project, isEditing }) {
             <Row>
               <Card className="p-4 mb-3">
                 <Card.Title className="text-primary pb-2">
-                  Informaçōes Específicas
+                  Informações Específicas
                 </Card.Title>
 
                 <Row>
@@ -195,7 +195,7 @@ export default function ModalEditar({ project, isEditing }) {
                   <Col>
                     {/* Semester */}
                     <Form.Group className="mb-3" controlId="semester">
-                      <FloatingLabel label="Periodo">
+                      <FloatingLabel label="Período">
                         <Form.Select
                           name="semester"
                           {...register("semester")}

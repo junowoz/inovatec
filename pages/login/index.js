@@ -42,9 +42,7 @@ export default function Login() {
       return setError("account", { message: error });
     };
 
-    const {
-      error,
-    } = await signIn(event);
+    const { error } = await signIn(event);
 
     error
       ? (reset(error?.message), console.log(error.message))

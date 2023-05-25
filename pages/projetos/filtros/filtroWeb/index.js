@@ -111,10 +111,10 @@ export default function FiltroWeb() {
           </Accordion.Item>
           {/* End - Curso */}
 
-          {/* Start - Periodo */}
+          {/* Start - Período */}
           <Accordion.Item eventKey="2">
             <Accordion.Header>
-              <h5 className="fw-bolder fs-6">Periodo</h5>
+              <h5 className="fw-bolder fs-6">Período</h5>
             </Accordion.Header>
             <Accordion.Body>
               {(isOpenSemester ? semesterData : semesterData.slice(0, 5)).map(
@@ -143,7 +143,7 @@ export default function FiltroWeb() {
               )}
             </Accordion.Body>
           </Accordion.Item>
-          {/* End - Periodo */}
+          {/* End - Período */}
 
           {/* Start - Indústria */}
           <Accordion.Item eventKey="3">

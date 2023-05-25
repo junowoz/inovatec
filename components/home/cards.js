@@ -10,7 +10,7 @@ export default function Cards() {
       link: "projetos",
     },
     {
-      title: "Inscrição",
+      title: "Inscrever",
       message: "Inscreva seu projeto, aplique, e faça parte da Inovatec.",
       link: "inscrever",
     },
