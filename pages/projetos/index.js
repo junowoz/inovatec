@@ -27,7 +27,7 @@ export default function Projetos() {
           </Col>
 
           {/* PROJETOS */}
-          <Col>
+          <Col xl="8">
             <Vista />
           </Col>
         </Row>
