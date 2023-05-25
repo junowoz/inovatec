@@ -14,12 +14,12 @@ export default function Cards() {
       message: "Inscreva seu projeto, aplique, e faça parte da Inovatec.",
       link: "inscrever",
     },
-    {
-      title: "Manual",
-      message:
-        "Um guia básico para dominar a arte de criar projetos inovadores.",
-      link: "manual",
-    },
+    // {
+    //   title: "Manual",
+    //   message:
+    //     "Um guia básico para dominar a arte de criar projetos inovadores.",
+    //   link: "manual",
+    // },
   ];
 
   return (

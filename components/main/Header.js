@@ -44,9 +44,9 @@ export default function Header() {
             <Link href="/inscrever" className="me-4 text-secondary">
               Inscrever
             </Link>
-            <Link href="/manual" className="text-secondary">
+            {/* <Link href="/manual" className="text-secondary">
               Manual
-            </Link>
+            </Link> */}
             {/* <Link href="#features" disabled>
               Rank
             </Link> */}
