@@ -18,8 +18,6 @@ export default function FiltroWeb() {
   useEffect(() => {
     fetchData();
     setHydration(true);
-    console.log(setFilter);
-    console.log(filters);
   }, [fetchData, setFilter, filters]);
 
   //VER MAIS

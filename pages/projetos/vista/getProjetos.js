@@ -4,8 +4,11 @@ import Link from "next/link";
 import Relleno from "utils/relleno";
 import { useInscreverState } from "context/useInscreverState";
 import PropTypes from "prop-types";
+import { useFiltroState } from "context/useFiltroState";
+
 export default function GetProjetos({ projects }) {
   const [hydration, setHydration] = useState(false);
+  const { filters } = useFiltroState();
   const { techData, industryData, yearData } = useInscreverState();
   const CDN =
     "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/midia/";
@@ -17,7 +20,7 @@ export default function GetProjetos({ projects }) {
   //USEFFECT
   useEffect(() => {
     setHydration(true);
-  }, []);
+  }, [filters]);
 
   // Obter projetos atuais
   const filteredProjects = projects || [];

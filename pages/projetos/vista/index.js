@@ -15,7 +15,7 @@ export default function Vista() {
 
   useEffect(() => {
     setHydration(true);
-  }, []);
+  }, [filters]);
 
   // função para manipular a mudança na barra de pesquisa
   const handleSearchChange = (event) => {
@@ -33,8 +33,6 @@ export default function Vista() {
         // Verifica se o valor da chave estrangeira no projeto está nos filtros
         return filters[category].includes(String(project[category]));
       }
-      console.log("this are the projects", project)
-      console.log("this are the filters", filters)
       return true;
     };
 
@@ -82,7 +80,8 @@ export default function Vista() {
         {/* NUMERO DE RESULTADOS */}
         <Col sm="3">
           <span className="text-secondary">
-            {activeProject.length} resultados
+            {activeProject.length}{" "}
+            {activeProject.length === 1 ? "resultado" : "resultados"}
           </span>
         </Col>
       </Row>
