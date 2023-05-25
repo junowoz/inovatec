@@ -48,11 +48,11 @@ const Footer = () => {
                         Inscrever
                       </Link>
                     </p>
-                    <p>
+                    {/* <p>
                       <Link href="manual" className="text-reset">
                         Manual
                       </Link>
-                    </p>
+                    </p> */}
                   </MDBCol>
 
                   {/*Seccion 3 - Contatos*/}

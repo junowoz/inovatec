@@ -43,7 +43,8 @@ export default function Cards() {
                     style={{
                       width: "auto",
                       backgroundColor: "none",
-                      minHeight: "15rem",
+                      minHeight: "13rem",
+                      //15rem
 
                     }}
                     onMouseEnter={(e) => {
