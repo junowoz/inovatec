@@ -11,7 +11,7 @@ export default function Home() {
       <Head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Inovatec - Página Inicial</title>
+        <title>Inovatec | Página Inicial</title>
         <meta
           property="og:description"
           content="A Inovatec é uma iniciativa de empreendedorismo tecnológico formada por alunos e professores dos cursos de Computação da Fametro."

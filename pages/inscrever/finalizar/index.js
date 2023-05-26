@@ -90,13 +90,20 @@ export default function InscreverFinalizar() {
   const maxLength = 45; // Escolha o comprimento máximo desejado para um nome
 
   const isTagValid = (tag) => {
-    return tag.length <= maxLength;
+    const cleanedTag = tag.replace(/[^a-zà-ú\s]/gi, "");
+    return cleanedTag.trim().length > 0 && cleanedTag.length <= maxLength && cleanedTag === tag;
   };
-
+  
   const handlePaste = (e) => {
     e.preventDefault();
     const pastedText = e.clipboardData.getData("text");
-    const names = pastedText.split(/,|\r\n|\n/).map((name) => name.trim());
+    const names = pastedText
+      .split(/\s*[,;\r\n]+\s*/) // separa por vírgula, ponto e vírgula, ou novas linhas
+      .map((name) => name.replace(/^[0-9]+[-.]?\s*/, "")) // remove números no início
+      .map((name) => name.replace(/[^a-zà-ú\s]/gi, "")) // remove tudo que não for letras (incluindo acentuadas) e espaços
+      .map((name) => name.replace(/[-\s]+$/, "")) // remove hífens e espaços no final
+      .map((name) => name.trim()) // remove espaços no início e no fim
+      .filter((name) => name.length > 0); // remove nomes vazios
     const newNames = names.slice(0, 50 - commonMember.length);
     setCommonMember([...commonMember, ...newNames]);
   };
@@ -257,7 +264,7 @@ export default function InscreverFinalizar() {
                           style: { minWidth: "360px" },
                           onPaste: handlePaste, // Adicionado manipulador de eventos onPaste
                         }}
-                        addKeys={[188, 13]} // Adicionado o código da tecla Enter (13)
+                        addKeys={[186, 188, 13]} // Adicionado o código da tecla Enter (13)
                         validate={isTagValid} // Adicionado função de validação personalizada
                       />
                     </Col>
