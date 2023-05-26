@@ -112,7 +112,7 @@ export default function Slug() {
             </Row>
           </Col>
 
-          <Col>
+          <Col xs={14} sm={14} md={4} lg={4} xl={4} xxl={4}>
             <Row className="mb-4">
               <CardSecundario />
             </Row>
