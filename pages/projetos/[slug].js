@@ -36,7 +36,10 @@ export default function Slug() {
   if (loading) {
     return (
       <Main>
-        <div className="d-flex align-items-center justify-content-center" style={{ height: "80vh" }}>
+        <div
+          className="d-flex align-items-center justify-content-center"
+          style={{ height: "80vh" }}
+        >
           <Spinner
             animation="border"
             variant="primary"
@@ -63,6 +66,11 @@ export default function Slug() {
         <title>
           {selectedProject.name}: {selectedProject.slogan} | Inovatec
         </title>
+        <meta name="description" content={selectedProject.slogan} />
+        <meta
+          property="og:url"
+          content={`https://inovatec.junowoz.com/projetos/${selectedProject.name}`}
+        />
       </Head>
 
       <Container className="my-5 px-4" key={selectedProject.id}>
