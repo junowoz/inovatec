@@ -96,6 +96,7 @@ export default function InscreverUm() {
   //SUBMIT
   const handleOnSubmit = async (items) => {
     setIsLoading(true);
+    items.name = items.name.trim(); // Remove os espaços no início e no fim do nome
     setFormData(items);
     setIsLoading(false);
     router.push("/inscrever/dois");
