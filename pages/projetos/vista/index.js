@@ -15,7 +15,7 @@ export default function Vista() {
 
   useEffect(() => {
     setHydration(true);
-  }, [filters]);
+  }, [projects]);
 
   // função para manipular a mudança na barra de pesquisa
   const handleSearchChange = (event) => {
