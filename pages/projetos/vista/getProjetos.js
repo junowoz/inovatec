@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Card, Badge, Row, Col, Image, Pagination } from "react-bootstrap";
+import {
+  Card,
+  Badge,
+  Row,
+  Col,
+  Image,
+  Pagination,
+} from "react-bootstrap";
 import Link from "next/link";
 import Relleno from "utils/relleno";
 import { useInscreverState } from "context/useInscreverState";
 import PropTypes from "prop-types";
-import { useFiltroState } from "context/useFiltroState";
 
 export default function GetProjetos({ projects }) {
   const [hydration, setHydration] = useState(false);
-  const { filters } = useFiltroState();
   const { techData, industryData, yearData } = useInscreverState();
   const CDN =
     "https://tskpdujrzwsmbmdcxlej.supabase.co/storage/v1/object/public/midia/";
@@ -20,7 +25,7 @@ export default function GetProjetos({ projects }) {
   //USEFFECT
   useEffect(() => {
     setHydration(true);
-  }, [filters]);
+  }, [projects]);
 
   // Obter projetos atuais
   const filteredProjects = projects || [];
@@ -48,6 +53,7 @@ export default function GetProjetos({ projects }) {
       {currentProjects
         .filter((project) => project.status)
         .map((project) => {
+
           //GERA URL PARA LOGO
           const logoImg =
             CDN + (JSON.parse(project.logoImg || "{}").path?.[0] || "");
