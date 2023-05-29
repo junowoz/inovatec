@@ -18,14 +18,14 @@ export default function FiltroWeb() {
   useEffect(() => {
     fetchData();
     setHydration(true);
-  }, [fetchData, setFilter, filters]);
+  }, [fetchData, filters]);
 
   //VER MAIS
-  const [isOpenYear, setIsOpenYear] = useState(false);
-  const [isOpenCourse, setIsOpenCourse] = useState(false);
-  const [isOpenSemester, setIsOpenSemester] = useState(false);
-  const [isOpenIndustry, setIsOpenIndustry] = useState(false);
-  const [isOpenTech, setIsOpenTech] = useState(false);
+  const [isOpenYear, setIsOpenYear] = useState(true);
+  const [isOpenCourse, setIsOpenCourse] = useState(true);
+  const [isOpenSemester, setIsOpenSemester] = useState(true);
+  const [isOpenIndustry, setIsOpenIndustry] = useState(true);
+  const [isOpenTech, setIsOpenTech] = useState(true);
 
   const handleCheckboxChange = (category, id) => {
     setFilter(category, id);
