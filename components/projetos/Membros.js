@@ -39,6 +39,7 @@ export const Membros = () => {
         {projectMembers &&
           projectMembers
             .filter((member) => member.isLeader)
+            .sort((a, b) => b.isFounder - a.isFounder)
             .map((member, index) => (
               <Card className="mb-2" key={index}>
                 <Card.Body>
