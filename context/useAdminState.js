@@ -3,7 +3,6 @@ import { supabase } from "supabase/client";
 import { persist } from "zustand/middleware";
 
 export const useAdminState = create(
-  persist(
     (set) => ({
       projects: [],
       isLoading: false,
@@ -101,5 +100,4 @@ export const useAdminState = create(
     {
       name: "AdminData",
     }
-  )
 );

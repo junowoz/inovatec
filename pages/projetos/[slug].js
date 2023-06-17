@@ -20,6 +20,12 @@ export default function Slug() {
   const router = useRouter();
   const { slug } = router.query;
 
+  //Clear filter
+  useEffect(() => {
+    clearSelectedProject();
+    clearFilter();
+  }, [clearSelectedProject]);
+
   useEffect(() => {
     if (slug) {
       fetchSlugProject(slug).finally(() => {
