@@ -11,19 +11,22 @@ import { CardIndex } from "components/projetos/CardIndex";
 import { CardSecundario } from "components/projetos/CardSecundario";
 import { Info } from "components/projetos/Info";
 import Erro404Projeto from "pages/404Projeto";
+import { useFiltroState } from "context/useFiltroState";
 
 export default function Slug() {
   const [hydration, setHydration] = useState(false);
   const [loading, setLoading] = useState(true); // estado para rastrear o carregamento
   const { selectedProject, fetchSlugProject, clearSelectedProject } =
     useProjetoState();
+  const { clearFilter } = useFiltroState();
   const router = useRouter();
   const { slug } = router.query;
 
   //Clear filter
   useEffect(() => {
     clearSelectedProject();
-  }, [clearSelectedProject]);
+    clearFilter();
+  }, [clearSelectedProject, clearFilter]);
 
   useEffect(() => {
     if (slug) {
