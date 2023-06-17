@@ -15,7 +15,7 @@ import Erro404Projeto from "pages/404Projeto";
 export default function Slug() {
   const [hydration, setHydration] = useState(false);
   const [loading, setLoading] = useState(true); // estado para rastrear o carregamento
-  const { selectedProject, fetchSlugProject, clearSelectedProject, clearFilter } =
+  const { selectedProject, fetchSlugProject, clearSelectedProject } =
     useProjetoState();
   const router = useRouter();
   const { slug } = router.query;
@@ -23,8 +23,7 @@ export default function Slug() {
   //Clear filter
   useEffect(() => {
     clearSelectedProject();
-    clearFilter();
-  }, [clearSelectedProject, clearFilter]);
+  }, [clearSelectedProject]);
 
   useEffect(() => {
     if (slug) {
