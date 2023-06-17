@@ -7,15 +7,17 @@ import { useFiltroState } from "context/useFiltroState";
 
 export default function Vista() {
   const [hydration, setHydration] = useState(false);
-  const { projects } = useProjetoState();
+  const { projects, fetchProject, fetchSlugProject } = useProjetoState();
   const { filters } = useFiltroState();
 
   // Inicializando searchTerm antes de usá-lo na filtragem de projetos
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    fetchProject();
+    fetchSlugProject();
     setHydration(true);
-  }, [projects]);
+  }, [projects, fetchProject, fetchSlugProject]);
 
   // função para manipular a mudança na barra de pesquisa
   const handleSearchChange = (event) => {
