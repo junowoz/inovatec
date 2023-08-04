@@ -2,7 +2,7 @@
 
 A Inovatec é uma iniciativa de empreendedorismo tecnológico formada por alunos e professores dos cursos de Computação da Fametro.
 
-Site: [inovatec.junowoz.com](inovatec.junowoz.com)
+Site: [inovatec.junowoz.com](https://inovatec.junowoz.com)
 
 Desenvolvimento e design: [@junowoz](https://junowoz.com)
 
